@@ -25,10 +25,7 @@
     .btn-success { background: #10b981; color: #fff; }
     .option-btn { background: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 14px; margin-bottom: 12px; text-align: left; color: #fff; cursor: pointer; display: flex; align-items: flex-start; gap: 12px; transition: 0.2s; width: 100%; line-height: 1.4; }
     .option-btn:hover { border-color: #38bdf8; background: #1e293b; }
-    .badge { font-weight: bold; padding: 4px 8px; border-radius: 6px; font-size: 0.85em; flex-shrink: 0; }
-    .badge-a { background: #3b82f6; color: #fff; }
-    .badge-b { background: #f59e0b; color: #fff; }
-    .badge-c { background: #ef4444; color: #fff; }
+    .badge { font-weight: bold; padding: 4px 8px; border-radius: 6px; font-size: 0.85em; flex-shrink: 0; background: #2563eb; color: #fff; }
     .progress-bar { width: 100%; height: 8px; background: #334155; border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
     .progress-fill { height: 100%; background: #38bdf8; width: 0%; transition: width 0.3s; }
     .screen { display: none; }
@@ -158,24 +155,22 @@
       document.getElementById('question-text').innerText = q.q;
       document.getElementById('progress').style.width = `${((currentQuestion) / 12) * 100}%`;
 
-      // Mélange aléatoire du contenu des propositions
-      const shuffledTexts = shuffleArray(q.choices);
+      // Mélange des 3 choix de réponses
+      const shuffledChoices = shuffleArray(q.choices);
 
-      // Attribution stricte et fixe des étiquettes affichées : A, B, C
-      const labels = ['A', 'B', 'C'];
-      const badgeClasses = ['badge-a', 'badge-b', 'badge-c'];
+      // Ordre d'affichage des boutons à l'écran : toujours A, B, puis C
+      const fixedLabels = ['A', 'B', 'C'];
 
       const container = document.getElementById('options-container');
       container.innerHTML = '';
 
-      shuffledTexts.forEach((item, index) => {
-        const displayLabel = labels[index];
-        const badgeClass = badgeClasses[index];
+      shuffledChoices.forEach((choice, index) => {
+        const displayLabel = fixedLabels[index]; // Forcer [A], [B], [C] dans l'ordre
 
         const button = document.createElement('button');
         button.className = 'option-btn';
-        button.onclick = () => selectOption(item.value);
-        button.innerHTML = `<span class="badge ${badgeClass}">[${displayLabel}]</span> <span>${item.text}</span>`;
+        button.onclick = () => selectOption(choice.value);
+        button.innerHTML = `<span class="badge">[${displayLabel}]</span> <span>${choice.text}</span>`;
         container.appendChild(button);
       });
     }
