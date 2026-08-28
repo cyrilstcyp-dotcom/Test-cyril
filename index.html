@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>Le Test Cyril</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#2563eb">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    body { background-color: #0f172a; color: #f8fafc; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; }
+    .card { background: #1e293b; border-radius: 20px; padding: 24px; width: 100%; max-width: 450px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid #334155; }
+    h1, h2 { text-align: center; color: #38bdf8; margin-bottom: 20px; }
+    .input-group { margin-bottom: 15px; }
+    label { display: block; margin-bottom: 5px; font-size: 0.9em; color: #94a3b8; }
+    input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 1em; outline: none; }
+    input:focus { border-color: #38bdf8; }
+    .btn { width: 100%; padding: 14px; border: none; border-radius: 10px; font-size: 1em; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 10px; }
+    .btn-primary { background: #2563eb; color: #fff; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-secondary { background: #334155; color: #fff; }
+    .btn-success { background: #10b981; color: #fff; }
+    .option-btn { background: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 14px; margin-bottom: 12px; text-align: left; color: #fff; cursor: pointer; display: flex; align-items: center; gap: 10px; transition: 0.2s; }
+    .option-btn:hover { border-color: #38bdf8; background: #1e293b; }
+    .badge { font-weight: bold; padding: 4px 8px; border-radius: 6px; font-size: 0.85em; }
+    .badge-a { background: #3b82f6; color: #fff; }
+    .badge-b { background: #f59e0b; color: #fff; }
+    .badge-c { background: #ef4444; color: #fff; }
+    .progress-bar { width: 100%; height: 8px; background: #334155; border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
+    .progress-fill { height: 100%; background: #38bdf8; width: 0%; transition: width 0.3s; }
+    .screen { display: none; }
+    .screen.active { display: block; }
+    .result-box { background: #0f172a; padding: 15px; border-radius: 10px; margin: 15px 0; border-left: 4px solid #38bdf8; }
+    .stats-container { margin-top: 20px; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div id="screen-1" class="screen active">
+      <h1>Le Test Cyril 🚀</h1>
+      <form id="user-form">
+        <div class="input-group">
+          <label>Prénom</label>
+          <input type="text" id="prenom" required>
+        </div>
+        <div class="input-group">
+          <label>Nom</label>
+          <input type="text" id="nom" required>
+        </div>
+        <div class="input-group">
+          <label>Âge</label>
+          <input type="number" id="age" required>
+        </div>
+        <div class="input-group">
+          <label>Profession</label>
+          <input type="text" id="profession" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Commencer le Test</button>
+      </form>
+    </div>
+
+    <div id="screen-2" class="screen">
+      <div class="progress-bar"><div id="progress" class="progress-fill"></div></div>
+      <h2 id="question-title">Question</h2>
+      <div id="options-container"></div>
+    </div>
+
+    <div id="screen-3" class="screen">
+      <h2>Résultat</h2>
+      <div class="result-box">
+        <h3 id="result-profile"></h3>
+        <p id="result-desc" style="margin-top: 8px; font-size: 0.9em; color: #94a3b8;"></p>
+      </div>
+      <button class="btn btn-primary" onclick="showScreen('screen-4'); renderChart();">Voir les Statistiques Globales</button>
+      <button class="btn btn-secondary" onclick="resetForm()">Nouveau Test</button>
+    </div>
+
+    <div id="screen-4" class="screen">
+      <h2>Dashboard Global</h2>
+      <p style="text-align: center; color: #94a3b8;">Participants totaux : <strong id="total-participants" style="color:#fff;">0</strong></p>
+      
+      <div class="stats-container">
+        <canvas id="statsChart"></canvas>
+      </div>
+
+      <button class="btn btn-success" onclick="exportCSV()">Exporter en CSV 📥</button>
+      <button class="btn btn-secondary" onclick="resetForm()">Accueil</button>
+    </div>
+  </div>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js');
+    }
+
+    const questions = [
+      { cat: "🏛️ Politique", q: "La gestion globale des institutions vous inspire :", a: "Plutôt confiance", b: "Nécessite des réformes", c: "Défiance totale" },
+      { cat: "🇺🇸 USA", q: "L'influence culturelle et économique américaine est :", a: "Bénéfique et motrice", b: "À équilibrer", c: "Excessive et menaçante" },
+      { cat: "🌐 Mondialisation", q: "L'ouverture des marchés internationaux est :", a: "Une opportunité majeure", b: "Une réalité à réguler", c: "Un frein au développement local" },
+      { cat: "🌱 Climat", q: "La transition écologique doit passer prioritairement par :", a: "L'innovation et les marchés", b: "La planification publique", c: "La sobriété et le protectionnisme" },
+      { cat: "🤖 Intelligence Artificielle", q: "Le développement rapide de l'IA constitue :", a: "Un progrès formidable", b: "Un outil sous surveillance", c: "Un danger pour l'emploi et l'humain" },
+      { cat: "📰 Médias", q: "L'information délivrée par les grands médias est :", a: "Fiable dans l'ensemble", b: "Partiellement orientée", c: "Sous influence et biaisée" },
+      { cat: "🇪🇺 Union Européenne", q: "L'intégration européenne actuelle est :", a: "Indispensable pour l'avenir", b: "À réformer en profondeur", c: "Un obstacle à la souveraineté" },
+      { cat: "🏥 Santé", q: "Le système de santé doit être géré :", a: "En partenariat public-privé", b: "En priorité par l'État", c: "De manière décentralisée et autonome" },
+      { cat: "📈 Économie", q: "La création de richesse repose d'abord sur :", a: "La liberté d'entreprendre", b: "La juste redistribution", c: "La relocalisation stratégique" },
+      { cat: "🎓 Éducation", q: "La priorité de l'école doit être :", a: "L'adaptation au monde moderne", b: "L'égalité des chances", c: "Le retour aux savoirs fondamentaux" },
+      { cat: "⚖️ Justice", q: "La politique pénale doit privilégier :", a: "La réinsertion", b: "L'équilibre des peines", c: "La fermeté absolue" },
+      { cat: "⚡ Énergie", q: "L'indépendance énergétique passe par :", a: "Les technologies renouvelables", b: "Un mix énergétique diversifié", c: "Le nucléaire et la souveraineté" }
+    ];
+
+    let currentUser = {};
+    let currentQuestion = 0;
+    let userAnswers = [];
+    let myChart = null;
+
+    document.getElementById('user-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+      currentUser = {
+        prenom: document.getElementById('prenom').value,
+        nom: document.getElementById('nom').value,
+        age: document.getElementById('age').value,
+        profession: document.getElementById('profession').value,
+        date: new Date().toLocaleDateString('fr-FR')
+      };
+      currentQuestion = 0;
+      userAnswers = [];
+      showScreen('screen-2');
+      loadQuestion();
+    });
+
+    function showScreen(id) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    function loadQuestion() {
+      const q = questions[currentQuestion];
+      document.getElementById('question-title').innerText = `${q.cat} (${currentQuestion + 1}/12)`;
+      document.getElementById('progress').style.width = `${((currentQuestion) / 12) * 100}%`;
+
+      const container = document.getElementById('options-container');
+      container.innerHTML = `
+        <button class="option-btn" onclick="selectOption('A')"><span class="badge badge-a">A</span> ${q.a}</button>
+        <button class="option-btn" onclick="selectOption('B')"><span class="badge badge-b">B</span> ${q.b}</button>
+        <button class="option-btn" onclick="selectOption('C')"><span class="badge badge-c">C</span> ${q.c}</button>
+      `;
+    }
+
+    function selectOption(choice) {
+      userAnswers.push(choice);
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        loadQuestion();
+      } else {
+        finishTest();
+      }
+    }
+
+    function finishTest() {
+      const count = { A: 0, B: 0, C: 0 };
+      userAnswers.forEach(ans => count[ans]++);
+
+      let profile = "";
+      let desc = "";
+
+      if (count.A >= count.B && count.A >= count.C) {
+        profile = "Profil Confiance & Institutions";
+        desc = "Vous privilégiez l'innovation, le libre-échange et faites confiance aux structures établies.";
+      } else if (count.B >= count.A && count.B >= count.C) {
+        profile = "Profil Nuancé & Réformiste";
+        desc = "Vous prônez la modération, la régulation et la recherche d'un équilibre social-économique.";
+      } else {
+        profile = "Profil Lucide & Souverainiste";
+        desc = "Vous valorisez l'autonomie, le retour aux valeurs locales et la vigilance institutionnelle.";
+      }
+
+      const fullRecord = { ...currentUser, answers: userAnswers, profile: profile };
+
+      let data = JSON.parse(localStorage.getItem('cyril_test_data') || '[]');
+      data.push(fullRecord);
+      localStorage.setItem('cyril_test_data', JSON.stringify(data));
+
+      document.getElementById('result-profile').innerText = profile;
+      document.getElementById('result-desc').innerText = desc;
+      showScreen('screen-3');
+    }
+
+    function renderChart() {
+      const data = JSON.parse(localStorage.getItem('cyril_test_data') || '[]');
+      document.getElementById('total-participants').innerText = data.length;
+
+      const profileCounts = { "Profil Confiance & Institutions": 0, "Profil Nuancé & Réformiste": 0, "Profil Lucide & Souverainiste": 0 };
+      data.forEach(item => { if (profileCounts[item.profile] !== undefined) profileCounts[item.profile]++; });
+
+      const ctx = document.getElementById('statsChart').getContext('2d');
+      if (myChart) myChart.destroy();
+
+      myChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+          labels: Object.keys(profileCounts),
+          datasets: [{
+            data: Object.values(profileCounts),
+            backgroundColor: ['#3b82f6', '#f59e0b', '#ef4444']
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: { legend: { labels: { color: '#fff' } } }
+        }
+      });
+    }
+
+    function exportCSV() {
+      const data = JSON.parse(localStorage.getItem('cyril_test_data') || '[]');
+      if (data.length === 0) return alert("Aucune donnée à exporter.");
+
+      let csv = "Date;Prenom;Nom;Age;Profession;Profil;Réponses\n";
+      data.forEach(row => {
+        csv += `${row.date};${row.prenom};${row.nom};${row.age};${row.profession};"${row.profile}";"${row.answers.join(',')}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "resultats_test_cyril.csv";
+      link.click();
+    }
+
+    function resetForm() {
+      document.getElementById('user-form').reset();
+      showScreen('screen-1');
+    }
+  </script>
+</body>
+</html>

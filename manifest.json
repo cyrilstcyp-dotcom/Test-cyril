@@ -1,0 +1,16 @@
+{
+  "name": "Le Test Cyril",
+  "short_name": "Test Cyril",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#2563eb",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
