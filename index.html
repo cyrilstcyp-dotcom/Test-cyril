@@ -104,18 +104,18 @@
     }
 
     const questions = [
-      { cat: "🏛️ Politique", q: "La vie politique française (Gauche / Droite / Centre)", a: "De vraies visions divergentes qui s'affrontent sur la société, l'économie et la justice sociale.", b: "Des clivages réels sur les valeurs, mais qui s'atténuent au pouvoir en raison des contraintes budgétaires et internationales.", c: "Une façade : l'essentiel des directives venant de Bruxelles, les gouvernements mènent la même politique. Les candidats prônant un retour à la souveraineté nationale sont écartés des grands débats." },
-      { cat: "🇺🇸 USA", q: "Le rôle des États-Unis dans le monde", a: "Le garant indispensable de la sécurité de l'Occident et du monde libre face aux autocraties.", b: "Une puissance pragmatique qui défend avant tout ses propres intérêts économiques et géopolitiques.", c: "Une puissance qui maintient son hégémonie en imposant ses normes, sa monnaie et ses alliances, souvent au détriment de l'indépendance des nations européennes." },
-      { cat: "🌐 Mondialisation", q: "La mondialisation et le rôle des nations", a: "Le libre-échange et l'ouverture sont des opportunités indispensables pour la croissance globale.", b: "La mondialisation présente des avantages, mais il faut réindustrialiser et protéger certains secteurs stratégiques.", c: "La dilution des frontières et des souverainetés nationales au profit de grands marchés mondiaux fragilise les peuples et leur indépendance." },
-      { cat: "🌱 Climat", q: "La transition écologique et le climat", a: "Une urgence absolue qui nécessite une transformation rapide et globale encadrée par les institutions.", b: "Un enjeu majeur, mais la transition doit rester réaliste sans asphyxier les entreprises et les ménages.", c: "Un sujet légitime, mais dont la gestion actuelle sert surtout de prétexte pour instaurer de nouvelles taxes et restreindre les libertés individuelles." },
-      { cat: "🤖 IA", q: "L'Intelligence Artificielle et le progrès technique", a: "Une formidable opportunité d'innovation et de modernisation pour l'ensemble de la société.", b: "Un outil très puissant qui nécessite un cadre réglementaire strict pour préserver l'emploi et la vie privée.", c: "Un vecteur d'automatisation et d'intrusion qui accroît la dépendance des citoyens aux géants technologiques et à la surveillance." },
-      { cat: "📰 Médias", q: "Les médias d'information traditionnels (TV, Radio, Presse)", a: "Des piliers de la démocratie garantissant un travail d'information vérifié et professionnel.", b: "Des sources utiles, mais traversées par des lignes éditoriales précises qu'il faut savoir croiser et nuancer.", c: "Des canaux largement uniformisés par des intérêts financiers ou institutionnels, réduisant la pluralité des analyses." },
-      { cat: "🇪🇺 Union Européenne", q: "Les institutions européennes (Union Européenne)", a: "Une construction indispensable pour garantir la paix, la stabilité et le poids de l'Europe dans le monde.", b: "Un projet nécessaire sur le principe, mais dont le fonctionnement trop bureaucratique doit être réformé.", c: "Une structure supranationale qui dessaisit progressivement les États de leur souveraineté budgétaire et législative." },
-      { cat: "🏥 Santé", q: "Le système de santé et les politiques sanitaires", a: "Un modèle solidaire efficace qui protège l'ensemble de la population face aux crises et aux risques de la vie.", b: "Un système de qualité mais sous tension, nécessitant une réorganisation des moyens et de la gestion publique.", c: "Une gestion de plus en plus centralisée et normée qui favorise les impératifs administratifs et financiers au détriment du bon sens médical." },
-      { cat: "📈 Économie", q: "Le fonctionnement de l'économie et de la monnaie", a: "Les mécanismes financiers actuels et les banques centrales assurent la stabilité du système monétaire.", b: "Le système économique est performant mais nécessite une régulation continue pour limiter les excès de la finance.", c: "Le modèle monétaire basé sur la création de dette et l'inflation grignote continuellement le pouvoir d'achat et la valeur de l'épargne." },
-      { cat: "🎓 Éducation", q: "Le système éducatif et la transmission des savoirs", a: "Un service public fondamental qui permet l'égalité des chances et la formation des citoyens de demain.", b: "Une institution aux fondations solides mais confrontée à des défis majeurs d'adaptation et de niveau d'exigence.", c: "Une baisse progressive du niveau d'exigence académique au profit d'expérimentations pédagogiques ou sociétales." },
-      { cat: "⚖️ Justice", q: "Le traitement de la sécurité et de la justice", a: "Un cadre républicain qui garantit le respect des droits individuels tout en assurant l'ordre public.", b: "Des forces de l'ordre et une justice engagées mais qui manquent de moyens matériels et humains pour agir efficacement.", c: "Une réponse judiciaire souvent perçue comme trop laxiste ou déconnectée de la réalité du terrain et des victimes." },
-      { cat: "⚡ Énergie", q: "L'accès à l'énergie et la souveraineté industrielle", a: "Une transition nécessaire vers une mixité énergétique guidée par la coopération et les objectifs européens.", b: "Un enjeu de compétitivité exigeant d'allier mix énergétique réaliste et soutien à l'industrie nationale.", c: "La dérégulation du marché de l'énergie et l'abandon d'une filière industrielle indépendante coûtent cher à l'économie du pays." }
+      { cat: "🏛️ Politique", q: "La vie politique française (Gauche / Droite / Centre)", choices: [ { value: "A", text: "De vraies visions divergentes qui s'affrontent sur la société, l'économie et la justice sociale." }, { value: "B", text: "Des clivages réels sur les valeurs, mais qui s'atténuent au pouvoir en raison des contraintes budgétaires et internationales." }, { value: "C", text: "Une façade : l'essentiel des directives venant de Bruxelles, les gouvernements mènent la même politique. Les candidats prônant un retour à la souveraineté nationale sont écartés des grands débats." } ] },
+      { cat: "🇺🇸 USA", q: "Le rôle des États-Unis dans le monde", choices: [ { value: "A", text: "Le garant indispensable de la sécurité de l'Occident et du monde libre face aux autocraties." }, { value: "B", text: "Une puissance pragmatique qui défend avant tout ses propres intérêts économiques et géopolitiques." }, { value: "C", text: "Une puissance qui maintient son hégémonie en imposant ses normes, sa monnaie et ses alliances, souvent au détriment de l'indépendance des nations européennes." } ] },
+      { cat: "🌐 Mondialisation", q: "La mondialisation et le rôle des nations", choices: [ { value: "A", text: "Le libre-échange et l'ouverture sont des opportunités indispensables pour la croissance globale." }, { value: "B", text: "La mondialisation présente des avantages, mais il faut réindustrialiser et protéger certains secteurs stratégiques." }, { value: "C", text: "La dilution des frontières et des souverainetés nationales au profit de grands marchés mondiaux fragilise les peuples et leur indépendance." } ] },
+      { cat: "🌱 Climat", q: "La transition écologique et le climat", choices: [ { value: "A", text: "Une urgence absolue qui nécessite une transformation rapide et globale encadrée par les institutions." }, { value: "B", text: "Un enjeu majeur, mais la transition doit rester réaliste sans asphyxier les entreprises et les ménages." }, { value: "C", text: "Un sujet légitime, mais dont la gestion actuelle sert surtout de prétexte pour instaurer de nouvelles taxes et restreindre les libertés individuelles." } ] },
+      { cat: "🤖 IA", q: "L'Intelligence Artificielle et le progrès technique", choices: [ { value: "A", text: "Une formidable opportunité d'innovation et de modernisation pour l'ensemble de la société." }, { value: "B", text: "Un outil très puissant qui nécessite un cadre réglementaire strict pour préserver l'emploi et la vie privée." }, { value: "C", text: "Un vecteur d'automatisation et d'intrusion qui accroît la dépendance des citoyens aux géants technologiques et à la surveillance." } ] },
+      { cat: "📰 Médias", q: "Les médias d'information traditionnels (TV, Radio, Presse)", choices: [ { value: "A", text: "Des piliers de la démocratie garantissant un travail d'information vérifié et professionnel." }, { value: "B", text: "Des sources utiles, mais traversées par des lignes éditoriales précises qu'il faut savoir croiser et nuancer." }, { value: "C", text: "Des canaux largement uniformisés par des intérêts financiers ou institutionnels, réduisant la pluralité des analyses." } ] },
+      { cat: "🇪🇺 Union Européenne", q: "Les institutions européennes (Union Européenne)", choices: [ { value: "A", text: "Une construction indispensable pour garantir la paix, la stabilité et le poids de l'Europe dans le monde." }, { value: "B", text: "Un projet nécessaire sur le principe, mais dont le fonctionnement trop bureaucratique doit être réformé." }, { value: "C", text: "Une structure supranationale qui dessaisit progressivement les États de leur souveraineté budgétaire et législative." } ] },
+      { cat: "🏥 Santé", q: "Le système de santé et les politiques sanitaires", choices: [ { value: "A", text: "Un modèle solidaire efficace qui protège l'ensemble de la population face aux crises et aux risques de la vie." }, { value: "B", text: "Un système de qualité mais sous tension, nécessitant une réorganisation des moyens et de la gestion publique." }, { value: "C", text: "Une gestion de plus en plus centralisée et normée qui favorise les impératifs administratifs et financiers au détriment du bon sens médical." } ] },
+      { cat: "📈 Économie", q: "Le fonctionnement de l'économie et de la monnaie", choices: [ { value: "A", text: "Les mécanismes financiers actuels et les banques centrales assurent la stabilité du système monétaire." }, { value: "B", text: "Le système économique est performant mais nécessite une régulation continue pour limiter les excès de la finance." }, { value: "C", text: "Le modèle monétaire basé sur la création de dette et l'inflation grignote continuellement le pouvoir d'achat et la valeur de l'épargne." } ] },
+      { cat: "🎓 Éducation", q: "Le système éducatif et la transmission des savoirs", choices: [ { value: "A", text: "Un service public fondamental qui permet l'égalité des chances et la formation des citoyens de demain." }, { value: "B", text: "Une institution aux fondations solides mais confrontée à des défis majeurs d'adaptation et de niveau d'exigence." }, { value: "C", text: "Une baisse progressive du niveau d'exigence académique au profit d'expérimentations pédagogiques ou sociétales." } ] },
+      { cat: "⚖️ Justice", q: "Le traitement de la sécurité et de la justice", choices: [ { value: "A", text: "Un cadre républicain qui garantit le respect des droits individuels tout en assurant l'ordre public." }, { value: "B", text: "Des forces de l'ordre et une justice engagées mais qui manquent de moyens matériels et humains pour agir efficacement." }, { value: "C", text: "Une réponse judiciaire souvent perçue comme trop laxiste ou déconnectée de la réalité du terrain et des victimes." } ] },
+      { cat: "⚡ Énergie", q: "L'accès à l'énergie et la souveraineté industrielle", choices: [ { value: "A", text: "Une transition nécessaire vers une mixité énergétique guidée par la coopération et les objectifs européens." }, { value: "B", text: "Un enjeu de compétitivité exigeant d'allier mix énergétique réaliste et soutien à l'industrie nationale." }, { value: "C", text: "La dérégulation du marché de l'énergie et l'abandon d'une filière industrielle indépendante coûtent cher à l'économie du pays." } ] }
     ];
 
     let currentUser = {};
@@ -143,36 +143,45 @@
       document.getElementById(id).classList.add('active');
     }
 
+    function shuffleArray(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
     function loadQuestion() {
       const q = questions[currentQuestion];
       document.getElementById('category-title').innerText = `${q.cat} — Question ${currentQuestion + 1}/12`;
       document.getElementById('question-text').innerText = q.q;
       document.getElementById('progress').style.width = `${((currentQuestion) / 12) * 100}%`;
 
-      let options = [
-        { type: 'A', text: q.a },
-        { type: 'B', text: q.b },
-        { type: 'C', text: q.c }
-      ];
+      // Mélange aléatoire du contenu des propositions
+      const shuffledTexts = shuffleArray(q.choices);
 
-      // Mélange aléatoire des choix à chaque question
-      options.sort(() => Math.random() - 0.5);
+      // Attribution stricte et fixe des étiquettes affichées : A, B, C
+      const labels = ['A', 'B', 'C'];
+      const badgeClasses = ['badge-a', 'badge-b', 'badge-c'];
 
       const container = document.getElementById('options-container');
       container.innerHTML = '';
 
-      options.forEach(opt => {
-        let badgeClass = opt.type === 'A' ? 'badge-a' : (opt.type === 'B' ? 'badge-b' : 'badge-c');
+      shuffledTexts.forEach((item, index) => {
+        const displayLabel = labels[index];
+        const badgeClass = badgeClasses[index];
+
         const button = document.createElement('button');
         button.className = 'option-btn';
-        button.onclick = () => selectOption(opt.type);
-        button.innerHTML = `<span class="badge ${badgeClass}">[${opt.type}]</span> <span>${opt.text}</span>`;
+        button.onclick = () => selectOption(item.value);
+        button.innerHTML = `<span class="badge ${badgeClass}">[${displayLabel}]</span> <span>${item.text}</span>`;
         container.appendChild(button);
       });
     }
 
-    function selectOption(choice) {
-      userAnswers.push(choice);
+    function selectOption(choiceValue) {
+      userAnswers.push(choiceValue);
       currentQuestion++;
       if (currentQuestion < questions.length) {
         loadQuestion();
