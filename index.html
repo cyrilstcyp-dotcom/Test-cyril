@@ -2,602 +2,126 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Grand Sondage Opinion & Société</title>
-    
-    <meta name="theme-color" content="#0f172a">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Sondage</title>
     <style>
-        :root {
-            --bg-main: #0b0f19;
-            --card-bg: #1e293b;
-            --card-border: #334155;
-            --accent-blue: #2563eb;
-            --text-white: #f8fafc;
-            --text-muted: #94a3b8;
-        }
-
-        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-white);
-            font-family: 'Inter', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 12px;
-        }
-
-        .app-container {
-            width: 100%;
-            max-width: 540px;
-            min-height: 90vh;
-            background: #0f172a;
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            position: relative;
-        }
-
-        header {
-            padding: 20px 24px 12px;
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--card-border);
-            position: sticky;
-            top: 0;
-            z-index: 10;
-        }
-
-        .header-top {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 12px;
-        }
-
-        .app-title {
-            font-family: 'Poppins', sans-serif;
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text-white);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .step-counter {
-            font-size: 13px;
-            font-weight: 600;
-            color: var(--accent-blue);
-            background: rgba(37, 99, 235, 0.15);
-            padding: 4px 10px;
-            border-radius: 12px;
-        }
-
-        .progress-bar-bg {
-            width: 100%;
-            height: 6px;
-            background: #1e293b;
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .progress-bar-fill {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #2563eb, #06b6d4);
-            border-radius: 3px;
-            transition: width 0.3s ease;
-        }
-
-        .screen {
-            display: none;
-            flex-direction: column;
-            flex-grow: 1;
-            padding: 20px 24px;
-            overflow-y: auto;
-        }
-
-        .screen.active { display: flex; }
-
-        .welcome-card {
-            text-align: center;
-            margin: auto 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .welcome-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, #2563eb, #1d4ed8);
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 30px;
-            margin-bottom: 18px;
-            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
-        }
-
-        .welcome-card h1 { font-family: 'Poppins', sans-serif; font-size: 22px; margin-bottom: 8px; }
-        .welcome-card p { color: var(--text-muted); font-size: 14px; line-height: 1.4; margin-bottom: 20px; }
-
-        .form-group {
-            width: 100%;
-            text-align: left;
-            margin-bottom: 14px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 6px;
-            color: #cbd5e1;
-        }
-
-        .form-input {
-            width: 100%;
-            background: var(--card-bg);
-            border: 2px solid var(--card-border);
-            border-radius: 12px;
-            padding: 12px 16px;
-            color: #fff;
-            font-size: 14.5px;
-            font-family: 'Inter', sans-serif;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-
-        .form-input:focus { border-color: var(--accent-blue); }
-
-        .question-tag { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #38bdf8; margin-bottom: 6px; }
-        .question-title { font-family: 'Poppins', sans-serif; font-size: 17px; font-weight: 600; margin-bottom: 18px; line-height: 1.4; }
-
-        .options-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
-
-        .option-card {
-            background: var(--card-bg);
-            border: 2px solid var(--card-border);
-            border-radius: 14px;
-            padding: 14px 16px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .option-card:active { transform: scale(0.98); }
-        .option-card.selected { border-color: var(--accent-blue); background: rgba(37, 99, 235, 0.12); }
-
-        .option-header { display: flex; align-items: center; gap: 10px; }
-        .option-letter { font-weight: 700; font-size: 12px; padding: 3px 8px; border-radius: 6px; color: #fff; text-transform: uppercase; }
-        .opt-a .option-letter { background: #dc2626; }
-        .opt-b .option-letter { background: #2563eb; }
-        .opt-c .option-letter { background: #059669; }
-
-        .option-label { font-weight: 600; font-size: 14.5px; color: var(--text-white); }
-        .option-desc { font-size: 13px; color: var(--text-muted); line-height: 1.45; }
-
-        .btn {
-            background: var(--accent-blue);
-            color: white;
-            border: none;
-            padding: 15px 20px;
-            border-radius: 12px;
-            font-weight: 600;
-            font-size: 15px;
-            cursor: pointer;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
-        }
-
-        .btn:disabled { background: #334155; color: #64748b; box-shadow: none; cursor: not-allowed; }
-        .nav-buttons { margin-top: auto; display: flex; gap: 10px; padding-top: 10px; }
-        .btn-secondary { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-white); box-shadow: none; width: auto; padding: 15px 18px; }
-
-        .results-card { background: var(--card-bg); border-radius: 16px; padding: 18px; margin-bottom: 16px; border: 1px solid var(--card-border); }
-        .profile-badge { display: inline-block; background: rgba(37, 99, 235, 0.2); color: #60a5fa; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-bottom: 8px; text-transform: uppercase; }
-        .punchline-box { background: rgba(255, 255, 255, 0.05); border-left: 3px solid #38bdf8; padding: 10px 12px; border-radius: 6px; font-style: italic; font-size: 13.5px; color: #f1f5f9; margin-bottom: 12px; }
-        
-        .stat-bar-group { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
-        .stat-item { display: flex; flex-direction: column; gap: 4px; }
-        .stat-label { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--text-muted); }
-        .stat-bar { height: 8px; background: #0f172a; border-radius: 4px; overflow: hidden; }
-        .stat-fill { height: 100%; border-radius: 4px; }
+        body { background: #0f172a; color: #fff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .box { background: #1e293b; padding: 25px; border-radius: 15px; width: 100%; max-width: 450px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
+        input, button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; box-sizing: border-box; }
+        button { background: #2563eb; border: none; font-weight: bold; cursor: pointer; }
+        .screen { display: none; }
+        .screen.active { display: block; }
+        .opt { background: #334155; padding: 10px; margin: 8px 0; border-radius: 8px; cursor: pointer; }
+        .opt.selected { background: #2563eb; }
     </style>
 </head>
 <body>
 
-<div class="app-container">
-    <header id="mainHeader" style="display: none;">
-        <div class="header-top">
-            <div class="app-title">
-                <i class="fa-solid fa-square-poll-vertical" style="color:#2563eb;"></i>
-                Grand Sondage 2026
-            </div>
-            <div class="step-counter" id="stepCounter">1 / 15</div>
-        </div>
-        <div class="progress-bar-bg">
-            <div class="progress-bar-fill" id="progressBar"></div>
-        </div>
-    </header>
-
-    <!-- Étape d'identification -->
-    <div class="screen active" id="screenWelcome">
-        <div class="welcome-card">
-            <div class="welcome-icon">
-                <i class="fa-solid fa-id-card"></i>
-            </div>
-            <h1>Avant de commencer...</h1>
-            <p>Veuillez renseigner vos informations pour identifier votre profil.</p>
-            
-            <div class="form-group">
-                <label>Nom</label>
-                <input type="text" id="inputNom" class="form-input" placeholder="Ex: Dupont">
-            </div>
-            <div class="form-group">
-                <label>Prénom</label>
-                <input type="text" id="inputPrenom" class="form-input" placeholder="Ex: Jean">
-            </div>
-            <div class="form-group">
-                <label>Âge</label>
-                <input type="number" id="inputAge" class="form-input" placeholder="Ex: 35">
-            </div>
-            <div class="form-group">
-                <label>Métier</label>
-                <input type="text" id="inputMetier" class="form-input" placeholder="Ex: Enseignant, Cadre...">
-            </div>
-
-            <button class="btn" onclick="startSurvey()" style="margin-top: 10px;">
-                Commencer le Sondage <i class="fa-solid fa-arrow-right"></i>
-            </button>
-        </div>
+<div class="box">
+    <div id="s1" class="screen active">
+        <h2>Vos informations</h2>
+        <input type="text" id="nom" placeholder="Nom">
+        <input type="text" id="prenom" placeholder="Prénom">
+        <input type="number" id="age" placeholder="Âge">
+        <input type="text" id="metier" placeholder="Métier">
+        <button onclick="lancerSondage()">Commencer</button>
     </div>
 
-    <!-- Question -->
-    <div class="screen" id="screenQuestion">
-        <div class="question-tag" id="qTag">Question 1</div>
-        <div class="question-title" id="qTitle">Intitulé de la question</div>
-        
-        <div class="options-list" id="optionsList"></div>
-
-        <div class="nav-buttons">
-            <button class="btn btn-secondary" id="btnPrev" onclick="prevQuestion()">
-                <i class="fa-solid fa-chevron-left"></i>
-            </button>
-            <button class="btn" id="btnNext" onclick="nextQuestion()" disabled>
-                Suivant <i class="fa-solid fa-arrow-right"></i>
-            </button>
-        </div>
+    <div id="s2" class="screen">
+        <h3 id="qTitre">Question</h3>
+        <div id="qOpts"></div>
+        <button id="btnSuivant" onclick="suiv()" style="display:none;">Suivant</button>
     </div>
 
-    <!-- Résultats -->
-    <div class="screen" id="screenResults">
-        <div style="text-align: center; margin-bottom: 16px;">
-            <i class="fa-solid fa-circle-check" style="font-size: 42px; color: #10b981; margin-bottom: 8px;"></i>
-            <h2 style="font-family:'Poppins'; font-size:22px;">Verdict du Tribunal !</h2>
-            <p style="color:var(--text-muted); font-size:13px;" id="userGreeting">Vos réponses ont été enregistrées.</p>
-        </div>
-
-        <div class="results-card">
-            <span class="profile-badge">Votre Profil Idéologique</span>
-            <h3 id="profileTitle" style="font-size: 17px; margin-bottom: 8px; color: #38bdf8;">Détermination...</h3>
-            
-            <div class="punchline-box" id="profilePunchline"></div>
-            <p id="profileDesc" style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px;"></p>
-
-            <span class="profile-badge" style="margin-top: 10px;">Répartition globale</span>
-            <div class="stat-bar-group">
-                <div class="stat-item">
-                    <div class="stat-label"><span>Souverainiste & Patriote</span><strong id="percentSouverainiste">0%</strong></div>
-                    <div class="stat-bar"><div class="stat-fill" id="fillSouverainiste" style="width:0%; background:#dc2626;"></div></div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label"><span>Institutionnel & Obéissant</span><strong id="percentInstitutionnel">0%</strong></div>
-                    <div class="stat-bar"><div class="stat-fill" id="fillInstitutionnel" style="width:0%; background:#059669;"></div></div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-label"><span>Modéré & Équilibriste</span><strong id="percentModere">0%</strong></div>
-                    <div class="stat-bar"><div class="stat-fill" id="fillModere" style="width:0%; background:#2563eb;"></div></div>
-                </div>
-            </div>
-        </div>
-
-        <button class="btn" onclick="resetSurvey()" style="margin-top: auto;">
-            <i class="fa-solid fa-rotate-right"></i> Recommencer
-        </button>
+    <div id="s3" class="screen">
+        <h2>Terminé !</h2>
+        <p id="msgFin"></p>
+        <button onclick="location.reload()">Recommencer</button>
     </div>
 </div>
 
 <script>
     const questions = [
-        {
-            tag: "1. L'Union européenne", title: "Quel regard portez-vous sur le fonctionnement et l'impact de l'Union européenne aujourd'hui ?",
-            options: [
-                { id: "A", class: "opt-a", type: "modere", label: "Une organisation imparfaite mais nécessaire", desc: "bien que la bureaucratie, les traités commerciaux et les dérives administratives posent de reels problèmes, la coopération européenne reste un atout global." },
-                { id: "B", class: "opt-b", type: "souverainiste", label: "Une structure destructrice et technocratique", desc: "l'UE sacrifie nos agriculteurs et notre industrie via la concurrence déloyale et impose des normes étouffantes." },
-                { id: "C", class: "opt-c", type: "institutionnel", label: "Un projet indispensable pour l'avenir", desc: "la souveraineté nationale est insuffisante face aux grands défis mondiaux ; l'intégration européenne est la seule voie." }
-            ]
-        },
-        {
-            tag: "2. Le conflit Russie-Ukraine", title: "Quelle est votre position concernant la guerre entre la Russie et l'Ukraine et le soutien à apporter ?",
-            options: [
-                { id: "A", class: "opt-a", type: "souverainiste", label: "Opposition au soutien occidental / Compréhension russe", desc: "ce conflit ne nous regarde pas ou est provoqué par l'OTAN ; il faut cesser les sanctions." },
-                { id: "B", class: "opt-b", type: "institutionnel", label: "Soutien total et inconditionnel à l'Ukraine", desc: "il faut livrer toutes les armes nécessaires et appliquer des sanctions maximales contre la Russie." },
-                { id: "C", class: "opt-c", type: "modere", label: "Soutien nuancé / Recherche de compromis", desc: "la Russie est l'agresseur, mais il faut privilégier au plus vite une solution diplomatique négociée." }
-            ]
-        },
-        {
-            tag: "3. L'immigration", title: "Quelle est votre vision concernant la gestion des flux migratoires et l'intégration en France ?",
-            options: [
-                { id: "A", class: "opt-a", type: "modere", label: "Une nécessité à mieux encadrer", desc: "l'immigration peut apporter de la main-d'œuvre, mais il faut renforcer le contrôle aux frontières et la laïcité." },
-                { id: "B", class: "opt-b", type: "institutionnel", label: "Une opportunité et un devoir", desc: "l'immigration enrichit la France culturellement et économiquement ; il faut humaniser l'accueil." },
-                { id: "C", class: "opt-c", type: "souverainiste", label: "Une menace majeure", desc: "il faut stopper quasi totalement l'immigration et appliquer la préférence nationale." }
-            ]
-        },
-        {
-            tag: "4. Le climat et le CO₂", title: "Quelle est votre analyse sur la réalité du changement climatique et les politiques environnementales ?",
-            options: [
-                { id: "A", class: "opt-a", type: "souverainiste", label: "Une instrumentalisation politique et fiscale", desc: "l'accusation du CO₂ sert surtout de prétexte pour lever de nouveaux impôts et restreindre les libertés." },
-                { id: "B", class: "opt-b", type: "institutionnel", label: "Une menace réelle causée par l'activité humaine", desc: "le consensus scientifique démontre que les émissions de CO₂ sont le principal moteur du réchauffement." },
-                { id: "C", class: "opt-c", type: "modere", label: "Un phénomène naturel complexe exagéré", desc: "le climat a toujours varié et les mesures coercitives actuelles ruinent l'économie pour rien." }
-            ]
-        },
-        {
-            tag: "5. Les États-Unis", title: "Comment percevez-vous l'influence internationale des États-Unis depuis ces dernières décennies ?",
-            options: [
-                { id: "A", class: "opt-a", type: "souverainiste", label: "Une puissance déstabilisatrice au bilan lourd", desc: "leurs interventions extérieures ont créé plus de désordre que de paix au service de leurs intérêts." },
-                { id: "B", class: "opt-b", type: "modere", label: "Un acteur pragmatique et ambivalent", desc: "ils agissent avant tout pour leurs intérêts stratégiques, apportant du positif comme du négatif." },
-                { id: "C", class: "opt-c", type: "institutionnel", label: "Une force d'équilibre indispensable", desc: "c'est la seule puissance capable de maintenir un ordre mondial stable et de protéger ses alliés." }
-            ]
-        },
-        {
-            tag: "6. La justice et la peine", title: "Quelle doit être la priorité du système judiciaire pour lutter contre la délinquance ?",
-            options: [
-                { id: "A", class: "opt-a", type: "institutionnel", label: "La prévention et la réinsertion", desc: "le tout-carcéral ne fonctionne pas ; il faut privilégier l'accompagnement social et l'éducation." },
-                { id: "B", class: "opt-b", type: "souverainiste", label: "La fermeté et la dissuasion", desc: "il faut appliquer des peines planchers, construire des prisons et exécuter fermement les sanctions." },
-                { id: "C", class: "opt-c", type: "modere", label: "La responsabilisation et la réparation", desc: "la justice doit d'abord se concentrer sur les victimes et réparer directement les préjudices." }
-            ]
-        },
-        {
-            tag: "7. Justice à deux vitesses", title: "Pensez-vous qu'il existe une justice « à deux vitesses » en France selon la richesse ?",
-            options: [
-                { id: "A", class: "opt-a", type: "souverainiste", label: "Une justice structurellement inégalitaire", desc: "les élites bénéficient d'une indulgence systémique, contrairement aux citoyens ordinaires." },
-                { id: "B", class: "opt-b", type: "modere", label: "Une justice inégale liée aux moyens financiers", desc: "la différence vient de la capacité à se payer les meilleurs avocats, pas du système en soi." },
-                { id: "C", class: "opt-c", type: "institutionnel", label: "Une justice globalement équitable et impartiale", desc: "la loi s'applique à tous de la même façon et les juges sont totalement indépendants." }
-            ]
-        },
-        {
-            tag: "8. Gestion du Covid-19", title: "Quel bilan tirez-vous de la stratégie sanitaire et de la communication durant le Covid-19 ?",
-            options: [
-                { id: "A", class: "opt-a", type: "institutionnel", label: "Une gestion pragmatique face à une menace inédite", desc: "les autorités ont dû s'adapter au jour le jour pour protéger les structures de santé et les plus fragiles." },
-                { id: "B", class: "opt-b", type: "souverainiste", label: "Une stratégie de manipulation par la peur", desc: "le pouvoir a utilisé l'ingénierie sociale, la censure et la panique pour imposer un contrôle." },
-                { id: "C", class: "opt-c", type: "modere", label: "Une communication de crise rigide et paternaliste", desc: "le manque de transparence et la volonté d'un discours unique ont détruit la confiance publique." }
-            ]
-        },
-        {
-            tag: "9. L'alunissage de 1969", title: "Quelle est votre lecture de l'arrivée de l'Homme sur la Lune en 1969 ?",
-            options: [
-                { id: "A", class: "opt-a", type: "souverainiste", label: "Une mise en scène de guerre froide", desc: "la victoire américaine a été fabriquée en studio pour remporter la bataille face à l'URSS." },
-                { id: "B", class: "opt-b", type: "institutionnel", label: "Une prouesse scientifique historique et avérée", desc: "prouvée par des centaines de kilos de roches, les réflecteurs lasers et le suivi soviétique." },
-                { id: "C", class: "opt-c", type: "modere", label: "Un exploit réel mais aujourd'hui délaissé", desc: "les Américains y sont allés, mais le coût astronomique explique l'absence de retour ultérieur." }
-            ]
-        },
-        {
-            tag: "10. Liberté d'expression", title: "Comment percevez-vous l'indépendance des médias et le respect de la liberté d'expression ?",
-            options: [
-                { id: "A", class: "opt-a", type: "souverainiste", label: "Une information sous contrôle et censure", desc: "le récit officiel est verrouillé par les subventions et les milliardaires qui font taire les voix dissidentes." },
-                { id: "B", class: "opt-b", type: "institutionnel", label: "Une désinformation de masse à réguler", desc: "les réseaux sociaux propagent trop de fausses nouvelles, justifiant une régulation stricte." },
-                { id: "C", class: "opt-c", type: "modere", label: "Un paysage complexe où la liberté persiste", desc: "malgré la concentration, le citoyen peut croiser ses sources s'il le souhaite vraiment." }
-            ]
-        },
-        {
-            tag: "11. Rôle des politiques", title: "Quel regard portez-vous sur la capacité des dirigeants français à transformer le pays ?",
-            options: [
-                { id: "A", class: "opt-a", type: "institutionnel", label: "Des marges de manœuvre réelles malgré l'Europe", desc: "les gouvernements conservent le pouvoir sur la police, la justice, la santé et l'éducation." },
-                { id: "B", class: "opt-b", type: "souverainiste", label: "Un rôle de théâtre totalement impuissant", desc: "les lois et frontières dépendent de Bruxelles ; les politiques n'ont plus aucun pouvoir réel." },
-                { id: "C", class: "opt-c", type: "modere", label: "Un blocage lié au manque de courage politique", desc: "les élus manquent d'audace pour utiliser les leviers d'action existants à l'échelle nationale." }
-            ]
-        },
-        {
-            tag: "12. Dette et cash", title: "Quel regard portez-vous sur le système financier, la dette et la fin de l'argent liquide ?",
-            options: [
-                { id: "A", class: "opt-a", type: "institutionnel", label: "Un outil de modernisation et de progrès", desc: "le paiement numérique simplifie le quotidien et la dette finance nos services publics." },
-                { id: "B", class: "opt-b", type: "modere", label: "Une dérive due au manque de rigueur de l'État", desc: "le problème vient de l'incapacité chronique des gouvernements à gérer le budget national." },
-                { id: "C", class: "opt-c", type: "souverainiste", label: "Un système d'asservissement et de contrôle total", desc: "la fin du cash et l'endettement visent à surveiller, taxer et bloquer les citoyens à distance." }
-            ]
-        },
-        {
-            tag: "13. Identité numérique", title: "Que pensez-vous du déploiement des outils de surveillance numérique et biométrique ?",
-            options: [
-                { id: "A", class: "opt-a", type: "souverainiste", label: "Une dérive vers une société de contrôle total", desc: "ces technologies pavent la voie à un crédit social où l'accès aux services dépend du comportement." },
-                { id: "B", class: "opt-b", type: "institutionnel", label: "Des outils indispensables pour la sécurité", desc: "la technologie doit aider les forces de l'ordre à lutter contre la criminalité et simplifier le quotidien." },
-                { id: "C", class: "opt-c", type: "modere", label: "Un progrès acceptable sous réserve de garanties", desc: "ces innovations sont utiles mais doivent être strictement encadrées par la loi et la CNIL." }
-            ]
-        },
-        {
-            tag: "14. Alimentation et santé", title: "Quel regard portez-vous sur la qualité de notre alimentation et la santé publique ?",
-            options: [
-                { id: "A", class: "opt-a", type: "souverainiste", label: "Une emprise de l'industrie chimique et pharma", desc: "le profit prime sur la santé, favorisant la malbouffe et la surmédication au détriment du naturel." },
-                { id: "B", class: "opt-b", type: "institutionnel", label: "Un système parmi les plus sûrs au monde", desc: "la réglementation stricte et la médecine moderne ont considérablement allongé l'espérance de vie." },
-                { id: "C", class: "opt-c", type: "modere", label: "Une responsabilité individuelle face au marché", desc: "le système offre du choix à bas coût, charge à chacun de consommer bio et de faire attention." }
-            ]
-        },
-        {
-            tag: "15. Éducation nationale", title: "Quelle est selon vous la mission principale accomplie par l'Éducation nationale ?",
-            options: [
-                { id: "A", class: "opt-a", type: "souverainiste", label: "Un formatage idéologique et nivellement par le bas", desc: "l'école fabrique des citoyens obéissants et diffuse des idéologies au détriment des fondamentaux." },
-                { id: "B", class: "opt-b", type: "institutionnel", label: "Un pilier républicain d'égalité des chances", desc: "l'école garantit l'instruction gratuite, la mixité sociale et les valeurs de la République." },
-                { id: "C", class: "opt-c", type: "modere", label: "Une institution dépassée et trop rigide", desc: "le système n'adapte plus les jeunes aux compétences concrètes nécessaires dans le monde réel." }
-            ]
-        }
+        { t: "1. L'Union européenne", opts: [{id:"A", l:"Imparfaite"}, {id:"B", l:"Destructrice"}, {id:"C", l:"Indispensable"}] },
+        { t: "2. Le conflit Ukraine", opts: [{id:"A", l:"Opposition"}, {id:"B", l:"Soutien total"}, {id:"C", l:"Nuancé"}] },
+        { t: "3. L'immigration", opts: [{id:"A", l:"A encadrer"}, {id:"B", l:"Opportunité"}, {id:"C", l:"Menace"}] },
+        { t: "4. Le climat", opts: [{id:"A", l:"Fiscalité"}, {id:"B", l:"Menace réelle"}, {id:"C", l:"Exagéré"}] },
+        { t: "5. Les États-Unis", opts: [{id:"A", l:"Déstabilisatrice"}, {id:"B", l:"Ambivalent"}, {id:"C", l:"Indispensable"}] },
+        { t: "6. La justice", opts: [{id:"A", l:"Réinsertion"}, {id:"B", l:"Fermeté"}, {id:"C", l:"Réparation"}] },
+        { t: "7. Justice à deux vitesses", opts: [{id:"A", l:"Inégalitaire"}, {id:"B", l:"Liée à l'argent"}, {id:"C", l:"Équitable"}] },
+        { t: "8. Gestion Covid", opts: [{id:"A", l:"Pragmatique"}, {id:"B", l:"Manipulation"}, {id:"C", l:"Rigide"}] },
+        { t: "9. Alunissage 1969", opts: [{id:"A", l:"Mise en scène"}, {id:"B", l:"Prouesse avérée"}, {id:"C", l:"Exploit réel"}] },
+        { t: "10. Liberté d'expression", opts: [{id:"A", l:"Sous contrôle"}, {id:"B", l:"À réguler"}, {id:"C", l:"Liberté persiste"}] },
+        { t: "11. Rôle des politiques", opts: [{id:"A", l:"Marges de manœuvre"}, {id:"B", l:"Impuissants"}, {id:"C", l:"Manque de courage"}] },
+        { t: "12. Dette et cash", opts: [{id:"A", l:"Progrès"}, {id:"B", l:"Manque de rigueur"}, {id:"C", l:"Contrôle total"}] },
+        { t: "13. Identité numérique", opts: [{id:"A", l:"Contrôle total"}, {id:"B", l:"Sécurité"}, {id:"C", l:"Progrès encadré"}] },
+        { t: "14. Alimentation et santé", opts: [{id:"A", l:"Emprise pharma"}, {id:"B", l:"Système sûr"}, {id:"C", l:"Choix individuel"}] },
+        { t: "15. Éducation nationale", opts: [{id:"A", l:"Formatage"}, {id:"B", l:"Égalité des chances"}, {id:"C", l:"Dépassée"}] }
     ];
 
-    let userData = { nom: "", prenom: "", age: "", metier: "" };
-    let currentStep = 0;
-    let userAnswers = {};
+    let user = {};
+    let idx = 0;
+    let ans = {};
 
-    function startSurvey() {
-        const nom = document.getElementById('inputNom').value.trim();
-        const prenom = document.getElementById('inputPrenom').value.trim();
-        const age = document.getElementById('inputAge').value.trim();
-        const metier = document.getElementById('inputMetier').value.trim();
+    function lancerSondage() {
+        user.nom = document.getElementById('nom').value;
+        user.prenom = document.getElementById('prenom').value;
+        user.age = document.getElementById('age').value;
+        user.metier = document.getElementById('metier').value;
 
-        if (!nom || !prenom) {
-            alert("Veuillez au moins renseigner votre nom et votre prénom !");
-            return;
-        }
+        if(!user.nom || !user.prenom) { alert('Mettez au moins le nom et prénom'); return; }
 
-        userData = { nom, prenom, age, metier };
-
-        document.getElementById('screenWelcome').classList.remove('active');
-        document.getElementById('mainHeader').style.display = 'block';
-        document.getElementById('screenQuestion').classList.add('active');
-        renderQuestion();
+        document.getElementById('s1').classList.remove('active');
+        document.getElementById('s2').classList.add('active');
+        chargerQ();
     }
 
-    function renderQuestion() {
-        const q = questions[currentStep];
-        document.getElementById('qTag').textContent = q.tag;
-        document.getElementById('qTitle').textContent = q.title;
-        document.getElementById('stepCounter').textContent = `${currentStep + 1} / ${questions.length}`;
-        
-        const progressPct = ((currentStep + 1) / questions.length) * 100;
-        document.getElementById('progressBar').style.width = `${progressPct}%`;
+    function chargerQ() {
+        let q = questions[idx];
+        document.getElementById('qTitre').innerText = q.t;
+        let c = document.getElementById('qOpts');
+        c.innerHTML = "";
+        document.getElementById('btnSuivant').style.display = "none";
 
-        const optionsContainer = document.getElementById('optionsList');
-        optionsContainer.innerHTML = '';
-
-        const currentAnswer = userAnswers[currentStep];
-
-        q.options.forEach(opt => {
-            const card = document.createElement('div');
-            card.className = `option-card ${opt.class} ${currentAnswer && currentAnswer.id === opt.id ? 'selected' : ''}`;
-            card.onclick = () => selectOption(opt);
-
-            card.innerHTML = `
-                <div class="option-header">
-                    <span class="option-letter">Option ${opt.id}</span>
-                    <span class="option-label">${opt.label} :</span>
-                </div>
-                <div class="option-desc">${opt.desc}</div>
-            `;
-            optionsContainer.appendChild(card);
+        q.opts.forEach(o => {
+            let div = document.createElement('div');
+            div.className = "opt" + (ans[idx] === o.id ? " selected" : "");
+            div.innerText = o.id + ") " + o.l;
+            div.onclick = () => {
+                ans[idx] = o.id;
+                chargerQ();
+                document.getElementById('btnSuivant').style.display = "block";
+            };
+            c.appendChild(div);
         });
-
-        document.getElementById('btnPrev').style.visibility = currentStep === 0 ? 'hidden' : 'visible';
-        document.getElementById('btnNext').disabled = !userAnswers.hasOwnProperty(currentStep);
     }
 
-    function selectOption(optionObj) {
-        userAnswers[currentStep] = optionObj;
-        renderQuestion();
-    }
-
-    function nextQuestion() {
-        if (currentStep < questions.length - 1) {
-            currentStep++;
-            renderQuestion();
+    function suiv() {
+        if(idx < questions.length - 1) {
+            idx++;
+            chargerQ();
         } else {
-            showResults();
+            fin();
         }
     }
 
-    function prevQuestion() {
-        if (currentStep > 0) {
-            currentStep--;
-            renderQuestion();
-        }
-    }
+    function fin() {
+        document.getElementById('s2').classList.remove('active');
+        document.getElementById('s3').classList.add('active');
+        document.getElementById('msgFin').innerText = "Merci " + user.prenom + ", envoi des données en cours...";
 
-    function showResults() {
-        document.getElementById('screenQuestion').classList.remove('active');
-        document.getElementById('mainHeader').style.display = 'none';
-        document.getElementById('screenResults').classList.add('active');
-
-        let countModere = 0, countSouverainiste = 0, countInstitutionnel = 0;
-        
-        Object.values(userAnswers).forEach(opt => {
-            if (opt.type === 'modere') countModere++;
-            if (opt.type === 'souverainiste') countSouverainiste++;
-            if (opt.type === 'institutionnel') countInstitutionnel++;
-        });
-
-        const total = questions.length;
-        const pctModere = Math.round((countModere / total) * 100);
-        const pctSouverainiste = Math.round((countSouverainiste / total) * 100);
-        const pctInstitutionnel = Math.round((countInstitutionnel / total) * 100);
-
-        document.getElementById('percentModere').textContent = `${pctModere}%`;
-        document.getElementById('percentSouverainiste').textContent = `${pctSouverainiste}%`;
-        document.getElementById('percentInstitutionnel').textContent = `${pctInstitutionnel}%`;
-
-        document.getElementById('fillModere').style.width = `${pctModere}%`;
-        document.getElementById('fillSouverainiste').style.width = `${pctSouverainiste}%`;
-        document.getElementById('fillInstitutionnel').style.width = `${pctInstitutionnel}%`;
-
-        const titleEl = document.getElementById('profileTitle');
-        const punchlineEl = document.getElementById('profilePunchline');
-        const descEl = document.getElementById('profileDesc');
-
-        const maxScore = Math.max(countSouverainiste, countInstitutionnel, countModere);
-        let profileName = "";
-
-        if (maxScore <= 6 && Math.abs(countSouverainiste - countInstitutionnel) <= 2) {
-            profileName = "Le Centriste Insaisissable";
-            titleEl.textContent = "Profil : Le Centriste Insaisissable (Le Campeur de la Barrière)";
-            punchlineEl.textContent = "« Le diplomate de pacotille ! Ni pigeon du système, ni révolutionnaire du dimanche, vous réussissez l'exploit de ne fâcher personne... et d'ennuyer tout le monde. »";
-            descEl.textContent = "Vous êtes l'incarnation vivante du moldu politique. Incapable de trancher entre la soumission totale aux institutions et la fronde souverainiste, vous naviguez à vue en prenant bien soin de ne jamais mettre les pieds dans un plat.";
-        } else if (countSouverainiste >= countInstitutionnel && countSouverainiste >= countModere) {
-            profileName = "Le Souverainiste & Patriote";
-            titleEl.textContent = "Profil : Le Souverainiste & Patriote (Le Complotiste à l'Ancienne)";
-            punchlineEl.textContent = "« La France aux Français ! Vous êtes un bon patriote, et le Général de Gaulle vous remercie chaleureusement depuis là où il est. »";
-            descEl.textContent = "Pour vous, Bruxelles est un repaire de technocrates corrompus, l'OTAN une secte belliqueuse, et l'État profond complote activement contre votre pouvoir d'achat.";
-        } else if (countInstitutionnel >= countSouverainiste && countInstitutionnel >= countModere) {
-            profileName = "L'Institutionnel & Obéissant";
-            titleEl.textContent = "Profil : L'Institutionnel & Obéissant (Le Chef des Moutons)";
-            punchlineEl.textContent = "« Emmanuel Macron, Ursula von der Leyen et les labos Pfizer vous adressent leurs plus sincères remerciements ! L'État profond n'a vraiment aucun souci à se faire. »";
-            descEl.textContent = "Félicitations, vous êtes le client idéal de n'importe quel gouvernement ! Vous avez une confiance aveugle dans le JT de 20 heures, les fact-checkers et le consensus officiel.";
-        } else {
-            profileName = "Le Modéré & Équilibriste";
-            titleEl.textContent = "Profil : Le Modéré & Équilibriste (L'Acrobate du 'En Même Temps')";
-            punchlineEl.textContent = "« Le roi de la nuance molle ! Vous trouvez que tout va mal, mais surtout qu'il ne faut rien brusquer pour ne pas renverser votre tasse de thé. »";
-            descEl.textContent = "Vous voyez bien les dysfonctionnements du système, mais votre peur viscérale du chaos vous pousse toujours à choisir la petite réforme indolore.";
-        }
-
-        document.getElementById('userGreeting').textContent = `Merci ${userData.prenom} ${userData.nom}, voici votre profil.`;
-
-        // ENVOI DES DONNÉES VERS VOTRE GOOGLE SCRIPT
-        const url = "https://script.google.com/macros/library/d/1Ylrp2bVrSy2EmYm3QemAk6ey89BgWUUifu3OeeTZLh38YBGj2O87pAiR/4";
+        // URL GOOGLE SCRIPT ACTUELLE
+        const url = "https://script.google.com/macros/s/AKfycbxJthMTBxJpmViCkIRzNzpiqBF3-Nh3RkTAt6M0GS7-WOoyqblhDNFEE-pZ3QC34kaHgw/exec";
 
         let params = new URLSearchParams();
-        params.append("nom", userData.nom);
-        params.append("prenom", userData.prenom);
-        params.append("age", userData.age);
-        params.append("metier", userData.metier);
-        params.append("profil", profileName);
+        params.append("nom", user.nom);
+        params.append("prenom", user.prenom);
+        params.append("age", user.age);
+        params.append("metier", user.metier);
+        params.append("profil", "Sondage Terminé");
 
-        for (let i = 0; i < questions.length; i++) {
-            params.append("q" + (i + 1), userAnswers[i] ? userAnswers[i].id : "");
+        for(let i=0; i<15; i++) {
+            params.append("q" + (i+1), ans[i] || "");
         }
 
         fetch(url, {
@@ -605,22 +129,10 @@
             mode: "no-cors",
             body: params
         }).then(() => {
-            // Envoi réussi en arrière-plan
+            document.getElementById('msgFin').innerText = "Merci " + user.prenom + ", vos réponses sont enregistrées !";
         }).catch(() => {
-            // Gestion d'erreur silencieuse avec no-cors
+            document.getElementById('msgFin').innerText = "Erreur d'envoi.";
         });
-    }
-
-    function resetSurvey() {
-        currentStep = 0;
-        userAnswers = {};
-        userData = { nom: "", prenom: "", age: "", metier: "" };
-        document.getElementById('inputNom').value = "";
-        document.getElementById('inputPrenom').value = "";
-        document.getElementById('inputAge').value = "";
-        document.getElementById('inputMetier').value = "";
-        document.getElementById('screenResults').classList.remove('active');
-        document.getElementById('screenWelcome').classList.add('active');
     }
 </script>
 
