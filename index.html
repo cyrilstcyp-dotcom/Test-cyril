@@ -2,137 +2,521 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Grand Sondage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Grand Sondage Opinion & Société</title>
+    
+    <meta name="theme-color" content="#0f172a">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
-        body { background: #0f172a; color: #fff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .box { background: #1e293b; padding: 25px; border-radius: 15px; width: 100%; max-width: 450px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); }
-        input, button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: #fff; box-sizing: border-box; }
-        button { background: #2563eb; border: none; font-weight: bold; cursor: pointer; }
-        .screen { display: none; }
-        .screen.active { display: block; }
-        .opt { background: #334155; padding: 10px; margin: 8px 0; border-radius: 8px; cursor: pointer; }
-        .opt.selected { background: #2563eb; }
+        :root {
+            --bg-main: #0b0f19;
+            --card-bg: #1e293b;
+            --card-border: #334155;
+            --accent-blue: #2563eb;
+            --text-white: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 540px;
+            min-height: 90vh;
+            background: #0f172a;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        header {
+            padding: 20px 24px 12px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--card-border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .app-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-white);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-counter {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            background: rgba(37, 99, 235, 0.15);
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 6px;
+            background: #1e293b;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #2563eb, #06b6d4);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        .screen {
+            display: none;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 20px 24px;
+            overflow-y: auto;
+        }
+
+        .screen.active { display: flex; }
+
+        .welcome-card {
+            text-align: center;
+            margin: auto 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .welcome-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin-bottom: 18px;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+        }
+
+        .welcome-card h1 { font-family: 'Poppins', sans-serif; font-size: 22px; margin-bottom: 8px; }
+        .welcome-card p { color: var(--text-muted); font-size: 14px; line-height: 1.4; margin-bottom: 20px; }
+
+        .form-group {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 14px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: #cbd5e1;
+        }
+
+        .form-input {
+            width: 100%;
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: #fff;
+            font-size: 14.5px;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .form-input:focus { border-color: var(--accent-blue); }
+
+        .question-tag { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #38bdf8; margin-bottom: 6px; }
+        .question-title { font-family: 'Poppins', sans-serif; font-size: 17px; font-weight: 600; margin-bottom: 18px; line-height: 1.4; }
+
+        .options-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 20px; }
+
+        .option-card {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 14px;
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .option-card:active { transform: scale(0.98); }
+        .option-card.selected { border-color: var(--accent-blue); background: rgba(37, 99, 235, 0.12); }
+
+        .option-header { display: flex; align-items: center; gap: 10px; }
+        .option-letter { font-weight: 700; font-size: 12px; padding: 3px 8px; border-radius: 6px; color: #fff; text-transform: uppercase; background: #2563eb; }
+
+        .option-label { font-weight: 600; font-size: 14.5px; color: var(--text-white); }
+        .option-desc { font-size: 13px; color: var(--text-muted); line-height: 1.45; }
+
+        .btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn:disabled { background: #334155; color: #64748b; box-shadow: none; cursor: not-allowed; }
+        .nav-buttons { margin-top: auto; display: flex; gap: 10px; padding-top: 10px; }
+        .btn-secondary { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-white); box-shadow: none; width: auto; padding: 15px 18px; }
     </style>
 </head>
 <body>
 
-<div class="box">
-    <div id="s1" class="screen active">
-        <h2>Vos informations</h2>
-        <input type="text" id="nom" placeholder="Nom">
-        <input type="text" id="prenom" placeholder="Prénom">
-        <input type="number" id="age" placeholder="Âge">
-        <input type="text" id="metier" placeholder="Métier">
-        <button onclick="lancerSondage()">Commencer</button>
+<div class="app-container">
+    <header id="mainHeader" style="display: none;">
+        <div class="header-top">
+            <div class="app-title">
+                <i class="fa-solid fa-square-poll-vertical" style="color:#2563eb;"></i>
+                Grand Sondage 2026
+            </div>
+            <div class="step-counter" id="stepCounter">1 / 15</div>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+    </header>
+
+    <!-- Étape d'identification -->
+    <div class="screen active" id="screenWelcome">
+        <div class="welcome-card">
+            <div class="welcome-icon">
+                <i class="fa-solid fa-id-card"></i>
+            </div>
+            <h1>Avant de commencer...</h1>
+            <p>Veuillez renseigner vos informations.</p>
+            
+            <div class="form-group">
+                <label>Nom</label>
+                <input type="text" id="inputNom" class="form-input" placeholder="Ex: Dupont">
+            </div>
+            <div class="form-group">
+                <label>Prénom</label>
+                <input type="text" id="inputPrenom" class="form-input" placeholder="Ex: Jean">
+            </div>
+            <div class="form-group">
+                <label>Âge</label>
+                <input type="number" id="inputAge" class="form-input" placeholder="Ex: 35">
+            </div>
+            <div class="form-group">
+                <label>Métier</label>
+                <input type="text" id="inputMetier" class="form-input" placeholder="Ex: Cadre...">
+            </div>
+
+            <button class="btn" onclick="startSurvey()" style="margin-top: 10px;">
+                Commencer le Sondage <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
     </div>
 
-    <div id="s2" class="screen">
-        <h3 id="qTitre">Question</h3>
-        <div id="qOpts"></div>
-        <button id="btnSuivant" onclick="suiv()" style="display:none;">Suivant</button>
+    <!-- Question -->
+    <div class="screen" id="screenQuestion">
+        <div class="question-tag" id="qTag">Question 1</div>
+        <div class="question-title" id="qTitle">Intitulé de la question</div>
+        
+        <div class="options-list" id="optionsList"></div>
+
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" id="btnPrev" onclick="prevQuestion()">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="btn" id="btnNext" onclick="nextQuestion()" disabled>
+                Suivant <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
     </div>
 
-    <div id="s3" class="screen">
-        <h2>Terminé !</h2>
-        <p id="msgFin"></p>
-        <button onclick="location.reload()">Recommencer</button>
+    <!-- Résultats / Fin -->
+    <div class="screen" id="screenResults">
+        <div class="welcome-card">
+            <div class="welcome-icon" style="background: #10b981;">
+                <i class="fa-solid fa-check"></i>
+            </div>
+            <h2>Terminé !</h2>
+            <p id="msgFin">Vos réponses sont enregistrées avec succès.</p>
+            <button class="btn" onclick="location.reload()" style="margin-top: 20px;">
+                Recommencer
+            </button>
+        </div>
     </div>
 </div>
 
 <script>
     const questions = [
-        { t: "1. L'Union européenne", opts: [{id:"A", l:"Imparfaite"}, {id:"B", l:"Destructrice"}, {id:"C", l:"Indispensable"}] },
-        { t: "2. Le conflit Ukraine", opts: [{id:"A", l:"Opposition"}, {id:"B", l:"Soutien total"}, {id:"C", l:"Nuancé"}] },
-        { t: "3. L'immigration", opts: [{id:"A", l:"A encadrer"}, {id:"B", l:"Opportunité"}, {id:"C", l:"Menace"}] },
-        { t: "4. Le climat", opts: [{id:"A", l:"Fiscalité"}, {id:"B", l:"Menace réelle"}, {id:"C", l:"Exagéré"}] },
-        { t: "5. Les États-Unis", opts: [{id:"A", l:"Déstabilisatrice"}, {id:"B", l:"Ambivalent"}, {id:"C", l:"Indispensable"}] },
-        { t: "6. La justice", opts: [{id:"A", l:"Réinsertion"}, {id:"B", l:"Fermeté"}, {id:"C", l:"Réparation"}] },
-        { t: "7. Justice à deux vitesses", opts: [{id:"A", l:"Inégalitaire"}, {id:"B", l:"Liée à l'argent"}, {id:"C", l:"Équitable"}] },
-        { t: "8. Gestion Covid", opts: [{id:"A", l:"Pragmatique"}, {id:"B", l:"Manipulation"}, {id:"C", l:"Rigide"}] },
-        { t: "9. Alunissage 1969", opts: [{id:"A", l:"Mise en scène"}, {id:"B", l:"Prouesse avérée"}, {id:"C", l:"Exploit réel"}] },
-        { t: "10. Liberté d'expression", opts: [{id:"A", l:"Sous contrôle"}, {id:"B", l:"À réguler"}, {id:"C", l:"Liberté persiste"}] },
-        { t: "11. Rôle des politiques", opts: [{id:"A", l:"Marges de manœuvre"}, {id:"B", l:"Impuissants"}, {id:"C", l:"Manque de courage"}] },
-        { t: "12. Dette et cash", opts: [{id:"A", l:"Progrès"}, {id:"B", l:"Manque de rigueur"}, {id:"C", l:"Contrôle total"}] },
-        { t: "13. Identité numérique", opts: [{id:"A", l:"Contrôle total"}, {id:"B", l:"Sécurité"}, {id:"C", l:"Progrès encadré"}] },
-        { t: "14. Alimentation et santé", opts: [{id:"A", l:"Emprise pharma"}, {id:"B", l:"Système sûr"}, {id:"C", l:"Choix individuel"}] },
-        { t: "15. Éducation nationale", opts: [{id:"A", l:"Formatage"}, {id:"B", l:"Égalité des chances"}, {id:"C", l:"Dépassée"}] }
+        {
+            tag: "1. L'Union européenne", title: "Quel regard portez-vous sur le fonctionnement et l'impact de l'Union européenne aujourd'hui ?",
+            options: [
+                { id: "A", label: "Une organisation imparfaite mais nécessaire", desc: "Bien que la bureaucratie et les traités posent problème, la coopération reste un atout." },
+                { id: "B", label: "Une structure destructrice et technocratique", desc: "L'UE sacrifie nos secteurs clés via une concurrence déloyale et des normes étouffantes." },
+                { id: "C", label: "Un projet indispensable pour l'avenir", desc: "La souveraineté nationale est insuffisante face aux grands défis mondiaux." }
+            ]
+        },
+        {
+            tag: "2. Le conflit Ukraine", title: "Quelle est votre position concernant la guerre entre la Russie et l'Ukraine et le soutien à apporter ?",
+            options: [
+                { id: "A", label: "Opposition au soutien occidental / Compréhension russe", desc: "Ce conflit ne nous regarde pas ou est provoqué par l'OTAN." },
+                { id: "B", label: "Soutien total et inconditionnel à l'Ukraine", desc: "Il faut livrer toutes les armes nécessaires et appliquer des sanctions maximales." },
+                { id: "C", label: "Soutien nuancé / Recherche de compromis", desc: "La Russie est l'agresseur, mais il faut privilégier une solution diplomatique." }
+            ]
+        },
+        {
+            tag: "3. L'immigration", title: "Quelle est votre vision concernant la gestion des flux migratoires et l'intégration en France ?",
+            options: [
+                { id: "A", label: "Une nécessité à mieux encadrer", desc: "L'immigration apporte de la main-d'œuvre mais nécessite un contrôle strict aux frontières." },
+                { id: "B", label: "Une opportunité et un devoir", desc: "L'immigration enrichit la France culturellement et économiquement." },
+                { id: "C", label: "Une menace majeure", desc: "Il faut stopper l'immigration et appliquer la préférence nationale." }
+            ]
+        },
+        {
+            tag: "4. Le climat", title: "Quelle est votre analyse sur la réalité du changement climatique et les politiques environnementales ?",
+            options: [
+                { id: "A", label: "Une instrumentalisation politique et fiscale", desc: "L'accusation du CO₂ sert surtout de prétexte pour lever de nouveaux impôts." },
+                { id: "B", label: "Une menace réelle causée par l'activité humaine", desc: "Le consensus scientifique démontre l'impact direct des émissions de CO₂." },
+                { id: "C", label: "Un phénomène naturel complexe exagéré", desc: "Le climat a toujours varié et les mesures actuelles pèsent trop sur l'économie." }
+            ]
+        },
+        {
+            tag: "5. Les États-Unis", title: "Comment percevez-vous l'influence internationale des États-Unis depuis ces dernières décennies ?",
+            options: [
+                { id: "A", label: "Une puissance déstabilisatrice au bilan lourd", desc: "Leurs interventions extérieures ont créé plus de désordre que de paix." },
+                { id: "B", label: "Un acteur pragmatique et ambivalent", desc: "Ils agissent avant tout pour leurs intérêts stratégiques." },
+                { id: "C", label: "Une force d'équilibre indispensable", desc: "C'est la puissance clé pour maintenir un ordre mondial stable." }
+            ]
+        },
+        {
+            tag: "6. La justice", title: "Quelle doit être la priorité du système judiciaire pour lutter contre la délinquance ?",
+            options: [
+                { id: "A", label: "La prévention et la réinsertion", desc: "Il faut privilégier l'accompagnement social et l'éducation." },
+                { id: "B", label: "La fermeté et la dissuasion", desc: "Il faut appliquer des peines planchers et construire des prisons." },
+                { id: "C", label: "La responsabilisation et la réparation", desc: "La justice doit se concentrer sur les victimes et la réparation directe." }
+            ]
+        },
+        {
+            tag: "7. Justice à deux vitesses", title: "Pensez-vous qu'il existe une justice « à deux vitesses » en France selon la richesse ?",
+            options: [
+                { id: "A", label: "Une justice structurellement inégalitaire", desc: "Les élites bénéficient d'une indulgence systémique." },
+                { id: "B", label: "Une justice inégale liée aux moyens financiers", desc: "La différence vient de la capacité à se payer les meilleurs avocats." },
+                { id: "C", label: "Une justice globalement équitable", desc: "La loi s'applique à tous de la même façon." }
+            ]
+        },
+        {
+            tag: "8. Gestion Covid", title: "Quel bilan tirez-vous de la stratégie sanitaire et de la communication durant le Covid-19 ?",
+            options: [
+                { id: "A", label: "Une gestion pragmatique face à une menace inédite", desc: "Les autorités ont fait de leur mieux pour protéger les structures de santé." },
+                { id: "B", label: "Une stratégie de manipulation par la peur", desc: "Le pouvoir a utilisé la panique pour imposer des restrictions." },
+                { id: "C", label: "Une communication de crise rigide", desc: "Le manque de transparence a brisé la confiance publique." }
+            ]
+        },
+        {
+            tag: "9. Alunissage 1969", title: "Quelle est votre lecture de l'arrivée de l'Homme sur la Lune en 1969 ?",
+            options: [
+                { id: "A", label: "Une mise en scène de guerre froide", desc: "La victoire américaine a été fabriquée en studio." },
+                { id: "B", label: "Une prouesse scientifique historique", desc: "Prouvée par de multiples preuves matérielles et scientifiques." },
+                { id: "C", label: "Un exploit réel mais non répété", desc: "Les Américains y sont allés, mais le coût explique l'arrêt des missions." }
+            ]
+        },
+        {
+            tag: "10. Liberté d'expression", title: "Comment percevez-vous l'indépendance des médias et le respect de la liberté d'expression ?",
+            options: [
+                { id: "A", label: "Une information sous contrôle et censure", desc: "Le récit officiel est verrouillé pour faire taire les voix dissidentes." },
+                { id: "B", label: "Une désinformation à réguler", desc: "Les réseaux sociaux propagent trop de fausses nouvelles." },
+                { id: "C", label: "Un paysage complexe où la liberté persiste", desc: "Le citoyen peut croiser ses sources s'il le souhaite." }
+            ]
+        },
+        {
+            tag: "11. Rôle des politiques", title: "Quel regard portez-vous sur la capacité des dirigeants français à transformer le pays ?",
+            options: [
+                { id: "A", label: "Des marges de manœuvre réelles", desc: "Les gouvernements conservent le pouvoir sur la police, la santé et l'école." },
+                { id: "B", label: "Un rôle de théâtre impuissant", desc: "Les lois dépendent de Bruxelles ; les politiques n'ont plus de pouvoir." },
+                { id: "C", label: "Un blocage lié au manque de courage", desc: "Les élus manquent d'audace pour utiliser les leviers nationaux." }
+            ]
+        },
+        {
+            tag: "12. Dette et cash", title: "Quel regard portez-vous sur le système financier, la dette et la fin de l'argent liquide ?",
+            options: [
+                { id: "A", label: "Un outil de modernisation", desc: "Le paiement numérique simplifie le quotidien." },
+                { id: "B", label: "Une dérive due au manque de rigueur", desc: "Le problème vient de la mauvaise gestion budgétaire de l'État." },
+                { id: "C", label: "Un système d'asservissement et de contrôle", desc: "La fin du cash vise à surveiller et restreindre les citoyens." }
+            ]
+        },
+        {
+            tag: "13. Identité numérique", title: "Que pensez-vous du déploiement des outils de surveillance numérique et biométrique ?",
+            options: [
+                { id: "A", label: "Une dérive vers une société de contrôle", desc: "Ces technologies ouvrent la voie à un crédit social." },
+                { id: "B", label: "Des outils indispensables pour la sécurité", desc: "La technologie aide à lutter contre la criminalité." },
+                { id: "C", label: "Un progrès sous réserve de garanties", desc: "Ces innovations sont utiles mais doivent être strictement encadrées." }
+            ]
+        },
+        {
+            tag: "14. Alimentation et santé", title: "Quel regard portez-vous sur la qualité de notre alimentation et la santé publique ?",
+            options: [
+                { id: "A", label: "Une emprise de l'industrie chimique et pharma", desc: "Le profit prime sur la santé et le naturel." },
+                { id: "B", label: "Un système parmi les plus sûrs", desc: "La réglementation stricte a allongé l'espérance de vie." },
+                { id: "C", label: "Une responsabilité individuelle", desc: "Le système offre du choix, charge à chacun de bien consommer." }
+            ]
+        },
+        {
+            tag: "15. Éducation nationale", title: "Quelle est selon vous la mission principale accomplie par l'Éducation nationale ?",
+            options: [
+                { id: "A", label: "Un formatage idéologique", desc: "L'école fabrique des citoyens obéissants au détriment des fondamentaux." },
+                { id: "B", label: "Un pilier d'égalité des chances", desc: "L'école garantit l'instruction gratuite et la mixité républicaine." },
+                { id: "C", label: "Une institution dépassée", desc: "Le système ne forme plus aux réalités du monde moderne." }
+            ]
+        }
     ];
 
-    let user = {};
-    let idx = 0;
-    let ans = {};
+    let userData = { nom: "", prenom: "", age: "", metier: "" };
+    let currentStep = 0;
+    let userAnswers = {};
 
-    function lancerSondage() {
-        user.nom = document.getElementById('nom').value;
-        user.prenom = document.getElementById('prenom').value;
-        user.age = document.getElementById('age').value;
-        user.metier = document.getElementById('metier').value;
+    function startSurvey() {
+        const nom = document.getElementById('inputNom').value.trim();
+        const prenom = document.getElementById('inputPrenom').value.trim();
+        const age = document.getElementById('inputAge').value.trim();
+        const metier = document.getElementById('inputMetier').value.trim();
 
-        if(!user.nom || !user.prenom) { alert('Mettez au moins le nom et prénom'); return; }
+        if (!nom || !prenom) {
+            alert("Veuillez au moins renseigner votre nom et votre prénom !");
+            return;
+        }
 
-        document.getElementById('s1').classList.remove('active');
-        document.getElementById('s2').classList.add('active');
-        chargerQ();
+        userData = { nom, prenom, age, metier };
+
+        document.getElementById('screenWelcome').classList.remove('active');
+        document.getElementById('mainHeader').style.display = 'block';
+        document.getElementById('screenQuestion').classList.add('active');
+        renderQuestion();
     }
 
-    function chargerQ() {
-        let q = questions[idx];
-        document.getElementById('qTitre').innerText = q.t;
-        let c = document.getElementById('qOpts');
-        c.innerHTML = "";
-        document.getElementById('btnSuivant').style.display = "none";
+    function renderQuestion() {
+        const q = questions[currentStep];
+        document.getElementById('qTag').textContent = q.tag;
+        document.getElementById('qTitle').textContent = q.title;
+        document.getElementById('stepCounter').textContent = `${currentStep + 1} / ${questions.length}`;
+        
+        const progressPct = ((currentStep + 1) / questions.length) * 100;
+        document.getElementById('progressBar').style.width = `${progressPct}%`;
 
-        q.opts.forEach(o => {
-            let div = document.createElement('div');
-            div.className = "opt" + (ans[idx] === o.id ? " selected" : "");
-            div.innerText = o.id + ") " + o.l;
-            div.onclick = () => {
-                ans[idx] = o.id;
-                chargerQ();
-                document.getElementById('btnSuivant').style.display = "block";
-            };
-            c.appendChild(div);
+        const optionsContainer = document.getElementById('optionsList');
+        optionsContainer.innerHTML = '';
+
+        const currentAnswer = userAnswers[currentStep];
+
+        q.options.forEach(opt => {
+            const card = document.createElement('div');
+            card.className = `option-card ${currentAnswer && currentAnswer.id === opt.id ? 'selected' : ''}`;
+            card.onclick = () => selectOption(opt);
+
+            card.innerHTML = `
+                <div class="option-header">
+                    <span class="option-letter">${opt.id}</span>
+                    <span class="option-label">${opt.label}</span>
+                </div>
+                <div class="option-desc">${opt.desc}</div>
+            `;
+            optionsContainer.appendChild(card);
         });
+
+        document.getElementById('btnPrev').style.visibility = currentStep === 0 ? 'hidden' : 'visible';
+        document.getElementById('btnNext').disabled = !userAnswers.hasOwnProperty(currentStep);
     }
 
-    function suiv() {
-        if(idx < questions.length - 1) {
-            idx++;
-            chargerQ();
+    function selectOption(optionObj) {
+        userAnswers[currentStep] = optionObj;
+        renderQuestion();
+    }
+
+    function nextQuestion() {
+        if (currentStep < questions.length - 1) {
+            currentStep++;
+            renderQuestion();
         } else {
-            fin();
+            showResults();
         }
     }
 
-    function fin() {
-        document.getElementById('s2').classList.remove('active');
-        document.getElementById('s3').classList.add('active');
-        document.getElementById('msgFin').innerText = "Merci " + user.prenom + ", envoi des données en cours...";
+    function prevQuestion() {
+        if (currentStep > 0) {
+            currentStep--;
+            renderQuestion();
+        }
+    }
 
-        // URL GOOGLE SCRIPT ACTUELLE
+    function showResults() {
+        document.getElementById('screenQuestion').classList.remove('active');
+        document.getElementById('mainHeader').style.display = 'none';
+        document.getElementById('screenResults').classList.add('active');
+        document.getElementById('msgFin').textContent = `Merci ${userData.prenom}, vos réponses ont bien été enregistrées.`;
+
         const url = "https://script.google.com/macros/s/AKfycbxJthMTBxJpmViCkIRzNzpiqBF3-Nh3RkTAt6M0GS7-WOoyqblhDNFEE-pZ3QC34kaHgw/exec";
 
         let params = new URLSearchParams();
-        params.append("nom", user.nom);
-        params.append("prenom", user.prenom);
-        params.append("age", user.age);
-        params.append("metier", user.metier);
+        params.append("nom", userData.nom);
+        params.append("prenom", userData.prenom);
+        params.append("age", userData.age);
+        params.append("metier", userData.metier);
         params.append("profil", "Sondage Terminé");
 
-        for(let i=0; i<15; i++) {
-            params.append("q" + (i+1), ans[i] || "");
+        for (let i = 0; i < questions.length; i++) {
+            params.append("q" + (i + 1), userAnswers[i] ? userAnswers[i].id : "");
         }
 
         fetch(url, {
             method: "POST",
             mode: "no-cors",
             body: params
-        }).then(() => {
-            document.getElementById('msgFin').innerText = "Merci " + user.prenom + ", vos réponses sont enregistrées !";
-        }).catch(() => {
-            document.getElementById('msgFin').innerText = "Erreur d'envoi.";
-        });
+        }).catch(() => {});
     }
 </script>
 
