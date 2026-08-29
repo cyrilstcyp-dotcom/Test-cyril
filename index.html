@@ -46,7 +46,7 @@
 
         .app-container {
             width: 100%;
-            max-width: 520px;
+            max-width: 540px;
             min-height: 90vh;
             background: #0f172a;
             border-radius: 24px;
@@ -423,137 +423,137 @@
     const questions = [
         {
             tag: "1. L'Union européenne",
-            title: "Quel regard portez-vous sur le fonctionnement actuel et l'impact de l'Union européenne sur la souveraineté et l'économie ?",
+            title: "Quel regard portez-vous sur le fonctionnement et l'impact de l'Union européenne aujourd'hui ?",
             options: [
-                { id: "A", class: "opt-a", label: "Organisation imparfaite mais nécessaire", desc: "C'est un cadre de coopération pragmatique et stratégique utile (marché unique, euro, négociation internationale) malgré des lourdeurs." },
-                { id: "B", class: "opt-b", label: "Structure technocratique et destructrice", desc: "L'Union européenne entraîne une perte de souveraineté nationale, des normes étouffantes et une concurrence sociale et économique déloyale." },
-                { id: "C", class: "opt-c", label: "Projet fédéral indispensable pour l'avenir", desc: "C'est la seule échelle politique et économique efficace face aux défis globaux et aux puissances hégémoniques mondiales." }
+                { id: "A", class: "opt-a", label: "Une organisation imparfaite mais nécessaire", desc: "bien que la bureaucratie, les traités commerciaux et les dérives administratives posent de réels problèmes, la coopération européenne reste un atout global (ex. marché unique, monnaie euro, capacité de négociation face aux géants américain et chinois)." },
+                { id: "B", class: "opt-b", label: "Une structure destructrice et technocratique", desc: "l'UE sacrifie nos agriculteurs et notre industrie via la concurrence déloyale, impose des normes étouffantes et souffre de corruption (ex. accords de libre-échange comme le Mercosur en contradiction avec l'écologie locale, scandales de lobbyisme, perte de souveraineté nationale)." },
+                { id: "C", class: "opt-c", label: "Un projet indispensable pour l'avenir", desc: "la souveraineté nationale est insuffisante face aux grands défis mondiaux ; l'intégration européenne est la seule voie pour garantir la stabilité et la prospérité (ex. programmes de recherche communs, solidarité financière entre pays membres, normes sanitaires harmonisées)." }
             ]
         },
         {
-            tag: "2. Conflit Russie / Ukraine",
-            title: "Quelle doit être la position diplomatique et militaire stratégique de la France concernant le conflit en Ukraine ?",
+            tag: "2. Le conflit entre la Russie et l'Ukraine",
+            title: "Quelle est votre position concernant la guerre entre la Russie et l'Ukraine et le soutien à apporter ?",
             options: [
-                { id: "A", class: "opt-a", label: "Opposition au soutien militaire et sanctions", desc: "Arrêt immédiat de l'aide militaire et des sanctions économiques qui nuisent gravement aux intérêts et à l'économie nationaux." },
-                { id: "B", class: "opt-b", label: "Soutien total, massif et inconditionnel", desc: "Livraisons d'armes poussées et sanctions maximales pour garantir la défaite de l'agresseur et défendre les démocraties." },
-                { id: "C", class: "opt-c", label: "Soutien nuancé et recherche de compromis", desc: "Aide à la défense tout en privilégiant prioritairement la recherche active d'une solution diplomatique négociée pour stopper l'escalade." }
+                { id: "A", class: "opt-a", label: "Opposition au soutien occidental / Compréhension de la position russe", desc: "ce conflit ne nous regarde pas ou est provoqué par l'expansion de l'OTAN ; il faut cesser les sanctions et l'aide militaire qui nuisent aux intérêts des Français." },
+                { id: "B", class: "opt-b", label: "Soutien total et inconditionnel à l'Ukraine", desc: "il faut livrer toutes les armes nécessaires et appliquer des sanctions maximales contre la Russie pour défendre la liberté et la démocratie en Europe." },
+                { id: "C", class: "opt-c", label: "Soutien nuancé / Recherche de compromis", desc: "la Russie est l'agresseur, mais il faut limiter l'escalade militaire et privilégier au plus vite une solution diplomatique négociée, même si cela implique des concessions territoriales." }
             ]
         },
         {
-            tag: "3. Immigration & Identité",
-            title: "Quelle orientation globale convient-il de donner à la gestion des flux migratoires et des frontières ?",
+            tag: "3. L'immigration et l'identité nationale",
+            title: "Quelle est votre vision concernant la gestion des flux migratoires et l'intégration en France ?",
             options: [
-                { id: "A", class: "opt-a", label: "Encadrement strict et régulation", desc: "Nécessité de renforcer les contrôles aux frontières et de faire respecter strictement le cadre légal et républicain d'intégration." },
-                { id: "B", class: "opt-b", label: "Opportunité humaine et ouverture", desc: "L'immigration constitue un enrichissement culturel et économique ; il faut garantir un accueil humanisé et faciliter l'intégration." },
-                { id: "C", class: "opt-c", label: "Fermeture et priorité nationale", desc: "Arrêt quasi total des flux migratoires, expulsion systématique des clandestins et application du principe de préférence nationale." }
+                { id: "A", class: "opt-a", label: "Une nécessité à mieux encadrer", desc: "l'immigration peut apporter de la main-d'œuvre nécessaire, mais il faut renforcer le contrôle aux frontières et exiger un respect strict des règles et de la laïcité." },
+                { id: "B", class: "opt-b", label: "Une opportunité et un devoir", desc: "l'immigration enrichit la France culturellement et économiquement ; il faut humaniser l'accueil, régulariser et faciliter l'intégration." },
+                { id: "C", class: "opt-c", label: "Une menace majeure", desc: "il faut stopper quasi totalement l'immigration, expulser les personnes en situation irrégulière et appliquer la préférence nationale pour préserver l'identité et la sécurité du pays." }
             ]
         },
         {
-            tag: "4. Climat & Politique environnementale",
-            title: "Comment évaluez-vous la réalité du changement climatique et les politiques de transition écologique actuelles ?",
+            tag: "4. Le réchauffement climatique et le rôle du CO₂",
+            title: "Quelle est votre analyse sur la réalité du changement climatique et les politiques environnementales actuelles ?",
             options: [
-                { id: "A", class: "opt-a", label: "Prétexte fiscal et écologie punitive", desc: "Le climat est instrumentalise à des fins fiscales et réglementaires pour restreindre les libertés et surtaxer les citoyens." },
-                { id: "B", class: "opt-b", label: "Urgence absolue basée sur la science", desc: "Le réchauffement climatique dû aux activités humaines est une menace majeure imposant une décarbonation rapide de la société." },
-                { id: "C", class: "opt-c", label: "Adaptation pragmatique sans hystérie", desc: "Prise en compte des enjeux écologiques par l'innovation et la technologie sans sacrifier la compétitivité et le niveau de vie." }
+                { id: "A", class: "opt-a", label: "Une instrumentalisation politique et fiscale", desc: "si le climat varie, l'accusation du CO₂ sert surtout de prétexte pour lever de nouveaux impôts, créer un marché vert lucratif et restreindre les libertés citoyennes (ex. débat sur la chronologie CO₂/température issu des carottes glaciaires, taxe carbone, zones à faibles émissions (ZFE), contraintes sur les modes de vie)." },
+                { id: "B", class: "opt-b", label: "Une menace réelle causée par l'activité humaine", desc: "le consensus scientifique démontre que les émissions de CO₂ d'origine humaine sont le principal moteur du réchauffement, et il faut agir d'urgence en réduisant l'empreinte carbone pour éviter des catastrophes (ex. rapports du GIEC, développement des énergies renouvelables, fin des véhicules thermiques, normes d'isolement des logements)." },
+                { id: "C", class: "opt-c", label: "Un phénomène naturel complexe exagéré par le politique", desc: "le climat a toujours changé dans l'histoire de la Terre sous l'effet de facteurs astronomiques et solaires, et les mesures coercitives actuelles sont inefficaces tout en ruinant l'économie (ex. variations historiques de température comme l'optimum médiéval, inutilité des contraintes locales face aux émissions globales des pays émergents)." }
             ]
         },
         {
-            tag: "5. Rôle mondial des États-Unis",
-            title: "Quelle perception avez-vous du rôle géopolitique et de l'influence stratégique des États-Unis dans le monde ?",
+            tag: "5. Le rôle mondial des États-Unis",
+            title: "Comment percevez-vous l'influence internationale des États-Unis depuis ces dernières décennies ?",
             options: [
-                { id: "A", class: "opt-a", label: "Puissance hégémonique déstabilisatrice", desc: "Un rôle guidé exclusivement par la défense de leurs intérêts financiers et géopolitiques, souvent au détriment de la stabilité mondiale." },
-                { id: "B", class: "opt-b", label: "Partenaire stratégique aux intérêts variables", desc: "Une alliance militaire et économique utile mais nécessitant une autonomie de décision de la part des nations européennes." },
-                { id: "C", class: "opt-c", label: "Garant indispensable de l'ordre mondial", desc: "Une force de stabilité démocratique fondamentale face aux régimes autoritaires et aux nouvelles menaces mondiales." }
+                { id: "A", class: "opt-a", label: "Une puissance destabilisatrice au bilan lourd", desc: "leurs interventions extérieures ont souvent créé plus de désordre que de paix, au service exclusif de leurs intérêts économiques ou géopolitiques (ex. les guerres du Vietnam et d'Irak, les ingérences en Amérique latine, la gestion du dossier iranien)." },
+                { id: "B", class: "opt-b", label: "Un acteur pragmatique et ambivalent", desc: "ils agissent avant tout pour leurs intérêts stratégiques, ce qui amène du positif comme du négatif selon les époques (ex. créateurs du plan Marshall d'un côté, mais défenseurs du libre-échange à leur unique avantage de l'autre)." },
+                { id: "C", class: "opt-c", label: "Une force d'équilibre indispensable", desc: "c'est la seule puissance capable de maintenir un ordre mondial stable, d'assurer la sécurité de ses alliés et de faire contrepoids aux régimes autoritaires (ex. le débarquement de 1944, l'OTAN face à l'URSS, l'aide à l'Ukraine ou la défense de Taïwan)." }
             ]
         },
         {
-            tag: "6. Justice & Réponse pénale",
-            title: "Sur quelle priorité fondamentale le système judiciaire doit-il concentrer son action et ses réformes ?",
+            tag: "6. La justice et la réponse pénale",
+            title: "Quelle doit être la priorité du système judiciaire pour lutter contre la délinquance et la criminalité ?",
             options: [
-                { id: "A", class: "opt-a", label: "Réinsertion, prévention et éducation", desc: "Privilégier le suivi social, la prévention de la récidive et la prise en charge médicale ou éducative plutôt que la prison systématique." },
-                { id: "B", class: "opt-b", label: "Fermeté, sévérité et punition", desc: "Application de peines planchers, exécution intégrale des peines de prison et augmentation forte du nombre de places pénitentiaires." },
-                { id: "C", class: "opt-c", label: "Responsabilisation et réparation", desc: "Mise en avant de la réparation envers les victimes, du travail d'intérêt général et du remboursement des préjudices causés." }
+                { id: "A", class: "opt-a", label: "La prévention et la réinsertion", desc: "le tout-carcéral ne fonctionne pas et fabrique des récidivistes ; il faut privilégier l'accompagnement social, la prise en charge psychiatrique et les peines alternatives (ex. travaux d'intérêt général, suivi socio-éducatif renforcé, stages de responsabilisation)." },
+                { id: "B", class: "opt-b", label: "La fermeté et la dissuasion", desc: "il faut appliquer des peines planchers, construire plus de places de prison et exécuter systématiquement les sanctions pour rétablir l'autorité (ex. peines de prison ferme dès la première récidive, baisse de la majorité pénale, expulsion effective des délinquants étrangers)." },
+                { id: "C", class: "opt-c", label: "La responsabilisation et la réparation", desc: "la justice doit d'abord se concentrer sur les victimes et réparer directement les préjudices causés, tout en adaptant la sanction au profil de l'auteur (ex. indemnisation prioritaire, justice restaurative, aménagement de peine conditionné à la reprise d'un emploi ou d'une formation)." }
             ]
         },
         {
-            tag: "7. Équité de la Justice",
-            title: "Estimez-vous que les décisions de justice en France sont rendues avec impartialité envers tous les citoyens ?",
+            tag: "7. L'équité du système de justice",
+            title: "Pensez-vous qu'il existe une justice « à deux vitesses » en France selon le niveau de richesse ou de pouvoir des individus ?",
             options: [
-                { id: "A", class: "opt-a", label: "Justice inégalitaire et à deux vitesses", desc: "Indulgence systémique ou clémence envers les élites politiques et économiques contre sévérité pour les citoyens ordinaires." },
-                { id: "B", class: "opt-b", label: "Inégalité d'accès aux moyens de défense", desc: "Les décisions dépendent avant tout des capacités financières permettant de s'offrir les meilleurs conseils juridiques." },
-                { id: "C", class: "opt-c", label: "Institution équitable et indépendante", desc: "Les lois et les magistrats appliquent le droit avec la même rigueur quel que soit le statut ou la notoriété des prévenus." }
+                { id: "A", class: "opt-a", label: "Une justice structurellement inégalitaire", desc: "les élites bénéficient d'une indulgence systémique et de procédures interminables, tandis que la justice du quotidien est expéditive pour les citoyens ordinaires (ex. affaires de corruption ou de fraude fiscale géante soldées par des amendes transactionnelles sans prison, comparutions immédiates systématiques pour la délinquance de rue)." },
+                { id: "B", class: "opt-b", label: "Une justice inégale liée à la disparité des moyens d'action", desc: "l'inégalité ne vient pas du système lui-même, mais de la capacité des plus aisés à se payer les meilleurs services (ex. accès aux cabinets d'avocats les plus chevronnés capables de déceler des vices de forme, contre la surcharge des avocats commis d'office)." },
+                { id: "C", class: "opt-c", label: "Une justice qui reste globalement équitable et impartiale", desc: "la loi s'applique à tous de la même façon, les juges sont indépendants et les sanctions dépendent des faits, pas du statut (ex. condamnations effectives de ministres, de maires ou de grands patrons, aides juridictionnelles garanties pour les plus modestes)." }
             ]
         },
         {
-            tag: "8. Gestion sanitaire & Crise Covid-19",
-            title: "Quel bilan tirez-vous des décisions publiques et de la communication lors de la gestion de la crise sanitaire ?",
+            tag: "8. La gestion sanitaire, la communication et la vaccination",
+            title: "Quel bilan tirez-vous de la stratégie sanitaire, du discours officiel et de la communication durant la crise du Covid-19 ?",
             options: [
-                { id: "A", class: "opt-a", label: "Gestion pragmatique en situation d'urgence", desc: "Mesures adaptées et stratégie vaccinale efficaces ayant permis de protéger la santé publique et d'éviter l'effondrement hospitalier." },
-                { id: "B", class: "opt-b", label: "Dérive autoritaire et coercition", desc: "Utilisation abusive de la peur, atteintes disproportionnées aux libertés individuelles et pression vaccinale inacceptable." },
-                { id: "C", class: "opt-c", label: "Communication rigide et manque de transparence", desc: "Gestion centralisée excessive et manque d'écoute des voix contradictoires ayant abîmé la confiance entre la population et l'État." }
+                { id: "A", class: "opt-a", label: "Une gestion pragmatique face à une menace inédite", desc: "les autorités et les médias ont dû informer au jour le jour et adapter les consignes face à un virus mortel pour éviter le drame (ex. alerte sur la saturation des services de réanimation, incitation vaccinale pour protéger les plus fragiles, ajustement du discours au fil des progrès scientifiques)." },
+                { id: "B", class: "opt-b", label: "Une stratégie de manipulation par la peur", desc: "le pouvoir et la médecine officielle ont utilisé l'ingénierie sociale, la censure et de fausses représentations pour imposer un contrôle et la vaccination (ex. compteurs quotidiens de morts au JT, reportages à charge dans les hôpitaux, opacité sur les effets secondaires, volte-face sur la transmission, au contraire d'approches plus souples en Afrique ou en Amérique du Sud)." },
+                { id: "C", class: "opt-c", label: "Une communication de crise rigide et paternaliste", desc: "la volonté d'imposer un discours unique et le manque de transparence ont détruit la confiance, même si certaines mesures de précaution restaient fondées (ex. affirmations prématurées sur l'efficacité des vaccins, disqualification immédiate de toute piste alternative, lourdeur des contrôles et des attestations)." }
             ]
         },
         {
-            tag: "9. Conquête spatiale (Missions Apollo)",
-            title: "Quelle est votre analyse des premiers pas de l'Homme sur la Lune lors de la mission Apollo 11 en 1969 ?",
+            tag: "9. L'alunissage américain de 1969 et la conquête spatiale",
+            title: "Quelle est votre lecture de l'événement Apollo 11 et de l'arrivée de l'Homme sur la Lune en 1969 ?",
             options: [
-                { id: "A", class: "opt-a", label: "Mise en scène médiatique fabriquée", desc: "Événement totalement ou partiellement mis en scène en studio à des fins de propagande géopolitique durant la Guerre Froide." },
-                { id: "B", class: "opt-b", label: "Exploit scientifique et technologique réel", desc: "Victoire historique démontrée par des données incontestables, des échantillons lunaires et le consensus scientifique international." },
-                { id: "C", class: "opt-c", label: "Prouesse réelle mais abandonnée faute de rentabilité", desc: "Un succès technologique authentique dont la suite a été stoppée par le coût astronomique et le manque d'intérêt stratégique immédiat." }
+                { id: "A", class: "opt-a", label: "Une mise en scène de guerre froide", desc: "la victoire américaine a été fabriquée ou embellie en studio pour remporter la bataille idéologique contre l'URSS, ce qui explique les zones d'ombre, la perte de données et l'absence de retour humain depuis plus de 50 ans (ex. doutes soulevés sur les photographies, ombre et drapeau, théories d'un tournage sous la direction d'Hollywood)." },
+                { id: "B", class: "opt-b", label: "Une prouesse scientifique historique et avérée", desc: "les États-Unis ont réellement marché sur la Lune grâce à un investissement colossal, prouvé par des centaines de kilos de roches rapportées, les réflecteurs lasers toujours utilisés et le suivi radar des Soviétiques eux-mêmes (ex. programme Apollo ayant mobilisé 400 000 personnes, 6 missions réussies au total jusqu'en 1972)." },
+                { id: "C", class: "opt-c", label: "Un exploit réel à l'époque, mais aujourd'hui délaissé faute de priorité", desc: "les Américains y sont bien allés, mais l'absence de retour s'explique simplement par le coût financier astronomique, le risque humain et la fin de la compétition géopolitique avec les Soviétiques (ex. réorientation des budgets vers la station spatiale internationale et les navettes, puis essor du secteur privé aujourd'hui)." }
             ]
         },
         {
-            tag: "10. Médias & Liberté d'information",
-            title: "Quel niveau d'indépendance et de pluralisme attribuez-vous aux médias d'information traditionnels ?",
+            tag: "10. L'information, le contrôle des médias et la liberté d'expression",
+            title: "Comment percevez-vous l'indépendance des médias et le respect de la liberté d'expression en France ?",
             options: [
-                { id: "A", class: "opt-a", label: "Médias sous contrôle d'intérêts puissants", desc: "Information largement orientée ou censurée par les intérêts financiers des propriétaires de grands groupes et les subventions publiques." },
-                { id: "B", class: "opt-b", label: "Paysage sous menace des fausses informations", desc: "Des médias professionnels indispensables dont la rigueur est fragilisée par la désinformation massive sur les réseaux sociaux." },
-                { id: "C", class: "opt-c", label: "Espace d'information vaste et libre", desc: "Une liberté d'expression réelle et diversifiée permettant à chacun d'accéder à des sources d'information variées et critiques." }
+                { id: "A", class: "opt-a", label: "Une information sous contrôle et une censure d'État", desc: "le récit officiel est verrouillé par des médias subventionnés ou possédés par des milliardaires, tandis que le pouvoir ferme des chaînes, interdit les voix dissidentes et traque le « complotisme » (ex. subventions publiques massives aux grands journaux, fermeture de RT France ou C8, censure sur les réseaux sociaux, interdiction de spectacles hors-système)." },
+                { id: "B", class: "opt-b", label: "Une désinformation généralisée à réguler", desc: "les réseaux sociaux propagent des théories du complot et des fausses informations sans filtre, ce qui impose une régulation stricte et des sanctions pour préserver la démocratie (ex. algorithmes favorisant le clash, fausses nouvelles virales, ingérences étrangères étatiques, fermetures légitimes de chaînes hors-la-loi)." },
+                { id: "C", class: "opt-c", label: "Un paysage complexe où la liberté persiste", desc: "malgré les subventions, la concentration économique et la pression administrative, la France reste un État de droit où le citoyen peut accéder à des sources variées s'il prend la peine de croiser l'information (ex. essor des médias alternatifs sur internet, débats contradictoires, contrôle indépendant des tribunaux)." }
             ]
         },
         {
-            tag: "11. Souveraineté & Pouvoir politique",
-            title: "Quelle est la capacité réelle des dirigeants nationaux élus à mettre en œuvre leurs programmes ?",
+            tag: "11. Le rôle des hommes politiques et la souveraineté nationale",
+            title: "Quel regard portez-vous sur la capacité des dirigeants politiques français (de droite, de gauche ou du centre) à transformer réellement le pays ?",
             options: [
-                { id: "A", class: "opt-a", label: "Marge de manœuvre réelle mais encadrée", desc: "Les gouvernements conservent le pouvoir d'agir sur les compétences clés de l'État malgré les traités et accords internationaux." },
-                { id: "B", class: "opt-b", label: "Impuissance et dépossession du pouvoir", desc: "Les grandes décisions économiques et juridiques sont transférées à des instances non élues ou à des institutions supranationales." },
-                { id: "C", class: "opt-c", label: "Manque de volonté et de courage politique", desc: "Les leviers d'action existent mais les élus manquent de détermination pour imposer des changements profonds face aux blocages." }
+                { id: "A", class: "opt-a", label: "Une souveraineté partagée mais des marges de manœuvre réelles", desc: "les normes européennes fixent un cadre collectif indispensable au commerce, mais les gouvernements nationaux conservent un pouvoir majeur sur l'organisation de l'État et la société (ex. liberté de fixation du budget de la justice et de la police, choix du modèle de sécurité sociale, réformes des retraites ou de l'éducation nationale)." },
+                { id: "B", class: "opt-b", label: "Un rôle de théâtre impuissant", desc: "les gouvernants n'ont plus aucun réel pouvoir décisionnel car la quasi-totalité des lois, des traités commerciaux et des frontières dépend de Bruxelles, tandis que les vrais dissidents souverainistes qui proposent d'en sortir sont invisibilisés (ex. impossibilité de mettre des droits de douane unilatéraux sur la Chine, interdiction de bloquer les importations agricoles comme la viande brésilienne, rétablissement impossible des frontières nationales, boycott médiatique des figures du Frexit)." },
+                { id: "C", class: "opt-c", label: "Un système politique bloqué par le manque de volonté plus que par l'Europe", desc: "les élus manquent de courage ou d'ambition pour utiliser les leviers d'action existants, mais l'intégration européenne reste la seule échelle efficace pour peser face aux autres géants mondiaux (ex. négociations de directives européennes par nos ministres, dérogations nationales possibles, force de frappe commerciale commune)." }
             ]
         },
         {
-            tag: "12. Finance, Dette publique & Monnaie",
-            title: "Quelle est votre analyse de l'endettement de l'État et de l'évolution vers la disparition de l'argent physique ?",
+            tag: "12. Le système financier, la dette et la fin de l'argent liquide",
+            title: "Quel regard portez-vous sur le fonctionnement du système bancaire, le remboursement de la dette et la suppression progressive du cash ?",
             options: [
-                { id: "A", class: "opt-a", label: "Modernisation et gestion des investissements", desc: "La dette permet de financer les services publics et la dématérialisation monétaire simplifie les transactions et combat la fraude." },
-                { id: "B", class: "opt-b", label: "Gestion budgétaire irresponsable", desc: "L'accumulation continuelle de dettes publiques fait porter un risque majeur et injuste sur le niveau de vie des générations futures." },
-                { id: "C", class: "opt-c", label: "Outil de contrôle et de surveillance financière", desc: "La dette soumet le pays aux marchés financiers et la fin du liquide menace directement la liberté individuelle et la vie privée." }
+                { id: "A", class: "opt-a", label: "Un outil de souveraineté et de modernisation nécessaire", desc: "la dématérialisation des paiements simplifie le quotidien, aide à lutter contre la fraude fiscale, tandis que la dette publique permet de financer nos services publics et nos investissements d'avenir (ex. paiement par smartphone, traçabilité contre le grand banditisme, plans de relance et financement des hôpitaux ou des transports)." },
+                { id: "B", class: "opt-b", label: "Une dérive irresponsable liée au manque de rigueur de l'État", desc: "le problème principal vient de l'incapacité des politiques à gérer le budget national, ce qui crée une dette énorme transmise aux générations futures sans pour autant améliorer la gestion du pays (ex. hausse continuelle des taxes et impôts, accumulation des déficits publics, gaspillage de l'argent public)." },
+                { id: "C", class: "opt-c", label: "Un système d'asservissement et de contrôle total", desc: "l'endettement auprès des marchés financiers enrichit les banques privées qui créent l'argent à partir de rien, tandis que la fin du cash et l'euro numérique permettront de surveiller ou bloquer les comptes des citoyens (ex. milliards d'intérêts versés aux banques privées, imposition de l'austérité, risque de gel des comptes bancaires en cas de contestation politique)." }
             ]
         },
         {
-            tag: "13. Identité numérique & Surveillance",
-            title: "Quel regard portez-vous sur le développement des technologies de reconnaissance biométrique et d'identité numérique ?",
+            tag: "13. L'identité numérique et le crédit social",
+            title: "Que pensez-vous du déploiement des outils de surveillance numérique et d'identification biométrique (portefeuille d'identité numérique, reconnaissance faciale) ?",
             options: [
-                { id: "A", class: "opt-a", label: "Risque de contrôle social généralisé", desc: "Ces technologies ouvrent la voie à une surveillance permanente des citoyens et à une restriction progressive des libertés publiques." },
-                { id: "B", class: "opt-b", label: "Outils de sécurité et de modernisation utiles", desc: "Des avancées nécessaires pour lutter efficacement contre la criminalité, la fraude d'identité et simplifier les démarches quotidiennes." },
-                { id: "C", class: "opt-c", label: "Évolution inévitable nécessitant un encadrement strict", desc: "Des outils pratiques et inéluctables qu'il convient de réguler rigoureusement par des lois d'éthique et la protection des données." }
+                { id: "A", class: "opt-a", label: "Une dérive vers une société de contrôle total", desc: "sous couvert de sécurité et de simplification, ces technologies pavent la voie à un système de crédit social où l'accès aux services dépend du comportement et du respect des règles du pouvoir (ex. application d'identité numérique européenne, caméras algorithmiques dans la rue, passeports numériques multi-usages)." },
+                { id: "B", class: "opt-b", label: "Des outils indispensables pour la sécurité et la modernisation", desc: "la technologie doit aider les forces de l'ordre à lutter contre le crime et simplifier les démarches administratives dans un monde de plus en plus dématérialisé (ex. gain de temps pour les papiers officiels, identification rapide des criminels recherchés, sécurisation des transactions)." },
+                { id: "C", class: "opt-c", label: "Un progrès technique acceptable sous réserve de garanties juridiques", desc: "ces innovations sont inévitables, mais elles doivent être strictement encadrées par des organismes indépendants pour éviter tout dérapage autoritaire (ex. contrôle par la CNIL, interdiction de la notation des citoyens, consentement individuel obligatoire)." }
             ]
         },
         {
-            tag: "14. Agro-industrie & Santé publique",
-            title: "Quelle appréciation faites-vous de la qualité globale de l'alimentation industrielle et du système de santé ?",
+            tag: "14. La souveraineté alimentaire, la santé et l'agro-industrie",
+            title: "Quel regard portez-vous sur la qualité de notre alimentation et la gestion de la santé publique ?",
             options: [
-                { id: "A", class: "opt-a", label: "Prédominance des profits sur la santé", desc: "La priorité donnée aux intérêts industriels et pharmaceutiques favorise la malbouffe, la surmédication et les maladies chroniques." },
-                { id: "B", class: "opt-b", label: "Système hautement sécurisé et performant", desc: "Les normes sanitaires actuelles sont parmi les plus strictes au monde et la médecine moderne permet un allongement continu de l'espérance de vie." },
-                { id: "C", class: "opt-c", label: "Responsabilité individuelle avant tout", desc: "L'offre alimentaire et médicale est vaste ; il appartient à chaque citoyen de faire des choix de consommation avisés et équilibrés." }
+                { id: "A", class: "opt-a", label: "Une emprise de l'industrie chimique et pharmacologique", desc: "la recherche de profits industriels passe avant la santé publique, favorisant la nourriture ultra-transformée et la surmédication au détriment de la prévention et du naturel (ex. empoisonnement par les pesticides et additifs, lobbying des géants de l'agroalimentaire, marginalisation des médecines naturelles et de l'autonomie sanitaire)." },
+                { id: "B", class: "opt-b", label: "Un système de santé et d'alimentation parmi les plus sûrs au monde", desc: "la réglementation stricte et la médecine moderne ont permis d'allonger considérablement l'espérance de vie et d'éradiquer de nombreuses maladies (ex. contrôles sanitaires stricts sur les aliments, accès universel aux traitements médicaux de pointe, progrès de la recherche médicale)." },
+                { id: "C", class: "opt-c", label: "Une responsabilité individuelle face à des dérives industrielles", desc: "le système offre une abondance inédite à bas coût, mais il appartient à chaque citoyen de s'informer et de faire les bons choix pour sa propre santé (ex. essor du bio, développement du fait-maison, choix de son parcours de soins)." }
             ]
         },
         {
-            tag: "15. Éducation nationale & Instruction",
-            title: "Quel bilan dressez-vous du rôle et de la qualité de l'enseignement au sein de l'école publique ?",
+            tag: "15. L'éducation, la jeunesse et la fabrique du consentement",
+            title: "Quelle est selon vous la mission principale accomplie par l'Éducation nationale aujourd'hui ?",
             options: [
-                { id: "A", class: "opt-a", label: "Baisse de niveau et dérive idéologique", desc: "L'abandon de l'exigence académique et l'introduction de débats sociétaux fragilisent la transmission des savoirs fondamentaux." },
-                { id: "B", class: "opt-b", label: "Socle républicain d'égalité des chances", desc: "L'école reste une institution fondamentale assurant la gratuité, la mixité sociale et l'apprentissage des valeurs de la République." },
-                { id: "C", class: "opt-c", label: "Système rigide nécessitant une modernisation", desc: "L'organisation actuelle est trop centralisée et peine à s'adapter aux nouveaux défis numériques et aux besoins individuels des élèves." }
+                { id: "A", class: "opt-a", label: "Un formatage idéologique et un nivellement par le bas", desc: "au lieu de transmettre le savoir et l'esprit critique, l'école publique fabrique des citoyens obéissants et diffuse des idéologies sociétales au détriment des fondamentaux (ex. baisse du niveau en français et en maths, promotion de théories sociétales dès le primaire, suppression des filières d'excellence)." },
+                { id: "B", class: "opt-b", label: "Un pilier républicain d'égalité des chances", desc: "l'école reste le seul endroit qui garantit l'instruction gratuite pour tous, la mixité sociale et l'apprentissage des valeurs de la République (ex. gratuité des manuels et de la scolarité, accès élargi à l'enseignement supérieur, lutte contre l'illettrisme)." },
+                { id: "C", class: "opt-c", label: "Une institution dépassée qui n'adapte plus les jeunes au monde réel", desc: "le système est trop rigide et centralisé, incapable de développer la créativité, l'autonomie financière et les compétences concrètes nécessaires à la vie adulte (ex. absence d'enseignement de la gestion financière ou du droit quotidien, cours magistraux inadaptés aux nouveaux enjeux)." }
             ]
         }
     ];
@@ -589,7 +589,7 @@
             card.innerHTML = `
                 <div class="option-header">
                     <span class="option-letter">Option ${opt.id}</span>
-                    <span class="option-label">${opt.label}</span>
+                    <span class="option-label">${opt.label} :</span>
                 </div>
                 <div class="option-desc">${opt.desc}</div>
             `;
