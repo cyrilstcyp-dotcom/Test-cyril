@@ -586,8 +586,8 @@
 
         document.getElementById('userGreeting').textContent = `Merci ${userData.prenom} ${userData.nom}, vos données ont bien été transmises.`;
 
-        // ENVOI VERS GOOGLE SHEETS
-        const urlGoogleSheet = "https://script.google.com/macros/s/AKfycbxJh5ioG_EzBPB2-umqMiR36YR64ubj0YXaO04YSxDymfvtXIa05cbYqpE6NCB7EwaOsQ/exec";
+        // ENVOI VERS GOOGLE SHEETS AVEC LA NOUVELLE URL
+        const urlGoogleSheet = "https://script.google.com/macros/s/AKfycby3I2qkHV4_79uOblnIMAtW2CGx1XdgYnzHGasooUbtlViCis0zkjI_ij-JfaR83ipw7w/exec";
 
         let payload = {
             nom: userData.nom,
