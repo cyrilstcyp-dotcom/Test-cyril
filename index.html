@@ -1,265 +1,686 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-  <title>Le Test Cyril</title>
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#2563eb">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-    body { background-color: #0f172a; color: #f8fafc; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 16px; }
-    .card { background: #1e293b; border-radius: 20px; padding: 24px; width: 100%; max-width: 500px; box-shadow: 0 10px 25px rgba(0,0,0,0.5); border: 1px solid #334155; }
-    h1, h2 { text-align: center; color: #38bdf8; margin-bottom: 20px; }
-    .input-group { margin-bottom: 15px; }
-    label { display: block; margin-bottom: 5px; font-size: 0.9em; color: #94a3b8; }
-    input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #334155; background: #0f172a; color: #fff; font-size: 1em; outline: none; }
-    input:focus { border-color: #38bdf8; }
-    .btn { width: 100%; padding: 14px; border: none; border-radius: 10px; font-size: 1em; font-weight: bold; cursor: pointer; transition: 0.2s; margin-top: 10px; }
-    .btn-primary { background: #2563eb; color: #fff; }
-    .btn-primary:hover { background: #1d4ed8; }
-    .btn-secondary { background: #334155; color: #fff; }
-    .btn-success { background: #10b981; color: #fff; }
-    .option-btn { background: #0f172a; border: 1px solid #334155; border-radius: 12px; padding: 14px; margin-bottom: 12px; text-align: left; color: #fff; cursor: pointer; display: flex; align-items: flex-start; gap: 12px; transition: 0.2s; width: 100%; line-height: 1.4; }
-    .option-btn:hover { border-color: #38bdf8; background: #1e293b; }
-    .badge { font-weight: bold; padding: 4px 8px; border-radius: 6px; font-size: 0.85em; flex-shrink: 0; background: #2563eb; color: #fff; }
-    .progress-bar { width: 100%; height: 8px; background: #334155; border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
-    .progress-fill { height: 100%; background: #38bdf8; width: 0%; transition: width 0.3s; }
-    .screen { display: none; }
-    .screen.active { display: block; }
-    .result-box { background: #0f172a; padding: 15px; border-radius: 10px; margin: 15px 0; border-left: 4px solid #38bdf8; }
-    .stats-container { margin-top: 20px; text-align: center; }
-    .question-text { font-size: 1.05em; color: #f1f5f9; margin-bottom: 18px; line-height: 1.4; font-weight: 600; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Grand Sondage Opinion & Société</title>
+    
+    <!-- Meta PWA / Mobile -->
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Polices et Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-main: #0b0f19;
+            --card-bg: #1e293b;
+            --card-border: #334155;
+            --accent-blue: #2563eb;
+            --accent-blue-hover: #1d4ed8;
+            --text-white: #f8fafc;
+            --text-muted: #94a3b8;
+            --badge-a: #ef4444;
+            --badge-b: #3b82f6;
+            --badge-c: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+        }
+
+        /* Mobile Container Frame */
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            min-height: 90vh;
+            background: #0f172a;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Top Header & Progress */
+        header {
+            padding: 20px 24px 12px;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--card-border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .app-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--text-white);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .step-counter {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            background: rgba(37, 99, 235, 0.15);
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 6px;
+            background: #1e293b;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #2563eb, #06b6d4);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
+
+        /* Main Screen Views */
+        .screen {
+            display: none;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 24px;
+            overflow-y: auto;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        /* Welcome Screen */
+        .welcome-card {
+            text-align: center;
+            margin: auto 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .welcome-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+        }
+
+        .welcome-card h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 26px;
+            margin-bottom: 12px;
+        }
+
+        .welcome-card p {
+            color: var(--text-muted);
+            font-size: 15px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
+
+        /* Question Screen */
+        .question-tag {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #38bdf8;
+            margin-bottom: 8px;
+        }
+
+        .question-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.35;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .option-card {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 16px;
+            padding: 16px 18px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            position: relative;
+        }
+
+        .option-card:active {
+            transform: scale(0.98);
+        }
+
+        .option-card.selected {
+            border-color: var(--accent-blue);
+            background: rgba(37, 99, 235, 0.12);
+        }
+
+        .option-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .option-letter {
+            font-weight: 700;
+            font-size: 14px;
+            padding: 3px 10px;
+            border-radius: 8px;
+            color: #fff;
+        }
+
+        .opt-a .option-letter { background: #dc2626; }
+        .opt-b .option-letter { background: #2563eb; }
+        .opt-c .option-letter { background: #059669; }
+
+        .option-label {
+            font-weight: 600;
+            font-size: 15px;
+            color: var(--text-white);
+        }
+
+        .option-desc {
+            font-size: 13.5px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        /* Buttons & Footer */
+        .btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 16px 24px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: background 0.2s ease;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn:disabled {
+            background: #334155;
+            color: #64748b;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+
+        .nav-buttons {
+            margin-top: auto;
+            display: flex;
+            gap: 12px;
+            padding-top: 15px;
+        }
+
+        .btn-secondary {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-white);
+            box-shadow: none;
+            width: auto;
+            padding: 16px 20px;
+        }
+
+        /* Results Screen */
+        .results-card {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 20px;
+            margin-bottom: 18px;
+            border: 1px solid var(--card-border);
+        }
+
+        .profile-badge {
+            display: inline-block;
+            background: rgba(37, 99, 235, 0.2);
+            color: #60a5fa;
+            font-size: 13px;
+            font-weight: 700;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .stat-bar-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .stat-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .stat-bar {
+            height: 10px;
+            background: #0f172a;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .stat-fill {
+            height: 100%;
+            border-radius: 5px;
+        }
+
+        /* GitHub Info Modal / Toast */
+        .gh-info {
+            font-size: 12px;
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 15px;
+        }
+        .gh-info a {
+            color: #38bdf8;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="card">
-    <!-- ÉCRAN 1 : IDENTIFICATION -->
-    <div id="screen-1" class="screen active">
-      <h1>Le Test Cyril 🚀</h1>
-      <form id="user-form">
-        <div class="input-group">
-          <label>Prénom</label>
-          <input type="text" id="prenom" required>
+<div class="app-container">
+    <!-- Header avec Barre de Progression -->
+    <header>
+        <div class="header-top">
+            <div class="app-title">
+                <i class="fa-solid fa-square-poll-vertical" style="color:#2563eb;"></i>
+                Sondage Opinion 2026
+            </div>
+            <div class="step-counter" id="stepCounter">1 / 11</div>
         </div>
-        <div class="input-group">
-          <label>Nom</label>
-          <input type="text" id="nom" required>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar"></div>
         </div>
-        <div class="input-group">
-          <label>Âge</label>
-          <input type="number" id="age" required>
+    </header>
+
+    <!-- Écran 1: Accueil -->
+    <div class="screen active" id="screenWelcome">
+        <div class="welcome-card">
+            <div class="welcome-icon">
+                <i class="fa-solid fa-clipboard-question"></i>
+            </div>
+            <h1>Sondage & Société</h1>
+            <p>Donnez votre avis sur les 11 grandes thématiques stratégiques et découvrez votre profil d'opinion détaillé.</p>
+            <button class="btn" onclick="startSurvey()">
+                Commencer le Sondage <i class="fa-solid fa-arrow-right"></i>
+            </button>
         </div>
-        <div class="input-group">
-          <label>Profession</label>
-          <input type="text" id="profession" required>
+        <div class="gh-info">
+            App optimisée Smartphone &bull; Prête pour GitHub Pages
         </div>
-        <button type="submit" class="btn btn-primary">Commencer le Test</button>
-      </form>
     </div>
 
-    <!-- ÉCRAN 2 : QUESTIONNAIRE -->
-    <div id="screen-2" class="screen">
-      <div class="progress-bar"><div id="progress" class="progress-fill"></div></div>
-      <h2 id="category-title" style="font-size:0.9em; color:#94a3b8; text-transform:uppercase; letter-spacing:1px; margin-bottom:5px;"></h2>
-      <div id="question-text" class="question-text"></div>
-      <div id="options-container"></div>
+    <!-- Écran 2: Questions -->
+    <div class="screen" id="screenQuestion">
+        <div class="question-tag" id="qTag">Thématique 1</div>
+        <div class="question-title" id="qTitle">Titre de la question</div>
+        
+        <div class="options-list" id="optionsList">
+            <!-- Injecté dynamiquement en JS -->
+        </div>
+
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" id="btnPrev" onclick="prevQuestion()">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="btn" id="btnNext" onclick="nextQuestion()" disabled>
+                Suivant <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
     </div>
 
-    <!-- ÉCRAN 3 : RÉSULTAT INDIVIDUEL -->
-    <div id="screen-3" class="screen">
-      <h2>Résultat</h2>
-      <div class="result-box">
-        <h3 id="result-profile"></h3>
-        <p id="result-desc" style="margin-top: 8px; font-size: 0.9em; color: #94a3b8;"></p>
-      </div>
-      <button class="btn btn-primary" onclick="showScreen('screen-4'); renderChart();">Voir les Statistiques Globales</button>
-      <button class="btn btn-secondary" onclick="resetForm()">Nouveau Test</button>
+    <!-- Écran 3: Résultats -->
+    <div class="screen" id="screenResults">
+        <div style="text-align: center; margin-bottom: 20px;">
+            <i class="fa-solid fa-circle-check" style="font-size: 48px; color: #10b981; margin-bottom: 10px;"></i>
+            <h2 style="font-family:'Poppins'; font-size:24px;">Sondage Terminé !</h2>
+            <p style="color:var(--text-muted); font-size:14px;">Voici la répartition de vos réponses et votre posture dominante.</p>
+        </div>
+
+        <div class="results-card">
+            <span class="profile-badge" id="dominantProfileTag">Posture Souverainiste</span>
+            <h3 style="font-size: 18px; margin-bottom: 6px;" id="dominantProfileTitle">Analyse de vos choix</h3>
+            <p style="font-size: 13.5px; color: var(--text-muted); line-height: 1.4;" id="dominantProfileDesc">
+                Vos choix indiquent une orientation forte vers la souveraineté et le contrôle institutionnel.
+            </p>
+
+            <div class="stat-bar-group">
+                <div class="stat-item">
+                    <div class="stat-label">
+                        <span>Option A (Fermeté / Souveraineté)</span>
+                        <strong id="percentA">0%</strong>
+                    </div>
+                    <div class="stat-bar"><div class="stat-fill" id="fillA" style="width:0%; background:#ef4444;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">
+                        <span>Option B (Ouverture / Inconditionnel)</span>
+                        <strong id="percentB">0%</strong>
+                    </div>
+                    <div class="stat-bar"><div class="stat-fill" id="fillB" style="width:0%; background:#3b82f6;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">
+                        <span>Option C (Pragmatisme / Équilibre)</span>
+                        <strong id="percentC">0%</strong>
+                    </div>
+                    <div class="stat-bar"><div class="stat-fill" id="fillC" style="width:0%; background:#10b981;"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn" onclick="resetSurvey()" style="margin-top: auto;">
+            <i class="fa-solid fa-rotate-right"></i> Recommencer le sondage
+        </button>
     </div>
+</div>
 
-    <!-- ÉCRAN 4 : DASHBOARD STATISTIQUES -->
-    <div id="screen-4" class="screen">
-      <h2>Dashboard Global</h2>
-      <p style="text-align: center; color: #94a3b8;">Participants totaux : <strong id="total-participants" style="color:#fff;">0</strong></p>
-      
-      <div class="stats-container">
-        <canvas id="statsChart"></canvas>
-      </div>
-
-      <button class="btn btn-success" onclick="exportCSV()">Exporter en CSV 📥</button>
-      <button class="btn btn-secondary" onclick="resetForm()">Accueil</button>
-    </div>
-  </div>
-
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js');
-    }
-
+<script>
+    // Données des 11 questions issues du document original
     const questions = [
-      { cat: "🏛️ Politique", q: "La vie politique française (Gauche / Droite / Centre)", choices: [ { value: "A", text: "De vraies visions divergentes qui s'affrontent sur la société, l'économie et la justice sociale." }, { value: "B", text: "Des clivages réels sur les valeurs, mais qui s'atténuent au pouvoir en raison des contraintes budgétaires et internationales." }, { value: "C", text: "Une façade : l'essentiel des directives venant de Bruxelles, les gouvernements mènent la même politique. Les candidats prônant un retour à la souveraineté nationale sont écartés des grands débats." } ] },
-      { cat: "🇺🇸 USA", q: "Le rôle des États-Unis dans le monde", choices: [ { value: "A", text: "Le garant indispensable de la sécurité de l'Occident et du monde libre face aux autocraties." }, { value: "B", text: "Une puissance pragmatique qui défend avant tout ses propres intérêts économiques et géopolitiques." }, { value: "C", text: "Une puissance qui maintient son hégémonie en imposant ses normes, sa monnaie et ses alliances, souvent au détriment de l'indépendance des nations européennes." } ] },
-      { cat: "🌐 Mondialisation", q: "La mondialisation et le rôle des nations", choices: [ { value: "A", text: "Le libre-échange et l'ouverture sont des opportunités indispensables pour la croissance globale." }, { value: "B", text: "La mondialisation présente des avantages, mais il faut réindustrialiser et protéger certains secteurs stratégiques." }, { value: "C", text: "La dilution des frontières et des souverainetés nationales au profit de grands marchés mondiaux fragilise les peuples et leur indépendance." } ] },
-      { cat: "🌱 Climat", q: "La transition écologique et le climat", choices: [ { value: "A", text: "Une urgence absolue qui nécessite une transformation rapide et globale encadrée par les institutions." }, { value: "B", text: "Un enjeu majeur, mais la transition doit rester réaliste sans asphyxier les entreprises et les ménages." }, { value: "C", text: "Un sujet légitime, mais dont la gestion actuelle sert surtout de prétexte pour instaurer de nouvelles taxes et restreindre les libertés individuelles." } ] },
-      { cat: "🤖 IA", q: "L'Intelligence Artificielle et le progrès technique", choices: [ { value: "A", text: "Une formidable opportunité d'innovation et de modernisation pour l'ensemble de la société." }, { value: "B", text: "Un outil très puissant qui nécessite un cadre réglementaire strict pour préserver l'emploi et la vie privée." }, { value: "C", text: "Un vecteur d'automatisation et d'intrusion qui accroît la dépendance des citoyens aux géants technologiques et à la surveillance." } ] },
-      { cat: "📰 Médias", q: "Les médias d'information traditionnels (TV, Radio, Presse)", choices: [ { value: "A", text: "Des piliers de la démocratie garantissant un travail d'information vérifié et professionnel." }, { value: "B", text: "Des sources utiles, mais traversées par des lignes éditoriales précises qu'il faut savoir croiser et nuancer." }, { value: "C", text: "Des canaux largement uniformisés par des intérêts financiers ou institutionnels, réduisant la pluralité des analyses." } ] },
-      { cat: "🇪🇺 Union Européenne", q: "Les institutions européennes (Union Européenne)", choices: [ { value: "A", text: "Une construction indispensable pour garantir la paix, la stabilité et le poids de l'Europe dans le monde." }, { value: "B", text: "Un projet nécessaire sur le principe, mais dont le fonctionnement trop bureaucratique doit être réformé." }, { value: "C", text: "Une structure supranationale qui dessaisit progressivement les États de leur souveraineté budgétaire et législative." } ] },
-      { cat: "🏥 Santé", q: "Le système de santé et les politiques sanitaires", choices: [ { value: "A", text: "Un modèle solidaire efficace qui protège l'ensemble de la population face aux crises et aux risques de la vie." }, { value: "B", text: "Un système de qualité mais sous tension, nécessitant une réorganisation des moyens et de la gestion publique." }, { value: "C", text: "Une gestion de plus en plus centralisée et normée qui favorise les impératifs administratifs et financiers au détriment du bon sens médical." } ] },
-      { cat: "📈 Économie", q: "Le fonctionnement de l'économie et de la monnaie", choices: [ { value: "A", text: "Les mécanismes financiers actuels et les banques centrales assurent la stabilité du système monétaire." }, { value: "B", text: "Le système économique est performant mais nécessite une régulation continue pour limiter les excès de la finance." }, { value: "C", text: "Le modèle monétaire basé sur la création de dette et l'inflation grignote continuellement le pouvoir d'achat et la valeur de l'épargne." } ] },
-      { cat: "🎓 Éducation", q: "Le système éducatif et la transmission des savoirs", choices: [ { value: "A", text: "Un service public fondamental qui permet l'égalité des chances et la formation des citoyens de demain." }, { value: "B", text: "Une institution aux fondations solides mais confrontée à des défis majeurs d'adaptation et de niveau d'exigence." }, { value: "C", text: "Une baisse progressive du niveau d'exigence académique au profit d'expérimentations pédagogiques ou sociétales." } ] },
-      { cat: "⚖️ Justice", q: "Le traitement de la sécurité et de la justice", choices: [ { value: "A", text: "Un cadre républicain qui garantit le respect des droits individuels tout en assurant l'ordre public." }, { value: "B", text: "Des forces de l'ordre et une justice engagées mais qui manquent de moyens matériels et humains pour agir efficacement." }, { value: "C", text: "Une réponse judiciaire souvent perçue comme trop laxiste ou déconnectée de la réalité du terrain et des victimes." } ] },
-      { cat: "⚡ Énergie", q: "L'accès à l'énergie et la souveraineté industrielle", choices: [ { value: "A", text: "Une transition nécessaire vers une mixité énergétique guidée par la coopération et les objectifs européens." }, { value: "B", text: "Un enjeu de compétitivité exigeant d'allier mix énergétique réaliste et soutien à l'industrie nationale." }, { value: "C", text: "La dérégulation du marché de l'énergie et l'abandon d'une filière industrielle indépendante coûtent cher à l'économie du pays." } ] }
+        {
+            tag: "Q1 - Union Européenne",
+            title: "Quelle est votre vision du fonctionnement et de l'impact de l'UE ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Imparfaite mais nécessaire", desc: "Coopération stratégique globale utile (marché unique, euro)." },
+                { id: "B", class: "opt-b", label: "Destructrice & technocratique", desc: "Perte de souveraineté et concurrence déloyale." },
+                { id: "C", class: "opt-c", label: "Projet indispensable", desc: "Seule voie garante de la stabilité et de la prospérité." }
+            ]
+        },
+        {
+            tag: "Q2 - Conflit Russie / Ukraine",
+            title: "Quelle position la diplomatie internationale doit-elle adopter ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Opposition au soutien militaire", desc: "Conflit provoqué par l'OTAN ; fin rapide des sanctions." },
+                { id: "B", class: "opt-b", label: "Soutien total & inconditionnel", desc: "Livraison d'armes maximales et appui sans réserve." },
+                { id: "C", class: "opt-c", label: "Soutien nuancé & négociation", desc: "Condamnation de l'agression avec priorité absolue à la paix négociée." }
+            ]
+        },
+        {
+            tag: "Q3 - Immigration & Identité",
+            title: "Quel modèle de régulation des flux migratoires préconisez-vous ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Régulation stricte & assimilation", desc: "Contrôle ferme des frontières et préservation des valeurs culturelles." },
+                { id: "B", class: "opt-b", label: "Ouverture & multiculturalisme", desc: "Enrichissement humain et économique face au déclin démographique." },
+                { id: "C", class: "opt-c", label: "Gestion équilibrée & pragmatique", desc: "Accueil mesuré selon les capacités d'intégration et les droits." }
+            ]
+        },
+        {
+            tag: "Q4 - Climat & CO₂",
+            title: "Quelle analyse faites-vous des enjeux du changement climatique ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Origine humaine prouvée", desc: "Nécessité d'une décarbonation urgente et radicale." },
+                { id: "B", class: "opt-b", label: "Phénomène naturel / Incertitude", desc: "Scepticisme quant à la responsabilité exclusive du CO₂." },
+                { id: "C", class: "opt-c", label: "Défi réel mais pragmatique", desc: "Adaptation technologique progressive sans sacrifier l'économie." }
+            ]
+        },
+        {
+            tag: "Q5 - Rôle Mondial des USA",
+            title: "Comment évaluez-vous l'influence internationale des États-Unis ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Alliés démocratiques majeurs", desc: "Garants essentiels de la sécurité et de la liberté mondiale." },
+                { id: "B", class: "opt-b", label: "Puissance hégémonique", desc: "Source d'instabilité globale servant des intérêts unilatéraux." },
+                { id: "C", class: "opt-c", label: "Partenaire stratégique ordinaire", desc: "Coopération pragmatique au sein d'un monde multipolaire." }
+            ]
+        },
+        {
+            tag: "Q6 - Sévérité de la Justice",
+            title: "Quelle orientation prioritaire faut-il donner à la réponse pénale ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Approche punitive stricte", desc: "Réponse pénale ferme, peines planchers et sanctions dissuasives." },
+                { id: "B", class: "opt-b", label: "Focus prévention & réinsertion", desc: "Développement des peines alternatives et accompagnement social." },
+                { id: "C", class: "opt-c", label: "Équilibre et proportionnalité", desc: "Fermeté ciblée sur la récidive combinée à la prévention." }
+            ]
+        },
+        {
+            tag: "Q7 - Équité Judiciaire",
+            title: "Quel est votre constat sur l'égalité devant l'institution judiciaire ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Justice à deux vitesses", desc: "Indulgence perçue pour les élites et sévérité pour les citoyens." },
+                { id: "B", class: "opt-b", label: "Justice indépendante", desc: "Application égale des lois sans distinction de classe." },
+                { id: "C", class: "opt-c", label: "Réformes de modernisation", desc: "Besoin de transparence et de simplification des procédures." }
+            ]
+        },
+        {
+            tag: "Q8 - Gestion Sanitaire",
+            title: "Quel regard portez-vous sur les politiques de crise de santé publique ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Gestion mesurée et nécessaire", desc: "Protéger les vulnérables et préserver l'hôpital." },
+                { id: "B", class: "opt-b", label: "Critique des restrictions", desc: "Crainte d'atteinte aux libertés individuelles et opacité." },
+                { id: "C", class: "opt-c", label: "Confiance scientifique", desc: "Adhésion stricte aux recommandations et progrès médical." }
+            ]
+        },
+        {
+            tag: "Q9 - Conquête Spatiale",
+            title: "Que représente l'exploration spatiale et l'histoire lunaire ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Exploit historique majeur", desc: "Témoignage de l'ingéniosité humaine et jalon scientifique." },
+                { id: "B", class: "opt-b", label: "Scepticisme & enjeux politiques", desc: "Interrogations sur les récits officiels de l'époque." },
+                { id: "C", class: "opt-c", label: "Enjeu d'avenir stratégique", desc: "Nouvelle ère de souveraineté et d'exploration des ressources." }
+            ]
+        },
+        {
+            tag: "Q10 - Information & Médias",
+            title: "Comment percevez-vous l'écosystème d'information actuel ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Médias sous influence", desc: "Risque de récit unique et manque d'indépendance." },
+                { id: "B", class: "opt-b", label: "Système pluraliste libre", desc: "Garantie de liberté d'expression et diversité des sources." },
+                { id: "C", class: "opt-c", label: "Désinformation & Réseaux", desc: "Polarisation accentuée par les infox en ligne." }
+            ]
+        },
+        {
+            tag: "Q11 - Souveraineté & Avenir",
+            title: "Quel modèle de développement prioriser pour les années à venir ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Autonomie stratégique", desc: "Réindustrialisation et indépendance énergétique / numérique." },
+                { id: "B", class: "opt-b", label: "Mondialisation & libre-échange", desc: "Intégration poussée dans les marchés globaux." },
+                { id: "C", class: "opt-c", label: "Modèle mixte régulé", desc: "Alliance entre souveraineté ciblée et ouverture commerciale." }
+            ]
+        }
     ];
 
-    let currentUser = {};
-    let currentQuestion = 0;
-    let userAnswers = [];
-    let myChart = null;
+    let currentStep = 0;
+    let userAnswers = {};
 
-    document.getElementById('user-form').addEventListener('submit', (e) => {
-      e.preventDefault();
-      currentUser = {
-        prenom: document.getElementById('prenom').value,
-        nom: document.getElementById('nom').value,
-        age: document.getElementById('age').value,
-        profession: document.getElementById('profession').value,
-        date: new Date().toLocaleDateString('fr-FR')
-      };
-      currentQuestion = 0;
-      userAnswers = [];
-      showScreen('screen-2');
-      loadQuestion();
-    });
-
-    function showScreen(id) {
-      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-      document.getElementById(id).classList.add('active');
+    function startSurvey() {
+        document.getElementById('screenWelcome').classList.remove('active');
+        document.getElementById('screenQuestion').classList.add('active');
+        renderQuestion();
     }
 
-    function shuffleArray(array) {
-      const arr = [...array];
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
+    function renderQuestion() {
+        const q = questions[currentStep];
+        document.getElementById('qTag').textContent = q.tag;
+        document.getElementById('qTitle').textContent = q.title;
+        document.getElementById('stepCounter').textContent = `${currentStep + 1} / ${questions.length}`;
+        
+        const progressPct = ((currentStep + 1) / questions.length) * 100;
+        document.getElementById('progressBar').style.width = `${progressPct}%`;
+
+        const optionsContainer = document.getElementById('optionsList');
+        optionsContainer.innerHTML = '';
+
+        const currentAnswer = userAnswers[currentStep];
+
+        q.options.forEach(opt => {
+            const card = document.createElement('div');
+            card.className = `option-card ${opt.class} ${currentAnswer === opt.id ? 'selected' : ''}`;
+            card.onclick = () => selectOption(opt.id);
+
+            card.innerHTML = `
+                <div class="option-header">
+                    <span class="option-letter">Option ${opt.id}</span>
+                    <span class="option-label">${opt.label}</span>
+                </div>
+                <div class="option-desc">${opt.desc}</div>
+            `;
+            optionsContainer.appendChild(card);
+        });
+
+        document.getElementById('btnPrev').style.visibility = currentStep === 0 ? 'hidden' : 'visible';
+        document.getElementById('btnNext').disabled = !userAnswers.hasOwnProperty(currentStep);
     }
 
-    function loadQuestion() {
-      const q = questions[currentQuestion];
-      document.getElementById('category-title').innerText = `${q.cat} — Question ${currentQuestion + 1}/12`;
-      document.getElementById('question-text').innerText = q.q;
-      document.getElementById('progress').style.width = `${((currentQuestion) / 12) * 100}%`;
-
-      // Mélange des 3 choix de réponses
-      const shuffledChoices = shuffleArray(q.choices);
-
-      // Ordre d'affichage des boutons à l'écran : toujours A, B, puis C
-      const fixedLabels = ['A', 'B', 'C'];
-
-      const container = document.getElementById('options-container');
-      container.innerHTML = '';
-
-      shuffledChoices.forEach((choice, index) => {
-        const displayLabel = fixedLabels[index]; // Forcer [A], [B], [C] dans l'ordre
-
-        const button = document.createElement('button');
-        button.className = 'option-btn';
-        button.onclick = () => selectOption(choice.value);
-        button.innerHTML = `<span class="badge">[${displayLabel}]</span> <span>${choice.text}</span>`;
-        container.appendChild(button);
-      });
+    function selectOption(optionId) {
+        userAnswers[currentStep] = optionId;
+        renderQuestion();
     }
 
-    function selectOption(choiceValue) {
-      userAnswers.push(choiceValue);
-      currentQuestion++;
-      if (currentQuestion < questions.length) {
-        loadQuestion();
-      } else {
-        finishTest();
-      }
-    }
-
-    function finishTest() {
-      const count = { A: 0, B: 0, C: 0 };
-      userAnswers.forEach(ans => count[ans]++);
-
-      let profile = "";
-      let desc = "";
-
-      if (count.A >= count.B && count.A >= count.C) {
-        profile = "Profil Confiance & Institutions";
-        desc = "Vous privilégiez l'innovation, le libre-échange et faites confiance aux structures établies.";
-      } else if (count.B >= count.A && count.B >= count.C) {
-        profile = "Profil Nuancé & Réformiste";
-        desc = "Vous prônez la modération, la régulation et la recherche d'un équilibre social-économique.";
-      } else {
-        profile = "Profil Lucide & Souverainiste";
-        desc = "Vous valorisez l'autonomie, le retour aux valeurs locales et la vigilance institutionnelle.";
-      }
-
-      const fullRecord = { ...currentUser, answers: userAnswers, profile: profile };
-
-      let data = JSON.parse(localStorage.getItem('cyril_test_data') || '[]');
-      data.push(fullRecord);
-      localStorage.setItem('cyril_test_data', JSON.stringify(data));
-
-      document.getElementById('result-profile').innerText = profile;
-      document.getElementById('result-desc').innerText = desc;
-      showScreen('screen-3');
-    }
-
-    function renderChart() {
-      const data = JSON.parse(localStorage.getItem('cyril_test_data') || '[]');
-      document.getElementById('total-participants').innerText = data.length;
-
-      const profileCounts = { "Profil Confiance & Institutions": 0, "Profil Nuancé & Réformiste": 0, "Profil Lucide & Souverainiste": 0 };
-      data.forEach(item => { if (profileCounts[item.profile] !== undefined) profileCounts[item.profile]++; });
-
-      const ctx = document.getElementById('statsChart').getContext('2d');
-      if (myChart) myChart.destroy();
-
-      myChart = new Chart(ctx, {
-        type: 'pie',
-        data: {
-          labels: Object.keys(profileCounts),
-          datasets: [{
-            data: Object.values(profileCounts),
-            backgroundColor: ['#3b82f6', '#f59e0b', '#ef4444']
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: { legend: { labels: { color: '#fff' } } }
+    function nextQuestion() {
+        if (currentStep < questions.length - 1) {
+            currentStep++;
+            renderQuestion();
+        } else {
+            showResults();
         }
-      });
     }
 
-    function exportCSV() {
-      const data = JSON.parse(localStorage.getItem('cyril_test_data') || '[]');
-      if (data.length === 0) return alert("Aucune donnée à exporter.");
-
-      let csv = "Date;Prenom;Nom;Age;Profession;Profil;Réponses\n";
-      data.forEach(row => {
-        csv += `${row.date};${row.prenom};${row.nom};${row.age};${row.profession};"${row.profile}";"${row.answers.join(',')}"\n`;
-      });
-
-      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-      const link = document.createElement("a");
-      link.href = URL.createObjectURL(blob);
-      link.download = "resultats_test_cyril.csv";
-      link.click();
+    function prevQuestion() {
+        if (currentStep > 0) {
+            currentStep--;
+            renderQuestion();
+        }
     }
 
-    function resetForm() {
-      document.getElementById('user-form').reset();
-      showScreen('screen-1');
+    function showResults() {
+        document.getElementById('screenQuestion').classList.remove('active');
+        document.getElementById('screenResults').classList.add('active');
+
+        let countA = 0, countB = 0, countC = 0;
+        Object.values(userAnswers).forEach(val => {
+            if (val === 'A') countA++;
+            if (val === 'B') countB++;
+            if (val === 'C') countC++;
+        });
+
+        const total = questions.length;
+        const pctA = Math.round((countA / total) * 100);
+        const pctB = Math.round((countB / total) * 100);
+        const pctC = Math.round((countC / total) * 100);
+
+        document.getElementById('percentA').textContent = `${pctA}%`;
+        document.getElementById('percentB').textContent = `${pctB}%`;
+        document.getElementById('percentC').textContent = `${pctC}%`;
+
+        document.getElementById('fillA').style.width = `${pctA}%`;
+        document.getElementById('fillB').style.width = `${pctB}%`;
+        document.getElementById('fillC').style.width = `${pctC}%`;
+
+        const tagElem = document.getElementById('dominantProfileTag');
+        const titleElem = document.getElementById('dominantProfileTitle');
+        const descElem = document.getElementById('dominantProfileDesc');
+
+        if (countA >= countB && countA >= countC) {
+            tagElem.textContent = "Posture : Souverainiste & Critique";
+            titleElem.textContent = "Recherche d'autonomie et de fermeté";
+            descElem.textContent = "Vos réponses privilégient le contrôle des frontières, la souveraineté nationale, l'autonomie stratégique et des réponses d'autorité.";
+        } else if (countB >= countA && countB >= countC) {
+            tagElem.textContent = "Posture : Ouverture & Intégration";
+            titleElem.textContent = "Favorable aux dynamiques globales";
+            descElem.textContent = "Vos choix traduisent une adhésion au modèle multiculturel, au soutien international actif et aux libertés de marché.";
+        } else {
+            tagElem.textContent = "Posture : Pragmatique & Nuancée";
+            titleElem.textContent = "Recherche d'équilibre et de compromis";
+            descElem.textContent = "Vous valorisez l'adaptation progressive, la transition régulée et des solutions équilibrées face aux défis contemporains.";
+        }
     }
-  </script>
+
+    function resetSurvey() {
+        currentStep = 0;
+        userAnswers = {};
+        document.getElementById('screenResults').classList.remove('active');
+        document.getElementById('screenWelcome').classList.add('active');
+    }
+</script>
+
 </body>
 </html>
+```eof
+
+---
+
+### 📱 Comment mettre l'application sur votre téléphone via GitHub (Gratuit)
+
+1. **Créez un dépôt GitHub** :
+   - Allez sur [GitHub](https://github.com) et créez un nouveau dépôt public (ex: `sondage-app`).
+2. **Ajoutez le fichier `index.html`** :
+   - Créez ou déposez le fichier `index.html` fourni ci-dessus dans la branche principale (`main`).
+3. **Activez GitHub Pages** :
+   - Allez dans **Settings** (Paramètres) > **Pages**.
+   - Dans *Source*, sélectionnez la branche `main` puis enregistrez (*Save*).
+4. **Ouvrez l'application sur votre smartphone** :
+   - GitHub vous fournira une adresse du type : `[https://votre-pseudo.github.io/sondage-app/](https://votre-pseudo.github.io/sondage-app/)`.
+   - Ouvrez ce lien dans Safari (iOS) ou Chrome (Android) et choisissez **"Ajouter à l'écran d'accueil"** pour l'utiliser directement comme une vraie application sur votre téléphone.
