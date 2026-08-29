@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Grand Sondage Opinion & Société (15 Thématiques)</title>
+    <title>Grand Sondage Opinion & Société (15 Thématiques Complètes)</title>
     
     <!-- Meta PWA / Mobile -->
     <meta name="theme-color" content="#0f172a">
@@ -46,7 +46,7 @@
 
         .app-container {
             width: 100%;
-            max-width: 480px;
+            max-width: 520px;
             min-height: 90vh;
             background: #0f172a;
             border-radius: 24px;
@@ -167,10 +167,10 @@
 
         .question-title {
             font-family: 'Poppins', sans-serif;
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 600;
             margin-bottom: 18px;
-            line-height: 1.35;
+            line-height: 1.4;
         }
 
         .options-list {
@@ -209,10 +209,11 @@
 
         .option-letter {
             font-weight: 700;
-            font-size: 13px;
-            padding: 2px 8px;
+            font-size: 12px;
+            padding: 3px 8px;
             border-radius: 6px;
             color: #fff;
+            text-transform: uppercase;
         }
 
         .opt-a .option-letter { background: #dc2626; }
@@ -228,7 +229,7 @@
         .option-desc {
             font-size: 13px;
             color: var(--text-muted);
-            line-height: 1.4;
+            line-height: 1.45;
         }
 
         .btn {
@@ -348,7 +349,7 @@
                 <i class="fa-solid fa-clipboard-question"></i>
             </div>
             <h1>15 Enjeux d'Avenir</h1>
-            <p>Donnez votre avis sur 15 grandes thématiques clés de notre société et découvrez votre synthèse d'opinion.</p>
+            <p>Découvrez l'intégralité des 15 grands sujets de société, répondez aux questions et analysez la répartition de vos choix.</p>
             <button class="btn" onclick="startSurvey()">
                 Commencer le Sondage <i class="fa-solid fa-arrow-right"></i>
             </button>
@@ -377,14 +378,14 @@
         <div style="text-align: center; margin-bottom: 16px;">
             <i class="fa-solid fa-circle-check" style="font-size: 42px; color: #10b981; margin-bottom: 8px;"></i>
             <h2 style="font-family:'Poppins'; font-size:22px;">Sondage Terminé !</h2>
-            <p style="color:var(--text-muted); font-size:13px;">Répartition globale de vos 15 choix.</p>
+            <p style="color:var(--text-muted); font-size:13px;">Synthèse de vos 15 réponses enregistrées.</p>
         </div>
 
         <div class="results-card">
-            <span class="profile-badge" id="dominantProfileTag">Analyse des tendances</span>
-            <h3 style="font-size: 16px; margin-bottom: 4px;" id="dominantProfileTitle">Synthèse de votre profil</h3>
-            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.4;" id="dominantProfileDesc">
-                Description synthétique de votre posture d'opinion.
+            <span class="profile-badge">Répartition de vos réponses</span>
+            <h3 style="font-size: 16px; margin-bottom: 8px;">Analyse de votre profil d'opinion</h3>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.4;">
+                Voici le bilan exact de vos choix à travers les 15 thématiques abordées dans ce questionnaire.
             </p>
 
             <div class="stat-bar-group">
@@ -422,137 +423,137 @@
     const questions = [
         {
             tag: "1. L'Union européenne",
-            title: "Quel regard portez-vous sur le fonctionnement et l'impact de l'Union européenne aujourd'hui ?",
+            title: "Quel regard portez-vous sur le fonctionnement actuel et l'impact de l'Union européenne sur la souveraineté et l'économie ?",
             options: [
-                { id: "A", class: "opt-a", label: "Organisation imparfaite mais nécessaire", desc: "Coopération stratégique utile (marché unique, euro, négociation internationale)." },
-                { id: "B", class: "opt-b", label: "Structure destructrice & technocratique", desc: "Perte de souveraineté, normes étouffantes et concurrence déloyale." },
-                { id: "C", class: "opt-c", label: "Projet indispensable pour l'avenir", desc: "Seule échelle efficace face aux défis globaux et géants mondiaux." }
+                { id: "A", class: "opt-a", label: "Organisation imparfaite mais nécessaire", desc: "C'est un cadre de coopération pragmatique et stratégique utile (marché unique, euro, négociation internationale) malgré des lourdeurs." },
+                { id: "B", class: "opt-b", label: "Structure technocratique et destructrice", desc: "L'Union européenne entraîne une perte de souveraineté nationale, des normes étouffantes et une concurrence sociale et économique déloyale." },
+                { id: "C", class: "opt-c", label: "Projet fédéral indispensable pour l'avenir", desc: "C'est la seule échelle politique et économique efficace face aux défis globaux et aux puissances hégémoniques mondiales." }
             ]
         },
         {
             tag: "2. Conflit Russie / Ukraine",
-            title: "Quelle est votre position concernant la guerre et le soutien à apporter ?",
+            title: "Quelle doit être la position diplomatique et militaire stratégique de la France concernant le conflit en Ukraine ?",
             options: [
-                { id: "A", class: "opt-a", label: "Opposition au soutien / Compréhension russe", desc: "Arrêt de l'aide militaire et des sanctions qui nuisent aux intérêts nationaux." },
-                { id: "B", class: "opt-b", label: "Soutien total et inconditionnel", desc: "Livraison d'armes et sanctions maximales pour défendre la démocratie." },
-                { id: "C", class: "opt-c", label: "Soutien nuancé / Recherche de compromis", desc: "Recherche prioritaire d'une solution diplomatique négociée." }
+                { id: "A", class: "opt-a", label: "Opposition au soutien militaire et sanctions", desc: "Arrêt immédiat de l'aide militaire et des sanctions économiques qui nuisent gravement aux intérêts et à l'économie nationaux." },
+                { id: "B", class: "opt-b", label: "Soutien total, massif et inconditionnel", desc: "Livraisons d'armes poussées et sanctions maximales pour garantir la défaite de l'agresseur et défendre les démocraties." },
+                { id: "C", class: "opt-c", label: "Soutien nuancé et recherche de compromis", desc: "Aide à la défense tout en privilégiant prioritairement la recherche active d'une solution diplomatique négociée pour stopper l'escalade." }
             ]
         },
         {
             tag: "3. Immigration & Identité",
-            title: "Quelle est votre vision de la gestion des flux migratoires ?",
+            title: "Quelle orientation globale convient-il de donner à la gestion des flux migratoires et des frontières ?",
             options: [
-                { id: "A", class: "opt-a", label: "Nécessité à mieux encadrer", desc: "Renforcement des contrôles et respect strict des règles républicaines." },
-                { id: "B", class: "opt-b", label: "Opportunité et devoir", desc: "Enrichissement culturel/économique, accueil humanisé et intégration." },
-                { id: "C", class: "opt-c", label: "Menace majeure", desc: "Arrêt quasi total de l'immigration et application de la préférence nationale." }
+                { id: "A", class: "opt-a", label: "Encadrement strict et régulation", desc: "Nécessité de renforcer les contrôles aux frontières et de faire respecter strictement le cadre légal et républicain d'intégration." },
+                { id: "B", class: "opt-b", label: "Opportunité humaine et ouverture", desc: "L'immigration constitue un enrichissement culturel et économique ; il faut garantir un accueil humanisé et faciliter l'intégration." },
+                { id: "C", class: "opt-c", label: "Fermeture et priorité nationale", desc: "Arrêt quasi total des flux migratoires, expulsion systématique des clandestins et application du principe de préférence nationale." }
             ]
         },
         {
-            tag: "4. Climat & Rôle du CO₂",
-            title: "Quelle est votre analyse sur les politiques environnementales actuelles ?",
+            tag: "4. Climat & Politique environnementale",
+            title: "Comment évaluez-vous la réalité du changement climatique et les politiques de transition écologique actuelles ?",
             options: [
-                { id: "A", class: "opt-a", label: "Instrumentalisation politique et fiscale", desc: "Prétexte pour lever de nouveaux impôts et restreindre les libertés." },
-                { id: "B", class: "opt-b", label: "Menace réelle liée à l'activité humaine", desc: "Consensus scientifique exigeant une réduction d'urgence de l'empreinte carbone." },
-                { id: "C", class: "opt-c", label: "Phénomène naturel complexe exagéré", desc: "Variations climatiques naturelles et incohérence des contraintes locales." }
+                { id: "A", class: "opt-a", label: "Prétexte fiscal et écologie punitive", desc: "Le climat est instrumentalise à des fins fiscales et réglementaires pour restreindre les libertés et surtaxer les citoyens." },
+                { id: "B", class: "opt-b", label: "Urgence absolue basée sur la science", desc: "Le réchauffement climatique dû aux activités humaines est une menace majeure imposant une décarbonation rapide de la société." },
+                { id: "C", class: "opt-c", label: "Adaptation pragmatique sans hystérie", desc: "Prise en compte des enjeux écologiques par l'innovation et la technologie sans sacrifier la compétitivité et le niveau de vie." }
             ]
         },
         {
-            tag: "5. Rôle Mondial des USA",
-            title: "Comment percevez-vous l'influence internationale des États-Unis ?",
+            tag: "5. Rôle mondial des États-Unis",
+            title: "Quelle perception avez-vous du rôle géopolitique et de l'influence stratégique des États-Unis dans le monde ?",
             options: [
-                { id: "A", class: "opt-a", label: "Puissance déstabilisatrice au bilan lourd", desc: "Interventions extérieures guidées par leurs seuls intérêts géopolitiques." },
-                { id: "B", class: "opt-b", label: "Acteur pragmatique et ambivalent", desc: "Actions guidées par des intérêts stratégiques, aux effets contrastés." },
-                { id: "C", class: "opt-c", label: "Force d'équilibre indispensable", desc: "Capacité unique de maintenir un ordre mondial stable face aux régimes autoritaires." }
+                { id: "A", class: "opt-a", label: "Puissance hégémonique déstabilisatrice", desc: "Un rôle guidé exclusivement par la défense de leurs intérêts financiers et géopolitiques, souvent au détriment de la stabilité mondiale." },
+                { id: "B", class: "opt-b", label: "Partenaire stratégique aux intérêts variables", desc: "Une alliance militaire et économique utile mais nécessitant une autonomie de décision de la part des nations européennes." },
+                { id: "C", class: "opt-c", label: "Garant indispensable de l'ordre mondial", desc: "Une force de stabilité démocratique fondamentale face aux régimes autoritaires et aux nouvelles menaces mondiales." }
             ]
         },
         {
-            tag: "6. Justice & Réponse Pénale",
-            title: "Quelle doit être la priorité du système judiciaire ?",
+            tag: "6. Justice & Réponse pénale",
+            title: "Sur quelle priorité fondamentale le système judiciaire doit-il concentrer son action et ses réformes ?",
             options: [
-                { id: "A", class: "opt-a", label: "Prévention et réinsertion", desc: "Privilégier l'accompagnement social, la prise en charge et les peines alternatives." },
-                { id: "B", class: "opt-b", label: "Fermeté et dissuasion", desc: "Peines planchers, constructions de prisons et exécution stricte des peines." },
-                { id: "C", class: "opt-c", label: "Responsabilisation et réparation", desc: "Justice restaurative priorisant l'indemnisation et le soutien aux victimes." }
+                { id: "A", class: "opt-a", label: "Réinsertion, prévention et éducation", desc: "Privilégier le suivi social, la prévention de la récidive et la prise en charge médicale ou éducative plutôt que la prison systématique." },
+                { id: "B", class: "opt-b", label: "Fermeté, sévérité et punition", desc: "Application de peines planchers, exécution intégrale des peines de prison et augmentation forte du nombre de places pénitentiaires." },
+                { id: "C", class: "opt-c", label: "Responsabilisation et réparation", desc: "Mise en avant de la réparation envers les victimes, du travail d'intérêt général et du remboursement des préjudices causés." }
             ]
         },
         {
-            tag: "7. Équité du Système Judiciaire",
-            title: "Existe-t-il selon vous une justice à deux vitesses en France ?",
+            tag: "7. Équité de la Justice",
+            title: "Estimez-vous que les décisions de justice en France sont rendues avec impartialité envers tous les citoyens ?",
             options: [
-                { id: "A", class: "opt-a", label: "Justice structurellement inégalitaire", desc: "Indulgence systémique pour les élites contre sévérité pour les citoyens ordinaires." },
-                { id: "B", class: "opt-b", label: "Disparité des moyens d'action", desc: "Inégalité d'accès aux meilleurs cabinets d'avocats spécialisés." },
-                { id: "C", class: "opt-c", label: "Système équitable et impartial", desc: "Application égale des lois par des juges indépendants quel que soit le statut." }
+                { id: "A", class: "opt-a", label: "Justice inégalitaire et à deux vitesses", desc: "Indulgence systémique ou clémence envers les élites politiques et économiques contre sévérité pour les citoyens ordinaires." },
+                { id: "B", class: "opt-b", label: "Inégalité d'accès aux moyens de défense", desc: "Les décisions dépendent avant tout des capacités financières permettant de s'offrir les meilleurs conseils juridiques." },
+                { id: "C", class: "opt-c", label: "Institution équitable et indépendante", desc: "Les lois et les magistrats appliquent le droit avec la même rigueur quel que soit le statut ou la notoriété des prévenus." }
             ]
         },
         {
-            tag: "8. Gestion Sanitaire & Vaccination",
-            title: "Quel bilan tirez-vous de la communication durant la crise du Covid-19 ?",
+            tag: "8. Gestion sanitaire & Crise Covid-19",
+            title: "Quel bilan tirez-vous des décisions publiques et de la communication lors de la gestion de la crise sanitaire ?",
             options: [
-                { id: "A", class: "opt-a", label: "Gestion pragmatique face à l'inconnu", desc: "Information quotidienne et incitation vaccinale adaptées pour sauver des vies." },
-                { id: "B", class: "opt-b", label: "Stratégie de manipulation par la peur", desc: "Utilisation de la censure et du contrôle pour imposer la vaccination." },
-                { id: "C", class: "opt-c", label: "Communication rigide et paternaliste", desc: "Discours unique ayant abîmé la confiance malgré des mesures fondées." }
+                { id: "A", class: "opt-a", label: "Gestion pragmatique en situation d'urgence", desc: "Mesures adaptées et stratégie vaccinale efficaces ayant permis de protéger la santé publique et d'éviter l'effondrement hospitalier." },
+                { id: "B", class: "opt-b", label: "Dérive autoritaire et coercition", desc: "Utilisation abusive de la peur, atteintes disproportionnées aux libertés individuelles et pression vaccinale inacceptable." },
+                { id: "C", class: "opt-c", label: "Communication rigide et manque de transparence", desc: "Gestion centralisée excessive et manque d'écoute des voix contradictoires ayant abîmé la confiance entre la population et l'État." }
             ]
         },
         {
-            tag: "9. Conquête Spatiale (Apollo 11)",
-            title: "Quelle est votre lecture de l'arrivée de l'Homme sur la Lune en 1969 ?",
+            tag: "9. Conquête spatiale (Missions Apollo)",
+            title: "Quelle est votre analyse des premiers pas de l'Homme sur la Lune lors de la mission Apollo 11 en 1969 ?",
             options: [
-                { id: "A", class: "opt-a", label: "Mise en scène de Guerre Froide", desc: "Victoire fabriquée ou embellie en studio à des fins idéologiques." },
-                { id: "B", class: "opt-b", label: "Prouesse scientifique avérée", desc: "Exploit réel prouvé par les roches, réflecteurs et données de suivi." },
-                { id: "C", class: "opt-c", label: "Exploit réel mais délaissé faute de priorité", desc: "Abandon lié au coût astronomique et à la fin de la rivalité géopolitique." }
+                { id: "A", class: "opt-a", label: "Mise en scène médiatique fabriquée", desc: "Événement totalement ou partiellement mis en scène en studio à des fins de propagande géopolitique durant la Guerre Froide." },
+                { id: "B", class: "opt-b", label: "Exploit scientifique et technologique réel", desc: "Victoire historique démontrée par des données incontestables, des échantillons lunaires et le consensus scientifique international." },
+                { id: "C", class: "opt-c", label: "Prouesse réelle mais abandonnée faute de rentabilité", desc: "Un succès technologique authentique dont la suite a été stoppée par le coût astronomique et le manque d'intérêt stratégique immédiat." }
             ]
         },
         {
-            tag: "10. Médias & Liberté d'Expression",
-            title: "Comment percevez-vous l'indépendance de l'information ?",
+            tag: "10. Médias & Liberté d'information",
+            title: "Quel niveau d'indépendance et de pluralisme attribuez-vous aux médias d'information traditionnels ?",
             options: [
-                { id: "A", class: "opt-a", label: "Information sous contrôle / Censure d'État", desc: "Médias dominants aux mains d'élites ou subventionnés et traque de la dissidence." },
-                { id: "B", class: "opt-b", label: "Désinformation à réguler", desc: "Réseaux sociaux propageant les rumeurs exigeant un contrôle strict." },
-                { id: "C", class: "opt-c", label: "Paysage complexe mais libre", desc: "Liberté réelle d'informer exigeant du citoyen le croisement des sources." }
+                { id: "A", class: "opt-a", label: "Médias sous contrôle d'intérêts puissants", desc: "Information largement orientée ou censurée par les intérêts financiers des propriétaires de grands groupes et les subventions publiques." },
+                { id: "B", class: "opt-b", label: "Paysage sous menace des fausses informations", desc: "Des médias professionnels indispensables dont la rigueur est fragilisée par la désinformation massive sur les réseaux sociaux." },
+                { id: "C", class: "opt-c", label: "Espace d'information vaste et libre", desc: "Une liberté d'expression réelle et diversifiée permettant à chacun d'accéder à des sources d'information variées et critiques." }
             ]
         },
         {
-            tag: "11. Souveraineté & Action Politique",
-            title: "Quelle est la capacité réelle des dirigeants à transformer le pays ?",
+            tag: "11. Souveraineté & Pouvoir politique",
+            title: "Quelle est la capacité réelle des dirigeants nationaux élus à mettre en œuvre leurs programmes ?",
             options: [
-                { id: "A", class: "opt-a", label: "Souveraineté partagée aux marges réelles", desc: "Pouvoir conservé sur l'État, la sécurité, le modèle social et l'éducation." },
-                { id: "B", class: "opt-b", label: "Théâtre d'impuissance", desc: "Transfert des décisions réelles à Bruxelles et invisibilisation des souverainistes." },
-                { id: "C", class: "opt-c", label: "Manque de volonté politique", desc: "Absence d'ambition des élus d'utiliser les leviers nationaux et européens existants." }
+                { id: "A", class: "opt-a", label: "Marge de manœuvre réelle mais encadrée", desc: "Les gouvernements conservent le pouvoir d'agir sur les compétences clés de l'État malgré les traités et accords internationaux." },
+                { id: "B", class: "opt-b", label: "Impuissance et dépossession du pouvoir", desc: "Les grandes décisions économiques et juridiques sont transférées à des instances non élues ou à des institutions supranationales." },
+                { id: "C", class: "opt-c", label: "Manque de volonté et de courage politique", desc: "Les leviers d'action existent mais les élus manquent de détermination pour imposer des changements profonds face aux blocages." }
             ]
         },
         {
-            tag: "12. Finance, Dette & Cash",
-            title: "Quel regard portez-vous sur le système financier et la fin du cash ?",
+            tag: "12. Finance, Dette publique & Monnaie",
+            title: "Quelle est votre analyse de l'endettement de l'État et de l'évolution vers la disparition de l'argent physique ?",
             options: [
-                { id: "A", class: "opt-a", label: "Modernisation & Lutte contre la fraude", desc: "Dématérialisation pratique et utilisation légitime de la dette d'investissement." },
-                { id: "B", class: "opt-b", label: "Dérive irresponsable du budget de l'État", desc: "Gestion budgétaire déficitaire accumulant une dette injustifiée sur les jeunes." },
-                { id: "C", class: "opt-c", label: "Système de contrôle et d'asservissement", desc: "Enrichissement des banques privées et menace sur les libertés via le zéro cash." }
+                { id: "A", class: "opt-a", label: "Modernisation et gestion des investissements", desc: "La dette permet de financer les services publics et la dématérialisation monétaire simplifie les transactions et combat la fraude." },
+                { id: "B", class: "opt-b", label: "Gestion budgétaire irresponsable", desc: "L'accumulation continuelle de dettes publiques fait porter un risque majeur et injuste sur le niveau de vie des générations futures." },
+                { id: "C", class: "opt-c", label: "Outil de contrôle et de surveillance financière", desc: "La dette soumet le pays aux marchés financiers et la fin du liquide menace directement la liberté individuelle et la vie privée." }
             ]
         },
         {
-            tag: "13. Identité Numérique & Surveillance",
-            title: "Que pensez-vous des outils d'identification biométrique ?",
+            tag: "13. Identité numérique & Surveillance",
+            title: "Quel regard portez-vous sur le développement des technologies de reconnaissance biométrique et d'identité numérique ?",
             options: [
-                { id: "A", class: "opt-a", label: "Dérive vers le crédit social", desc: "Portefeuille numérique et surveillance ouvrant la voie au contrôle citoyen." },
-                { id: "B", class: "opt-b", label: "Securité et simplification indispensables", desc: "Modernisation administrative utile et meilleure identification criminelle." },
-                { id: "C", class: "opt-c", label: "Progrès sous garanties juridiques", desc: "Innovations inévitables à encadrer strictement par la loi (CNIL)." }
+                { id: "A", class: "opt-a", label: "Risque de contrôle social généralisé", desc: "Ces technologies ouvrent la voie à une surveillance permanente des citoyens et à une restriction progressive des libertés publiques." },
+                { id: "B", class: "opt-b", label: "Outils de sécurité et de modernisation utiles", desc: "Des avancées nécessaires pour lutter efficacement contre la criminalité, la fraude d'identité et simplifier les démarches quotidiennes." },
+                { id: "C", class: "opt-c", label: "Évolution inévitable nécessitant un encadrement strict", desc: "Des outils pratiques et inéluctables qu'il convient de réguler rigoureusement par des lois d'éthique et la protection des données." }
             ]
         },
         {
-            tag: "14. Agro-industrie & Santé",
-            title: "Quel regard portez-vous sur la santé publique et la nourriture ?",
+            tag: "14. Agro-industrie & Santé publique",
+            title: "Quelle appréciation faites-vous de la qualité globale de l'alimentation industrielle et du système de santé ?",
             options: [
-                { id: "A", class: "opt-a", label: "Emprise chimique et pharmacologique", desc: "Priorité au profit industriel, à la surmédication et aux produits transformés." },
-                { id: "B", class: "opt-b", label: "Système sanitaire parmi les plus sûrs", desc: "Contrôles stricts, allongement de la durée de vie et médecine d'excellence." },
-                { id: "C", class: "opt-c", label: "Responsabilité et choix individuels", desc: "Offre abondante nécessitant des choix éclairés de chaque consommateur." }
+                { id: "A", class: "opt-a", label: "Prédominance des profits sur la santé", desc: "La priorité donnée aux intérêts industriels et pharmaceutiques favorise la malbouffe, la surmédication et les maladies chroniques." },
+                { id: "B", class: "opt-b", label: "Système hautement sécurisé et performant", desc: "Les normes sanitaires actuelles sont parmi les plus strictes au monde et la médecine moderne permet un allongement continu de l'espérance de vie." },
+                { id: "C", class: "opt-c", label: "Responsabilité individuelle avant tout", desc: "L'offre alimentaire et médicale est vaste ; il appartient à chaque citoyen de faire des choix de consommation avisés et équilibrés." }
             ]
         },
         {
-            tag: "15. Éducation Nationale",
-            title: "Quelle est la mission principale accomplie par l'école publique ?",
+            tag: "15. Éducation nationale & Instruction",
+            title: "Quel bilan dressez-vous du rôle et de la qualité de l'enseignement au sein de l'école publique ?",
             options: [
-                { id: "A", class: "opt-a", label: "Formatage & Nivellement par le bas", desc: "Baisse de niveau et idéologisation au détriment des fondamentaux." },
-                { id: "B", class: "opt-b", label: "Pilier d'égalité des chances", desc: "Instruction gratuite et promotion des valeurs de la République pour tous." },
-                { id: "C", class: "opt-c", label: "Institution rigide et dépassée", desc: "Système centralisé inadapté aux enjeux concrets de la vie moderne." }
+                { id: "A", class: "opt-a", label: "Baisse de niveau et dérive idéologique", desc: "L'abandon de l'exigence académique et l'introduction de débats sociétaux fragilisent la transmission des savoirs fondamentaux." },
+                { id: "B", class: "opt-b", label: "Socle républicain d'égalité des chances", desc: "L'école reste une institution fondamentale assurant la gratuité, la mixité sociale et l'apprentissage des valeurs de la République." },
+                { id: "C", class: "opt-c", label: "Système rigide nécessitant une modernisation", desc: "L'organisation actuelle est trop centralisée et peine à s'adapter aux nouveaux défis numériques et aux besoins individuels des élèves." }
             ]
         }
     ];
