@@ -1,138 +1,657 @@
-OUI, avec ces 4 questions supplémentaires (la fusion banques/cash, l'identité numérique, la santé/agro-industrie et l'éducation), cela fait exactement 15 questions au total.
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Grand Sondage Opinion & Société (15 Thématiques)</title>
+    
+    <!-- Meta PWA / Mobile -->
+    <meta name="theme-color" content="#0f172a">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
+    <!-- Polices & Icônes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
-Voici le récapitulatif complet, propre et parfaitement ordonné des 15 questions, avec des propositions mélangées et enrichies d'exemples :
+    <style>
+        :root {
+            --bg-main: #0b0f19;
+            --card-bg: #1e293b;
+            --card-border: #334155;
+            --accent-blue: #2563eb;
+            --text-white: #f8fafc;
+            --text-muted: #94a3b8;
+        }
 
-1. L'Union européenne
-Quel regard portez-vous sur le fonctionnement et l'impact de l'Union européenne aujourd'hui ?
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
 
-A. Une organisation imparfaite mais nécessaire : bien que la bureaucratie, les traités commerciaux et les dérives administratives posent de réels problèmes, la coopération européenne reste un atout global (ex. marché unique, monnaie euro, capacité de négociation face aux géants américain et chinois).
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-white);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 12px;
+        }
 
-B. Une structure destructrice et technocratique : l'UE sacrifie nos agriculteurs et notre industrie via la concurrence déloyale, impose des normes étouffantes et souffre de corruption (ex. accords de libre-échange comme le Mercosur en contradiction avec l'écologie locale, scandales de lobbyisme, perte de souveraineté nationale).
+        .app-container {
+            width: 100%;
+            max-width: 480px;
+            min-height: 90vh;
+            background: #0f172a;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            position: relative;
+        }
 
-C. Un projet indispensable pour l'avenir : la souveraineté nationale est insuffisante face aux grands défis mondiaux ; l'intégration européenne est la seule voie pour garantir la stabilité et la prospérité (ex. programmes de recherche communs, solidarité financière entre pays membres, normes sanitaires harmonisées).
+        header {
+            padding: 20px 24px 12px;
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--card-border);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
 
-2. Le conflit entre la Russie et l'Ukraine
-Quelle est votre position concernant la guerre entre la Russie et l'Ukraine et le soutien à apporter ?
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
 
-A. Opposition au soutien occidental / Compréhension de la position russe : ce conflit ne nous regarde pas ou est provoqué par l'expansion de l'OTAN ; il faut cesser les sanctions et l'aide militaire qui nuisent aux intérêts des Français.
+        .app-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-white);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
 
-B. Soutien total et inconditionnel à l'Ukraine : il faut livrer toutes les armes nécessaires et appliquer des sanctions maximales contre la Russie pour défendre la liberté et la démocratie en Europe.
+        .step-counter {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-blue);
+            background: rgba(37, 99, 235, 0.15);
+            padding: 4px 10px;
+            border-radius: 12px;
+        }
 
-C. Soutien nuancé / Recherche de compromis : la Russie est l'agresseur, mais il faut limiter l'escalade militaire et privilégier au plus vite une solution diplomatique négociée, même si cela implique des concessions territoriales.
+        .progress-bar-bg {
+            width: 100%;
+            height: 6px;
+            background: #1e293b;
+            border-radius: 3px;
+            overflow: hidden;
+        }
 
-3. L'immigration et l'identité nationale
-Quelle est votre vision concernant la gestion des flux migratoires et l'intégration en France ?
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #2563eb, #06b6d4);
+            border-radius: 3px;
+            transition: width 0.3s ease;
+        }
 
-A. Une nécessité à mieux encadrer : l'immigration peut apporter de la main-d'œuvre nécessaire, mais il faut renforcer le contrôle aux frontières et exiger un respect strict des règles et de la laïcité.
+        .screen {
+            display: none;
+            flex-direction: column;
+            flex-grow: 1;
+            padding: 20px 24px;
+            overflow-y: auto;
+        }
 
-B. Une opportunité et un devoir : l'immigration enrichit la France culturellement et économiquement ; il faut humaniser l'accueil, régulariser et faciliter l'intégration.
+        .screen.active {
+            display: flex;
+        }
 
-C. Une menace majeure : il faut stopper quasi totalement l'immigration, expulser les personnes en situation irrégulière et appliquer la préférence nationale pour préserver l'identité et la sécurité du pays.
+        .welcome-card {
+            text-align: center;
+            margin: auto 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
 
-4. Le réchauffement climatique et le rôle du CO₂
-Quelle est votre analyse sur la réalité du changement climatique et les politiques environnementales actuelles ?
+        .welcome-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2563eb, #1d4ed8);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin-bottom: 24px;
+            box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4);
+        }
 
-A. Une instrumentalisation politique et fiscale : si le climat varie, l'accusation du CO₂ sert surtout de prétexte pour lever de nouveaux impôts, créer un marché vert lucratif et restreindre les libertés citoyennes (ex. débat sur la chronologie CO₂/température issu des carottes glaciaires, taxe carbone, zones à faibles émissions (ZFE), contraintes sur les modes de vie).
+        .welcome-card h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 24px;
+            margin-bottom: 12px;
+        }
 
-B. Une menace réelle causée par l'activité humaine : le consensus scientifique démontre que les émissions de CO₂ d'origine humaine sont le principal moteur du réchauffement, et il faut agir d'urgence en réduisant l'empreinte carbone pour éviter des catastrophes (ex. rapports du GIEC, développement des énergies renouvelables, fin des véhicules thermiques, normes d'isolement des logements).
+        .welcome-card p {
+            color: var(--text-muted);
+            font-size: 14.5px;
+            line-height: 1.5;
+            margin-bottom: 30px;
+        }
 
-C. Un phénomène naturel complexe exagéré par le politique : le climat a toujours changé dans l'histoire de la Terre sous l'effet de facteurs astronomiques et solaires, et les mesures coercitives actuelles sont inefficaces tout en ruinant l'économie (ex. variations historiques de température comme l'optimum médiéval, inutilité des contraintes locales face aux émissions globales des pays émergents).
+        .question-tag {
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #38bdf8;
+            margin-bottom: 6px;
+        }
 
-5. Le rôle mondial des États-Unis
-Comment percevez-vous l'influence internationale des États-Unis depuis ces dernières décennies ?
+        .question-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 18px;
+            line-height: 1.35;
+        }
 
-A. Une puissance destabilisatrice au bilan lourd : leurs interventions extérieures ont souvent créé plus de désordre que de paix, au service exclusif de leurs intérêts économiques ou géopolitiques (ex. les guerres du Vietnam et d'Irak, les ingérences en Amérique latine, la gestion du dossier iranien).
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
 
-B. Un acteur pragmatique et ambivalent : ils agissent avant tout pour leurs intérêts stratégiques, ce qui amène du positif comme du négatif selon les époques (ex. créateurs du plan Marshall d'un côté, mais défenseurs du libre-échange à leur unique avantage de l'autre).
+        .option-card {
+            background: var(--card-bg);
+            border: 2px solid var(--card-border);
+            border-radius: 14px;
+            padding: 14px 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
 
-C. Une force d'équilibre indispensable : c'est la seule puissance capable de maintenir un ordre mondial stable, d'assurer la sécurité de ses alliés et de faire contrepoids aux régimes autoritaires (ex. le débarquement de 1944, l'OTAN face à l'URSS, l'aide à l'Ukraine ou la défense de Taïwan).
+        .option-card:active {
+            transform: scale(0.98);
+        }
 
-6. La justice et la réponse pénale
-Quelle doit être la priorité du système judiciaire pour lutter contre la délinquance et la criminalité ?
+        .option-card.selected {
+            border-color: var(--accent-blue);
+            background: rgba(37, 99, 235, 0.12);
+        }
 
-A. La prévention et la réinsertion : le tout-carcéral ne fonctionne pas et fabrique des récidivistes ; il faut privilégier l'accompagnement social, la prise en charge psychiatrique et les peines alternatives (ex. travaux d'intérêt général, suivi socio-éducatif renforcé, stages de responsabilisation).
+        .option-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-B. La fermeté et la dissuasion : il faut appliquer des peines planchers, construire plus de places de prison et exécuter systématiquement les sanctions pour rétablir l'autorité (ex. peines de prison ferme dès la première récidive, baisse de la majorité pénale, expulsion effective des délinquants étrangers).
+        .option-letter {
+            font-weight: 700;
+            font-size: 13px;
+            padding: 2px 8px;
+            border-radius: 6px;
+            color: #fff;
+        }
 
-C. La responsabilisation et la réparation : la justice doit d'abord se concentrer sur les victimes et réparer directement les préjudices causés, tout en adaptant la sanction au profil de l'auteur (ex. indemnisation prioritaire, justice restaurative, aménagement de peine conditionné à la reprise d'un emploi ou d'une formation).
+        .opt-a .option-letter { background: #dc2626; }
+        .opt-b .option-letter { background: #2563eb; }
+        .opt-c .option-letter { background: #059669; }
 
-7. L'équité du système de justice
-Pensez-vous qu'il existe une justice « à deux vitesses » en France selon le niveau de richesse ou de pouvoir des individus ?
+        .option-label {
+            font-weight: 600;
+            font-size: 14.5px;
+            color: var(--text-white);
+        }
 
-A. Une justice structurellement inégalitaire : les élites bénéficient d'une indulgence systémique et de procédures interminables, tandis que la justice du quotidien est expéditive pour les citoyens ordinaires (ex. affaires de corruption ou de fraude fiscale géante soldées par des amendes transactionnelles sans prison, comparutions immédiates systématiques pour la délinquance de rue).
+        .option-desc {
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
 
-B. Une justice inégale liée à la disparité des moyens d'action : l'inégalité ne vient pas du système lui-même, mais de la capacité des plus aisés à se payer les meilleurs services (ex. accès aux cabinets d'avocats les plus chevronnés capables de déceler des vices de forme, contre la surcharge des avocats commis d'office).
+        .btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 15px 20px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: background 0.2s ease;
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+        }
 
-C. Une justice qui reste globalement équitable et impartiale : la loi s'applique à tous de la même façon, les juges sont indépendants et les sanctions dépendent des faits, pas du statut (ex. condamnations effectives de ministres, de maires ou de grands patrons, aides juridictionnelles garanties pour les plus modestes).
+        .btn:disabled {
+            background: #334155;
+            color: #64748b;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
 
-8. La gestion sanitaire, la communication et la vaccination
-Quel bilan tirez-vous de la stratégie sanitaire, du discours officiel et de la communication durant la crise du Covid-19 ?
+        .nav-buttons {
+            margin-top: auto;
+            display: flex;
+            gap: 10px;
+            padding-top: 10px;
+        }
 
-A. Une gestion pragmatique face à une menace inédite : les autorités et les médias ont dû informer au jour le jour et adapter les consignes face à un virus mortel pour éviter le drame (ex. alerte sur la saturation des services de réanimation, incitation vaccinale pour protéger les plus fragiles, ajustement du discours au fil des progrès scientifiques).
+        .btn-secondary {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            color: var(--text-white);
+            box-shadow: none;
+            width: auto;
+            padding: 15px 18px;
+        }
 
-B. Une stratégie de manipulation par la peur : le pouvoir et la médecine officielle ont utilisé l'ingénierie sociale, la censure et de fausses représentations pour imposer un contrôle et la vaccination (ex. compteurs quotidiens de morts au JT, reportages à charge dans les hôpitaux, opacité sur les effets secondaires, volte-face sur la transmission, au contraire d'approches plus souples en Afrique ou en Amérique du Sud).
+        .results-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 18px;
+            margin-bottom: 16px;
+            border: 1px solid var(--card-border);
+        }
 
-C. Une communication de crise rigide et paternaliste : la volonté d'imposer un discours unique et le manque de transparence ont détruit la confiance, même si certaines mesures de précaution restaient fondées (ex. affirmations prématurées sur l'efficacité des vaccins, disqualification immédiate de toute piste alternative, lourdeur des contrôles et des attestations).
+        .profile-badge {
+            display: inline-block;
+            background: rgba(37, 99, 235, 0.2);
+            color: #60a5fa;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
 
-9. L'alunissage américain de 1969 et la conquête spatiale
-Quelle est votre lecture de l'événement Apollo 11 et de l'arrivée de l'Homme sur la Lune en 1969 ?
+        .stat-bar-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 14px;
+        }
 
-A. Une mise en scène de guerre froide : la victoire américaine a été fabriquée ou embellie en studio pour remporter la bataille idéologique contre l'URSS, ce qui explique les zones d'ombre, la perte de données et l'absence de retour humain depuis plus de 50 ans (ex. doutes soulevés sur les photographies, ombre et drapeau, théories d'un tournage sous la direction d'Hollywood).
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
 
-B. Une prouesse scientifique historique et avérée : les États-Unis ont réellement marché sur la Lune grâce à un investissement colossal, prouvé par des centaines de kilos de roches rapportées, les réflecteurs lasers toujours utilisés et le suivi radar des Soviétiques eux-mêmes (ex. programme Apollo ayant mobilisé 400 000 personnes, 6 missions réussies au total jusqu'en 1972).
+        .stat-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12.5px;
+            color: var(--text-muted);
+        }
 
-C. Un exploit réel à l'époque, mais aujourd'hui délaissé faute de priorité : les Américains y sont bien allés, mais l'absence de retour s'explique simplement par le coût financier astronomique, le risque humain et la fin de la compétition géopolitique avec les Soviétiques (ex. réorientation des budgets vers la station spatiale internationale et les navettes, puis essor du secteur privé aujourd'hui).
+        .stat-bar {
+            height: 8px;
+            background: #0f172a;
+            border-radius: 4px;
+            overflow: hidden;
+        }
 
-10. L'information, le contrôle des médias et la liberté d'expression
-Comment percevez-vous l'indépendance des médias et le respect de la liberté d'expression en France ?
+        .stat-fill {
+            height: 100%;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
 
-A. Une information sous contrôle et une censure d'État : le récit officiel est verrouillé par des médias subventionnés ou possédés par des milliardaires, tandis que le pouvoir ferme des chaînes, interdit les voix dissidentes et traque le « complotisme » (ex. subventions publiques massives aux grands journaux, fermeture de RT France ou C8, censure sur les réseaux sociaux, interdiction de spectacles hors-système).
+<div class="app-container">
+    <header>
+        <div class="header-top">
+            <div class="app-title">
+                <i class="fa-solid fa-square-poll-vertical" style="color:#2563eb;"></i>
+                Grand Sondage 2026
+            </div>
+            <div class="step-counter" id="stepCounter">1 / 15</div>
+        </div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="progressBar"></div>
+        </div>
+    </header>
 
-B. Une désinformation généralisée à réguler : les réseaux sociaux propagent des théories du complot et des fausses informations sans filtre, ce qui impose une régulation stricte et des sanctions pour préserver la démocratie (ex. algorithmes favorisant le clash, fausses nouvelles virales, ingérences étrangères étatiques, fermetures légitimes de chaînes hors-la-loi).
+    <!-- Écran Accueil -->
+    <div class="screen active" id="screenWelcome">
+        <div class="welcome-card">
+            <div class="welcome-icon">
+                <i class="fa-solid fa-clipboard-question"></i>
+            </div>
+            <h1>15 Enjeux d'Avenir</h1>
+            <p>Donnez votre avis sur 15 grandes thématiques clés de notre société et découvrez votre synthèse d'opinion.</p>
+            <button class="btn" onclick="startSurvey()">
+                Commencer le Sondage <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
 
-C. Un paysage complexe où la liberté persiste : malgré les subventions, la concentration économique et la pression administrative, la France reste un État de droit où le citoyen peut accéder à des sources variées s'il prend la peine de croiser l'information (ex. essor des médias alternatifs sur internet, débats contradictoires, contrôle indépendant des tribunaux).
+    <!-- Écran Question -->
+    <div class="screen" id="screenQuestion">
+        <div class="question-tag" id="qTag">Question 1</div>
+        <div class="question-title" id="qTitle">Intitulé de la question</div>
+        
+        <div class="options-list" id="optionsList"></div>
 
-11. Le rôle des hommes politiques et la souveraineté nationale
-Quel regard portez-vous sur la capacité des dirigeants politiques français (de droite, de gauche ou du centre) à transformer réellement le pays ?
+        <div class="nav-buttons">
+            <button class="btn btn-secondary" id="btnPrev" onclick="prevQuestion()">
+                <i class="fa-solid fa-chevron-left"></i>
+            </button>
+            <button class="btn" id="btnNext" onclick="nextQuestion()" disabled>
+                Suivant <i class="fa-solid fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
 
-A. Une souveraineté partagée mais des marges de manœuvre réelles : les normes européennes fixent un cadre collectif indispensable au commerce, mais les gouvernements nationaux conservent un pouvoir majeur sur l'organisation de l'État et la société (ex. liberté de fixation du budget de la justice et de la police, choix du modèle de sécurité sociale, réformes des retraites ou de l'éducation nationale).
+    <!-- Écran Résultats -->
+    <div class="screen" id="screenResults">
+        <div style="text-align: center; margin-bottom: 16px;">
+            <i class="fa-solid fa-circle-check" style="font-size: 42px; color: #10b981; margin-bottom: 8px;"></i>
+            <h2 style="font-family:'Poppins'; font-size:22px;">Sondage Terminé !</h2>
+            <p style="color:var(--text-muted); font-size:13px;">Répartition globale de vos 15 choix.</p>
+        </div>
 
-B. Un rôle de théâtre impuissant : les gouvernants n'ont plus aucun réel pouvoir décisionnel car la quasi-totalité des lois, des traités commerciaux et des frontières dépend de Bruxelles, tandis que les vrais dissidents souverainistes qui proposent d'en sortir sont invisibilisés (ex. impossibilité de mettre des droits de douane unilatéraux sur la Chine, interdiction de bloquer les importations agricoles comme la viande brésilienne, rétablissement impossible des frontières nationales, boycott médiatique des figures du Frexit).
+        <div class="results-card">
+            <span class="profile-badge" id="dominantProfileTag">Analyse des tendances</span>
+            <h3 style="font-size: 16px; margin-bottom: 4px;" id="dominantProfileTitle">Synthèse de votre profil</h3>
+            <p style="font-size: 13px; color: var(--text-muted); line-height: 1.4;" id="dominantProfileDesc">
+                Description synthétique de votre posture d'opinion.
+            </p>
 
-C. Un système politique bloqué par le manque de volonté plus que par l'Europe : les élus manquent de courage ou d'ambition pour utiliser les leviers d'action existants, mais l'intégration européenne reste la seule échelle efficace pour peser face aux autres géants mondiaux (ex. négociations de directives européennes par nos ministres, dérogations nationales possibles, force de frappe commerciale commune).
+            <div class="stat-bar-group">
+                <div class="stat-item">
+                    <div class="stat-label">
+                        <span>Option A</span>
+                        <strong id="percentA">0%</strong>
+                    </div>
+                    <div class="stat-bar"><div class="stat-fill" id="fillA" style="width:0%; background:#dc2626;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">
+                        <span>Option B</span>
+                        <strong id="percentB">0%</strong>
+                    </div>
+                    <div class="stat-bar"><div class="stat-fill" id="fillB" style="width:0%; background:#2563eb;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">
+                        <span>Option C</span>
+                        <strong id="percentC">0%</strong>
+                    </div>
+                    <div class="stat-bar"><div class="stat-fill" id="fillC" style="width:0%; background:#059669;"></div></div>
+                </div>
+            </div>
+        </div>
 
-12. Le système financier, la dette et la fin de l'argent liquide
-Quel regard portez-vous sur le fonctionnement du système bancaire, le remboursement de la dette et la suppression progressive du cash ?
+        <button class="btn" onclick="resetSurvey()" style="margin-top: auto;">
+            <i class="fa-solid fa-rotate-right"></i> Recommencer le sondage
+        </button>
+    </div>
+</div>
 
-A. Un outil de souveraineté et de modernisation nécessaire : la dématérialisation des paiements simplifie le quotidien, aide à lutter contre la fraude fiscale, tandis que la dette publique permet de financer nos services publics et nos investissements d'avenir (ex. paiement par smartphone, traçabilité contre le grand banditisme, plans de relance et financement des hôpitaux ou des transports).
+<script>
+    const questions = [
+        {
+            tag: "1. L'Union européenne",
+            title: "Quel regard portez-vous sur le fonctionnement et l'impact de l'Union européenne aujourd'hui ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Organisation imparfaite mais nécessaire", desc: "Coopération stratégique utile (marché unique, euro, négociation internationale)." },
+                { id: "B", class: "opt-b", label: "Structure destructrice & technocratique", desc: "Perte de souveraineté, normes étouffantes et concurrence déloyale." },
+                { id: "C", class: "opt-c", label: "Projet indispensable pour l'avenir", desc: "Seule échelle efficace face aux défis globaux et géants mondiaux." }
+            ]
+        },
+        {
+            tag: "2. Conflit Russie / Ukraine",
+            title: "Quelle est votre position concernant la guerre et le soutien à apporter ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Opposition au soutien / Compréhension russe", desc: "Arrêt de l'aide militaire et des sanctions qui nuisent aux intérêts nationaux." },
+                { id: "B", class: "opt-b", label: "Soutien total et inconditionnel", desc: "Livraison d'armes et sanctions maximales pour défendre la démocratie." },
+                { id: "C", class: "opt-c", label: "Soutien nuancé / Recherche de compromis", desc: "Recherche prioritaire d'une solution diplomatique négociée." }
+            ]
+        },
+        {
+            tag: "3. Immigration & Identité",
+            title: "Quelle est votre vision de la gestion des flux migratoires ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Nécessité à mieux encadrer", desc: "Renforcement des contrôles et respect strict des règles républicaines." },
+                { id: "B", class: "opt-b", label: "Opportunité et devoir", desc: "Enrichissement culturel/économique, accueil humanisé et intégration." },
+                { id: "C", class: "opt-c", label: "Menace majeure", desc: "Arrêt quasi total de l'immigration et application de la préférence nationale." }
+            ]
+        },
+        {
+            tag: "4. Climat & Rôle du CO₂",
+            title: "Quelle est votre analyse sur les politiques environnementales actuelles ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Instrumentalisation politique et fiscale", desc: "Prétexte pour lever de nouveaux impôts et restreindre les libertés." },
+                { id: "B", class: "opt-b", label: "Menace réelle liée à l'activité humaine", desc: "Consensus scientifique exigeant une réduction d'urgence de l'empreinte carbone." },
+                { id: "C", class: "opt-c", label: "Phénomène naturel complexe exagéré", desc: "Variations climatiques naturelles et incohérence des contraintes locales." }
+            ]
+        },
+        {
+            tag: "5. Rôle Mondial des USA",
+            title: "Comment percevez-vous l'influence internationale des États-Unis ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Puissance déstabilisatrice au bilan lourd", desc: "Interventions extérieures guidées par leurs seuls intérêts géopolitiques." },
+                { id: "B", class: "opt-b", label: "Acteur pragmatique et ambivalent", desc: "Actions guidées par des intérêts stratégiques, aux effets contrastés." },
+                { id: "C", class: "opt-c", label: "Force d'équilibre indispensable", desc: "Capacité unique de maintenir un ordre mondial stable face aux régimes autoritaires." }
+            ]
+        },
+        {
+            tag: "6. Justice & Réponse Pénale",
+            title: "Quelle doit être la priorité du système judiciaire ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Prévention et réinsertion", desc: "Privilégier l'accompagnement social, la prise en charge et les peines alternatives." },
+                { id: "B", class: "opt-b", label: "Fermeté et dissuasion", desc: "Peines planchers, constructions de prisons et exécution stricte des peines." },
+                { id: "C", class: "opt-c", label: "Responsabilisation et réparation", desc: "Justice restaurative priorisant l'indemnisation et le soutien aux victimes." }
+            ]
+        },
+        {
+            tag: "7. Équité du Système Judiciaire",
+            title: "Existe-t-il selon vous une justice à deux vitesses en France ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Justice structurellement inégalitaire", desc: "Indulgence systémique pour les élites contre sévérité pour les citoyens ordinaires." },
+                { id: "B", class: "opt-b", label: "Disparité des moyens d'action", desc: "Inégalité d'accès aux meilleurs cabinets d'avocats spécialisés." },
+                { id: "C", class: "opt-c", label: "Système équitable et impartial", desc: "Application égale des lois par des juges indépendants quel que soit le statut." }
+            ]
+        },
+        {
+            tag: "8. Gestion Sanitaire & Vaccination",
+            title: "Quel bilan tirez-vous de la communication durant la crise du Covid-19 ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Gestion pragmatique face à l'inconnu", desc: "Information quotidienne et incitation vaccinale adaptées pour sauver des vies." },
+                { id: "B", class: "opt-b", label: "Stratégie de manipulation par la peur", desc: "Utilisation de la censure et du contrôle pour imposer la vaccination." },
+                { id: "C", class: "opt-c", label: "Communication rigide et paternaliste", desc: "Discours unique ayant abîmé la confiance malgré des mesures fondées." }
+            ]
+        },
+        {
+            tag: "9. Conquête Spatiale (Apollo 11)",
+            title: "Quelle est votre lecture de l'arrivée de l'Homme sur la Lune en 1969 ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Mise en scène de Guerre Froide", desc: "Victoire fabriquée ou embellie en studio à des fins idéologiques." },
+                { id: "B", class: "opt-b", label: "Prouesse scientifique avérée", desc: "Exploit réel prouvé par les roches, réflecteurs et données de suivi." },
+                { id: "C", class: "opt-c", label: "Exploit réel mais délaissé faute de priorité", desc: "Abandon lié au coût astronomique et à la fin de la rivalité géopolitique." }
+            ]
+        },
+        {
+            tag: "10. Médias & Liberté d'Expression",
+            title: "Comment percevez-vous l'indépendance de l'information ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Information sous contrôle / Censure d'État", desc: "Médias dominants aux mains d'élites ou subventionnés et traque de la dissidence." },
+                { id: "B", class: "opt-b", label: "Désinformation à réguler", desc: "Réseaux sociaux propageant les rumeurs exigeant un contrôle strict." },
+                { id: "C", class: "opt-c", label: "Paysage complexe mais libre", desc: "Liberté réelle d'informer exigeant du citoyen le croisement des sources." }
+            ]
+        },
+        {
+            tag: "11. Souveraineté & Action Politique",
+            title: "Quelle est la capacité réelle des dirigeants à transformer le pays ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Souveraineté partagée aux marges réelles", desc: "Pouvoir conservé sur l'État, la sécurité, le modèle social et l'éducation." },
+                { id: "B", class: "opt-b", label: "Théâtre d'impuissance", desc: "Transfert des décisions réelles à Bruxelles et invisibilisation des souverainistes." },
+                { id: "C", class: "opt-c", label: "Manque de volonté politique", desc: "Absence d'ambition des élus d'utiliser les leviers nationaux et européens existants." }
+            ]
+        },
+        {
+            tag: "12. Finance, Dette & Cash",
+            title: "Quel regard portez-vous sur le système financier et la fin du cash ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Modernisation & Lutte contre la fraude", desc: "Dématérialisation pratique et utilisation légitime de la dette d'investissement." },
+                { id: "B", class: "opt-b", label: "Dérive irresponsable du budget de l'État", desc: "Gestion budgétaire déficitaire accumulant une dette injustifiée sur les jeunes." },
+                { id: "C", class: "opt-c", label: "Système de contrôle et d'asservissement", desc: "Enrichissement des banques privées et menace sur les libertés via le zéro cash." }
+            ]
+        },
+        {
+            tag: "13. Identité Numérique & Surveillance",
+            title: "Que pensez-vous des outils d'identification biométrique ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Dérive vers le crédit social", desc: "Portefeuille numérique et surveillance ouvrant la voie au contrôle citoyen." },
+                { id: "B", class: "opt-b", label: "Securité et simplification indispensables", desc: "Modernisation administrative utile et meilleure identification criminelle." },
+                { id: "C", class: "opt-c", label: "Progrès sous garanties juridiques", desc: "Innovations inévitables à encadrer strictement par la loi (CNIL)." }
+            ]
+        },
+        {
+            tag: "14. Agro-industrie & Santé",
+            title: "Quel regard portez-vous sur la santé publique et la nourriture ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Emprise chimique et pharmacologique", desc: "Priorité au profit industriel, à la surmédication et aux produits transformés." },
+                { id: "B", class: "opt-b", label: "Système sanitaire parmi les plus sûrs", desc: "Contrôles stricts, allongement de la durée de vie et médecine d'excellence." },
+                { id: "C", class: "opt-c", label: "Responsabilité et choix individuels", desc: "Offre abondante nécessitant des choix éclairés de chaque consommateur." }
+            ]
+        },
+        {
+            tag: "15. Éducation Nationale",
+            title: "Quelle est la mission principale accomplie par l'école publique ?",
+            options: [
+                { id: "A", class: "opt-a", label: "Formatage & Nivellement par le bas", desc: "Baisse de niveau et idéologisation au détriment des fondamentaux." },
+                { id: "B", class: "opt-b", label: "Pilier d'égalité des chances", desc: "Instruction gratuite et promotion des valeurs de la République pour tous." },
+                { id: "C", class: "opt-c", label: "Institution rigide et dépassée", desc: "Système centralisé inadapté aux enjeux concrets de la vie moderne." }
+            ]
+        }
+    ];
 
-B. Une dérive irresponsable liée au manque de rigueur de l'État : le problème principal vient de l'incapacité des politiques à gérer le budget national, ce qui crée une dette énorme transmise aux générations futures sans pour autant améliorer la gestion du pays (ex. hausse continuelle des taxes et impôts, accumulation des déficits publics, gaspillage de l'argent public).
+    let currentStep = 0;
+    let userAnswers = {};
 
-C. Un système d'asservissement et de contrôle total : l'endettement auprès des marchés financiers enrichit les banques privées qui créent l'argent à partir de rien, tandis que la fin du cash et l'euro numérique permettront de surveiller ou bloquer les comptes des citoyens (ex. milliards d'intérêts versés aux banques privées, imposition de l'austérité, risque de gel des comptes bancaires en cas de contestation politique).
+    function startSurvey() {
+        document.getElementById('screenWelcome').classList.remove('active');
+        document.getElementById('screenQuestion').classList.add('active');
+        renderQuestion();
+    }
 
-13. L'identité numérique et le crédit social
-Que pensez-vous du déploiement des outils de surveillance numérique et d'identification biométrique (portefeuille d'identité numérique, reconnaissance faciale) ?
+    function renderQuestion() {
+        const q = questions[currentStep];
+        document.getElementById('qTag').textContent = q.tag;
+        document.getElementById('qTitle').textContent = q.title;
+        document.getElementById('stepCounter').textContent = `${currentStep + 1} / ${questions.length}`;
+        
+        const progressPct = ((currentStep + 1) / questions.length) * 100;
+        document.getElementById('progressBar').style.width = `${progressPct}%`;
 
-A. Une dérive vers une société de contrôle total : sous couvert de sécurité et de simplification, ces technologies pavent la voie à un système de crédit social où l'accès aux services dépend du comportement et du respect des règles du pouvoir (ex. application d'identité numérique européenne, caméras algorithmiques dans la rue, passeports numériques multi-usages).
+        const optionsContainer = document.getElementById('optionsList');
+        optionsContainer.innerHTML = '';
 
-B. Des outils indispensables pour la sécurité et la modernisation : la technologie doit aider les forces de l'ordre à lutter contre le crime et simplifier les démarches administratives dans un monde de plus en plus dématérialisé (ex. gain de temps pour les papiers officiels, identification rapide des criminels recherchés, sécurisation des transactions).
+        const currentAnswer = userAnswers[currentStep];
 
-C. Un progrès technique acceptable sous réserve de garanties juridiques : ces innovations sont inévitables, mais elles doivent être strictement encadrées par des organismes indépendants pour éviter tout dérapage autoritaire (ex. contrôle par la CNIL, interdiction de la notation des citoyens, consentement individuel obligatoire).
+        q.options.forEach(opt => {
+            const card = document.createElement('div');
+            card.className = `option-card ${opt.class} ${currentAnswer === opt.id ? 'selected' : ''}`;
+            card.onclick = () => selectOption(opt.id);
 
-14. La souveraineté alimentaire, la santé et l'agro-industrie
-Quel regard portez-vous sur la qualité de notre alimentation et la gestion de la santé publique ?
+            card.innerHTML = `
+                <div class="option-header">
+                    <span class="option-letter">Option ${opt.id}</span>
+                    <span class="option-label">${opt.label}</span>
+                </div>
+                <div class="option-desc">${opt.desc}</div>
+            `;
+            optionsContainer.appendChild(card);
+        });
 
-A. Une emprise de l'industrie chimique et pharmacologique : la recherche de profits industriels passe avant la santé publique, favorisant la nourriture ultra-transformée et la surmédication au détriment de la prévention et du naturel (ex. empoisonnement par les pesticides et additifs, lobbying des géants de l'agroalimentaire, marginalisation des médecines naturelles et de l'autonomie sanitaire).
+        document.getElementById('btnPrev').style.visibility = currentStep === 0 ? 'hidden' : 'visible';
+        document.getElementById('btnNext').disabled = !userAnswers.hasOwnProperty(currentStep);
+    }
 
-B. Un système de santé et d'alimentation parmi les plus sûrs au monde : la réglementation stricte et la médecine moderne ont permis d'allonger considérablement l'espérance de vie et d'éradiquer de nombreuses maladies (ex. contrôles sanitaires stricts sur les aliments, accès universel aux traitements médicaux de pointe, progrès de la recherche médicale).
+    function selectOption(optionId) {
+        userAnswers[currentStep] = optionId;
+        renderQuestion();
+    }
 
-C. Une responsabilité individuelle face à des dérives industrielles : le système offre une abondance inédite à bas coût, mais il appartient à chaque citoyen de s'informer et de faire les bons choix pour sa propre santé (ex. essor du bio, développement du fait-maison, choix de son parcours de soins).
+    function nextQuestion() {
+        if (currentStep < questions.length - 1) {
+            currentStep++;
+            renderQuestion();
+        } else {
+            showResults();
+        }
+    }
 
-15. L'éducation, la jeunesse et la fabrique du consentement
-Quelle est selon vous la mission principale accomplie par l'Éducation nationale aujourd'hui ?
+    function prevQuestion() {
+        if (currentStep > 0) {
+            currentStep--;
+            renderQuestion();
+        }
+    }
 
-A. Un formatage idéologique et un nivellement par le bas : au lieu de transmettre le savoir et l'esprit critique, l'école publique fabrique des citoyens obéissants et diffuse des idéologies sociétales au détriment des fondamentaux (ex. baisse du niveau en français et en maths, promotion de théories sociétales dès le primaire, suppression des filières d'excellence).
+    function showResults() {
+        document.getElementById('screenQuestion').classList.remove('active');
+        document.getElementById('screenResults').classList.add('active');
 
-B. Un pilier républicain d'égalité des chances : l'école reste le seul endroit qui garantit l'instruction gratuite pour tous, la mixité sociale et l'apprentissage des valeurs de la République (ex. gratuité des manuels et de la scolarité, accès élargi à l'enseignement supérieur, lutte contre l'illettrisme).
+        let countA = 0, countB = 0, countC = 0;
+        Object.values(userAnswers).forEach(val => {
+            if (val === 'A') countA++;
+            if (val === 'B') countB++;
+            if (val === 'C') countC++;
+        });
 
-C. Une institution dépassée qui n'adapte plus les jeunes au monde réel : le système est trop rigide et centralisé, incapable de développer la créativité, l'autonomie financière et les compétences concrètes nécessaires à la vie adulte (ex. absence d'enseignement de la gestion financière ou du droit quotidien, cours magistraux inadaptés aux nouveaux enjeux).
+        const total = questions.length;
+        const pctA = Math.round((countA / total) * 100);
+        const pctB = Math.round((countB / total) * 100);
+        const pctC = Math.round((countC / total) * 100);
+
+        document.getElementById('percentA').textContent = `${pctA}%`;
+        document.getElementById('percentB').textContent = `${pctB}%`;
+        document.getElementById('percentC').textContent = `${pctC}%`;
+
+        document.getElementById('fillA').style.width = `${pctA}%`;
+        document.getElementById('fillB').style.width = `${pctB}%`;
+        document.getElementById('fillC').style.width = `${pctC}%`;
+    }
+
+    function resetSurvey() {
+        currentStep = 0;
+        userAnswers = {};
+        document.getElementById('screenResults').classList.remove('active');
+        document.getElementById('screenWelcome').classList.add('active');
+    }
+</script>
+
+</body>
+</html>
