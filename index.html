@@ -185,7 +185,10 @@
         .option-card.selected { border-color: var(--accent-blue); background: rgba(37, 99, 235, 0.12); }
 
         .option-header { display: flex; align-items: center; gap: 10px; }
-        .option-letter { font-weight: 700; font-size: 12px; padding: 3px 8px; border-radius: 6px; color: #fff; text-transform: uppercase; background: #2563eb; }
+        .option-letter { font-weight: 700; font-size: 12px; padding: 3px 8px; border-radius: 6px; color: #fff; text-transform: uppercase; }
+        .opt-a .option-letter { background: #dc2626; }
+        .opt-b .option-letter { background: #2563eb; }
+        .opt-c .option-letter { background: #059669; }
 
         .option-label { font-weight: 600; font-size: 14.5px; color: var(--text-white); }
         .option-desc { font-size: 13px; color: var(--text-muted); line-height: 1.45; }
@@ -210,6 +213,16 @@
         .btn:disabled { background: #334155; color: #64748b; box-shadow: none; cursor: not-allowed; }
         .nav-buttons { margin-top: auto; display: flex; gap: 10px; padding-top: 10px; }
         .btn-secondary { background: var(--card-bg); border: 1px solid var(--card-border); color: var(--text-white); box-shadow: none; width: auto; padding: 15px 18px; }
+
+        .results-card { background: var(--card-bg); border-radius: 16px; padding: 18px; margin-bottom: 16px; border: 1px solid var(--card-border); }
+        .profile-badge { display: inline-block; background: rgba(37, 99, 235, 0.2); color: #60a5fa; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 20px; margin-bottom: 8px; text-transform: uppercase; }
+        .punchline-box { background: rgba(255, 255, 255, 0.05); border-left: 3px solid #38bdf8; padding: 10px 12px; border-radius: 6px; font-style: italic; font-size: 13.5px; color: #f1f5f9; margin-bottom: 12px; }
+        
+        .stat-bar-group { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+        .stat-item { display: flex; flex-direction: column; gap: 4px; }
+        .stat-label { display: flex; justify-content: space-between; font-size: 12.5px; color: var(--text-muted); }
+        .stat-bar { height: 8px; background: #0f172a; border-radius: 4px; overflow: hidden; }
+        .stat-fill { height: 100%; border-radius: 4px; }
     </style>
 </head>
 <body>
@@ -235,7 +248,7 @@
                 <i class="fa-solid fa-id-card"></i>
             </div>
             <h1>Avant de commencer...</h1>
-            <p>Veuillez renseigner vos informations.</p>
+            <p>Veuillez renseigner vos informations pour identifier votre profil.</p>
             
             <div class="form-group">
                 <label>Nom</label>
@@ -251,7 +264,7 @@
             </div>
             <div class="form-group">
                 <label>Métier</label>
-                <input type="text" id="inputMetier" class="form-input" placeholder="Ex: Cadre...">
+                <input type="text" id="inputMetier" class="form-input" placeholder="Ex: Enseignant, Cadre...">
             </div>
 
             <button class="btn" onclick="startSurvey()" style="margin-top: 10px;">
@@ -277,18 +290,41 @@
         </div>
     </div>
 
-    <!-- Résultats / Fin -->
+    <!-- Résultats -->
     <div class="screen" id="screenResults">
-        <div class="welcome-card">
-            <div class="welcome-icon" style="background: #10b981;">
-                <i class="fa-solid fa-check"></i>
-            </div>
-            <h2>Terminé !</h2>
-            <p id="msgFin">Vos réponses sont enregistrées avec succès.</p>
-            <button class="btn" onclick="location.reload()" style="margin-top: 20px;">
-                Recommencer
-            </button>
+        <div style="text-align: center; margin-bottom: 16px;">
+            <i class="fa-solid fa-circle-check" style="font-size: 42px; color: #10b981; margin-bottom: 8px;"></i>
+            <h2 style="font-family:'Poppins'; font-size:22px;">Verdict du Tribunal !</h2>
+            <p style="color:var(--text-muted); font-size:13px;" id="userGreeting">Vos réponses ont été enregistrées.</p>
         </div>
+
+        <div class="results-card">
+            <span class="profile-badge">Votre Profil Idéologique</span>
+            <h3 id="profileTitle" style="font-size: 17px; margin-bottom: 8px; color: #38bdf8;">Détermination...</h3>
+            
+            <div class="punchline-box" id="profilePunchline"></div>
+            <p id="profileDesc" style="font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 14px;"></p>
+
+            <span class="profile-badge" style="margin-top: 10px;">Répartition globale</span>
+            <div class="stat-bar-group">
+                <div class="stat-item">
+                    <div class="stat-label"><span>Souverainiste & Patriote</span><strong id="percentSouverainiste">0%</strong></div>
+                    <div class="stat-bar"><div class="stat-fill" id="fillSouverainiste" style="width:0%; background:#dc2626;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label"><span>Institutionnel & Obéissant</span><strong id="percentInstitutionnel">0%</strong></div>
+                    <div class="stat-bar"><div class="stat-fill" id="fillInstitutionnel" style="width:0%; background:#059669;"></div></div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label"><span>Modéré & Équilibriste</span><strong id="percentModere">0%</strong></div>
+                    <div class="stat-bar"><div class="stat-fill" id="fillModere" style="width:0%; background:#2563eb;"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <button class="btn" onclick="resetSurvey()" style="margin-top: auto;">
+            <i class="fa-solid fa-rotate-right"></i> Recommencer
+        </button>
     </div>
 </div>
 
@@ -297,121 +333,121 @@
         {
             tag: "1. L'Union européenne", title: "Quel regard portez-vous sur le fonctionnement et l'impact de l'Union européenne aujourd'hui ?",
             options: [
-                { id: "A", label: "Une organisation imparfaite mais nécessaire", desc: "Bien que la bureaucratie et les traités posent problème, la coopération reste un atout." },
-                { id: "B", label: "Une structure destructrice et technocratique", desc: "L'UE sacrifie nos secteurs clés via une concurrence déloyale et des normes étouffantes." },
-                { id: "C", label: "Un projet indispensable pour l'avenir", desc: "La souveraineté nationale est insuffisante face aux grands défis mondiaux." }
+                { id: "A", class: "opt-a", type: "modere", label: "Une organisation imparfaite mais nécessaire", desc: "bien que la bureaucratie, les traités commerciaux et les dérives administratives posent de reels problèmes, la coopération européenne reste un atout global." },
+                { id: "B", class: "opt-b", type: "souverainiste", label: "Une structure destructrice et technocratique", desc: "l'UE sacrifie nos agriculteurs et notre industrie via la concurrence déloyale et impose des normes étouffantes." },
+                { id: "C", class: "opt-c", type: "institutionnel", label: "Un projet indispensable pour l'avenir", desc: "la souveraineté nationale est insuffisante face aux grands défis mondiaux ; l'intégration européenne est la seule voie." }
             ]
         },
         {
-            tag: "2. Le conflit Ukraine", title: "Quelle est votre position concernant la guerre entre la Russie et l'Ukraine et le soutien à apporter ?",
+            tag: "2. Le conflit Russie-Ukraine", title: "Quelle est votre position concernant la guerre entre la Russie et l'Ukraine et le soutien à apporter ?",
             options: [
-                { id: "A", label: "Opposition au soutien occidental / Compréhension russe", desc: "Ce conflit ne nous regarde pas ou est provoqué par l'OTAN." },
-                { id: "B", label: "Soutien total et inconditionnel à l'Ukraine", desc: "Il faut livrer toutes les armes nécessaires et appliquer des sanctions maximales." },
-                { id: "C", label: "Soutien nuancé / Recherche de compromis", desc: "La Russie est l'agresseur, mais il faut privilégier une solution diplomatique." }
+                { id: "A", class: "opt-a", type: "souverainiste", label: "Opposition au soutien occidental / Compréhension russe", desc: "ce conflit ne nous regarde pas ou est provoqué par l'OTAN ; il faut cesser les sanctions." },
+                { id: "B", class: "opt-b", type: "institutionnel", label: "Soutien total et inconditionnel à l'Ukraine", desc: "il faut livrer toutes les armes nécessaires et appliquer des sanctions maximales contre la Russie." },
+                { id: "C", class: "opt-c", type: "modere", label: "Soutien nuancé / Recherche de compromis", desc: "la Russie est l'agresseur, mais il faut privilégier au plus vite une solution diplomatique négociée." }
             ]
         },
         {
             tag: "3. L'immigration", title: "Quelle est votre vision concernant la gestion des flux migratoires et l'intégration en France ?",
             options: [
-                { id: "A", label: "Une nécessité à mieux encadrer", desc: "L'immigration apporte de la main-d'œuvre mais nécessite un contrôle strict aux frontières." },
-                { id: "B", label: "Une opportunité et un devoir", desc: "L'immigration enrichit la France culturellement et économiquement." },
-                { id: "C", label: "Une menace majeure", desc: "Il faut stopper l'immigration et appliquer la préférence nationale." }
+                { id: "A", class: "opt-a", type: "modere", label: "Une nécessité à mieux encadrer", desc: "l'immigration peut apporter de la main-d'œuvre, mais il faut renforcer le contrôle aux frontières et la laïcité." },
+                { id: "B", class: "opt-b", type: "institutionnel", label: "Une opportunité et un devoir", desc: "l'immigration enrichit la France culturellement et économiquement ; il faut humaniser l'accueil." },
+                { id: "C", class: "opt-c", type: "souverainiste", label: "Une menace majeure", desc: "il faut stopper quasi totalement l'immigration et appliquer la préférence nationale." }
             ]
         },
         {
-            tag: "4. Le climat", title: "Quelle est votre analyse sur la réalité du changement climatique et les politiques environnementales ?",
+            tag: "4. Le climat et le CO₂", title: "Quelle est votre analyse sur la réalité du changement climatique et les politiques environnementales ?",
             options: [
-                { id: "A", label: "Une instrumentalisation politique et fiscale", desc: "L'accusation du CO₂ sert surtout de prétexte pour lever de nouveaux impôts." },
-                { id: "B", label: "Une menace réelle causée par l'activité humaine", desc: "Le consensus scientifique démontre l'impact direct des émissions de CO₂." },
-                { id: "C", label: "Un phénomène naturel complexe exagéré", desc: "Le climat a toujours varié et les mesures actuelles pèsent trop sur l'économie." }
+                { id: "A", class: "opt-a", type: "souverainiste", label: "Une instrumentalisation politique et fiscale", desc: "l'accusation du CO₂ sert surtout de prétexte pour lever de nouveaux impôts et restreindre les libertés." },
+                { id: "B", class: "opt-b", type: "institutionnel", label: "Une menace réelle causée par l'activité humaine", desc: "le consensus scientifique démontre que les émissions de CO₂ sont le principal moteur du réchauffement." },
+                { id: "C", class: "opt-c", type: "modere", label: "Un phénomène naturel complexe exagéré", desc: "le climat a toujours varié et les mesures coercitives actuelles ruinent l'économie pour rien." }
             ]
         },
         {
             tag: "5. Les États-Unis", title: "Comment percevez-vous l'influence internationale des États-Unis depuis ces dernières décennies ?",
             options: [
-                { id: "A", label: "Une puissance déstabilisatrice au bilan lourd", desc: "Leurs interventions extérieures ont créé plus de désordre que de paix." },
-                { id: "B", label: "Un acteur pragmatique et ambivalent", desc: "Ils agissent avant tout pour leurs intérêts stratégiques." },
-                { id: "C", label: "Une force d'équilibre indispensable", desc: "C'est la puissance clé pour maintenir un ordre mondial stable." }
+                { id: "A", class: "opt-a", type: "souverainiste", label: "Une puissance déstabilisatrice au bilan lourd", desc: "leurs interventions extérieures ont créé plus de désordre que de paix au service de leurs intérêts." },
+                { id: "B", class: "opt-b", type: "modere", label: "Un acteur pragmatique et ambivalent", desc: "ils agissent avant tout pour leurs intérêts stratégiques, apportant du positif comme du négatif." },
+                { id: "C", class: "opt-c", type: "institutionnel", label: "Une force d'équilibre indispensable", desc: "c'est la seule puissance capable de maintenir un ordre mondial stable et de protéger ses alliés." }
             ]
         },
         {
-            tag: "6. La justice", title: "Quelle doit être la priorité du système judiciaire pour lutter contre la délinquance ?",
+            tag: "6. La justice et la peine", title: "Quelle doit être la priorité du système judiciaire pour lutter contre la délinquance ?",
             options: [
-                { id: "A", label: "La prévention et la réinsertion", desc: "Il faut privilégier l'accompagnement social et l'éducation." },
-                { id: "B", label: "La fermeté et la dissuasion", desc: "Il faut appliquer des peines planchers et construire des prisons." },
-                { id: "C", label: "La responsabilisation et la réparation", desc: "La justice doit se concentrer sur les victimes et la réparation directe." }
+                { id: "A", class: "opt-a", type: "institutionnel", label: "La prévention et la réinsertion", desc: "le tout-carcéral ne fonctionne pas ; il faut privilégier l'accompagnement social et l'éducation." },
+                { id: "B", class: "opt-b", type: "souverainiste", label: "La fermeté et la dissuasion", desc: "il faut appliquer des peines planchers, construire des prisons et exécuter fermement les sanctions." },
+                { id: "C", class: "opt-c", type: "modere", label: "La responsabilisation et la réparation", desc: "la justice doit d'abord se concentrer sur les victimes et réparer directement les préjudices." }
             ]
         },
         {
             tag: "7. Justice à deux vitesses", title: "Pensez-vous qu'il existe une justice « à deux vitesses » en France selon la richesse ?",
             options: [
-                { id: "A", label: "Une justice structurellement inégalitaire", desc: "Les élites bénéficient d'une indulgence systémique." },
-                { id: "B", label: "Une justice inégale liée aux moyens financiers", desc: "La différence vient de la capacité à se payer les meilleurs avocats." },
-                { id: "C", label: "Une justice globalement équitable", desc: "La loi s'applique à tous de la même façon." }
+                { id: "A", class: "opt-a", type: "souverainiste", label: "Une justice structurellement inégalitaire", desc: "les élites bénéficient d'une indulgence systémique, contrairement aux citoyens ordinaires." },
+                { id: "B", class: "opt-b", type: "modere", label: "Une justice inégale liée aux moyens financiers", desc: "la différence vient de la capacité à se payer les meilleurs avocats, pas du système en soi." },
+                { id: "C", class: "opt-c", type: "institutionnel", label: "Une justice globalement équitable et impartiale", desc: "la loi s'applique à tous de la même façon et les juges sont totalement indépendants." }
             ]
         },
         {
-            tag: "8. Gestion Covid", title: "Quel bilan tirez-vous de la stratégie sanitaire et de la communication durant le Covid-19 ?",
+            tag: "8. Gestion du Covid-19", title: "Quel bilan tirez-vous de la stratégie sanitaire et de la communication durant le Covid-19 ?",
             options: [
-                { id: "A", label: "Une gestion pragmatique face à une menace inédite", desc: "Les autorités ont fait de leur mieux pour protéger les structures de santé." },
-                { id: "B", label: "Une stratégie de manipulation par la peur", desc: "Le pouvoir a utilisé la panique pour imposer des restrictions." },
-                { id: "C", label: "Une communication de crise rigide", desc: "Le manque de transparence a brisé la confiance publique." }
+                { id: "A", class: "opt-a", type: "institutionnel", label: "Une gestion pragmatique face à une menace inédite", desc: "les autorités ont dû s'adapter au jour le jour pour protéger les structures de santé et les plus fragiles." },
+                { id: "B", class: "opt-b", type: "souverainiste", label: "Une stratégie de manipulation par la peur", desc: "le pouvoir a utilisé l'ingénierie sociale, la censure et la panique pour imposer un contrôle." },
+                { id: "C", class: "opt-c", type: "modere", label: "Une communication de crise rigide et paternaliste", desc: "le manque de transparence et la volonté d'un discours unique ont détruit la confiance publique." }
             ]
         },
         {
-            tag: "9. Alunissage 1969", title: "Quelle est votre lecture de l'arrivée de l'Homme sur la Lune en 1969 ?",
+            tag: "9. L'alunissage de 1969", title: "Quelle est votre lecture de l'arrivée de l'Homme sur la Lune en 1969 ?",
             options: [
-                { id: "A", label: "Une mise en scène de guerre froide", desc: "La victoire américaine a été fabriquée en studio." },
-                { id: "B", label: "Une prouesse scientifique historique", desc: "Prouvée par de multiples preuves matérielles et scientifiques." },
-                { id: "C", label: "Un exploit réel mais non répété", desc: "Les Américains y sont allés, mais le coût explique l'arrêt des missions." }
+                { id: "A", class: "opt-a", type: "souverainiste", label: "Une mise en scène de guerre froide", desc: "la victoire américaine a été fabriquée en studio pour remporter la bataille face à l'URSS." },
+                { id: "B", class: "opt-b", type: "institutionnel", label: "Une prouesse scientifique historique et avérée", desc: "prouvée par des centaines de kilos de roches, les réflecteurs lasers et le suivi soviétique." },
+                { id: "C", class: "opt-c", type: "modere", label: "Un exploit réel mais aujourd'hui délaissé", desc: "les Américains y sont allés, mais le coût astronomique explique l'absence de retour ultérieur." }
             ]
         },
         {
             tag: "10. Liberté d'expression", title: "Comment percevez-vous l'indépendance des médias et le respect de la liberté d'expression ?",
             options: [
-                { id: "A", label: "Une information sous contrôle et censure", desc: "Le récit officiel est verrouillé pour faire taire les voix dissidentes." },
-                { id: "B", label: "Une désinformation à réguler", desc: "Les réseaux sociaux propagent trop de fausses nouvelles." },
-                { id: "C", label: "Un paysage complexe où la liberté persiste", desc: "Le citoyen peut croiser ses sources s'il le souhaite." }
+                { id: "A", class: "opt-a", type: "souverainiste", label: "Une information sous contrôle et censure", desc: "le récit officiel est verrouillé par les subventions et les milliardaires qui font taire les voix dissidentes." },
+                { id: "B", class: "opt-b", type: "institutionnel", label: "Une désinformation de masse à réguler", desc: "les réseaux sociaux propagent trop de fausses nouvelles, justifiant une régulation stricte." },
+                { id: "C", class: "opt-c", type: "modere", label: "Un paysage complexe où la liberté persiste", desc: "malgré la concentration, le citoyen peut croiser ses sources s'il le souhaite vraiment." }
             ]
         },
         {
             tag: "11. Rôle des politiques", title: "Quel regard portez-vous sur la capacité des dirigeants français à transformer le pays ?",
             options: [
-                { id: "A", label: "Des marges de manœuvre réelles", desc: "Les gouvernements conservent le pouvoir sur la police, la santé et l'école." },
-                { id: "B", label: "Un rôle de théâtre impuissant", desc: "Les lois dépendent de Bruxelles ; les politiques n'ont plus de pouvoir." },
-                { id: "C", label: "Un blocage lié au manque de courage", desc: "Les élus manquent d'audace pour utiliser les leviers nationaux." }
+                { id: "A", class: "opt-a", type: "institutionnel", label: "Des marges de manœuvre réelles malgré l'Europe", desc: "les gouvernements conservent le pouvoir sur la police, la justice, la santé et l'éducation." },
+                { id: "B", class: "opt-b", type: "souverainiste", label: "Un rôle de théâtre totalement impuissant", desc: "les lois et frontières dépendent de Bruxelles ; les politiques n'ont plus aucun pouvoir réel." },
+                { id: "C", class: "opt-c", type: "modere", label: "Un blocage lié au manque de courage politique", desc: "les élus manquent d'audace pour utiliser les leviers d'action existants à l'échelle nationale." }
             ]
         },
         {
             tag: "12. Dette et cash", title: "Quel regard portez-vous sur le système financier, la dette et la fin de l'argent liquide ?",
             options: [
-                { id: "A", label: "Un outil de modernisation", desc: "Le paiement numérique simplifie le quotidien." },
-                { id: "B", label: "Une dérive due au manque de rigueur", desc: "Le problème vient de la mauvaise gestion budgétaire de l'État." },
-                { id: "C", label: "Un système d'asservissement et de contrôle", desc: "La fin du cash vise à surveiller et restreindre les citoyens." }
+                { id: "A", class: "opt-a", type: "institutionnel", label: "Un outil de modernisation et de progrès", desc: "le paiement numérique simplifie le quotidien et la dette finance nos services publics." },
+                { id: "B", class: "opt-b", type: "modere", label: "Une dérive due au manque de rigueur de l'État", desc: "le problème vient de l'incapacité chronique des gouvernements à gérer le budget national." },
+                { id: "C", class: "opt-c", type: "souverainiste", label: "Un système d'asservissement et de contrôle total", desc: "la fin du cash et l'endettement visent à surveiller, taxer et bloquer les citoyens à distance." }
             ]
         },
         {
             tag: "13. Identité numérique", title: "Que pensez-vous du déploiement des outils de surveillance numérique et biométrique ?",
             options: [
-                { id: "A", label: "Une dérive vers une société de contrôle", desc: "Ces technologies ouvrent la voie à un crédit social." },
-                { id: "B", label: "Des outils indispensables pour la sécurité", desc: "La technologie aide à lutter contre la criminalité." },
-                { id: "C", label: "Un progrès sous réserve de garanties", desc: "Ces innovations sont utiles mais doivent être strictement encadrées." }
+                { id: "A", class: "opt-a", type: "souverainiste", label: "Une dérive vers une société de contrôle total", desc: "ces technologies pavent la voie à un crédit social où l'accès aux services dépend du comportement." },
+                { id: "B", class: "opt-b", type: "institutionnel", label: "Des outils indispensables pour la sécurité", desc: "la technologie doit aider les forces de l'ordre à lutter contre la criminalité et simplifier le quotidien." },
+                { id: "C", class: "opt-c", type: "modere", label: "Un progrès acceptable sous réserve de garanties", desc: "ces innovations sont utiles mais doivent être strictement encadrées par la loi et la CNIL." }
             ]
         },
         {
             tag: "14. Alimentation et santé", title: "Quel regard portez-vous sur la qualité de notre alimentation et la santé publique ?",
             options: [
-                { id: "A", label: "Une emprise de l'industrie chimique et pharma", desc: "Le profit prime sur la santé et le naturel." },
-                { id: "B", label: "Un système parmi les plus sûrs", desc: "La réglementation stricte a allongé l'espérance de vie." },
-                { id: "C", label: "Une responsabilité individuelle", desc: "Le système offre du choix, charge à chacun de bien consommer." }
+                { id: "A", class: "opt-a", type: "souverainiste", label: "Une emprise de l'industrie chimique et pharma", desc: "le profit prime sur la santé, favorisant la malbouffe et la surmédication au détriment du naturel." },
+                { id: "B", class: "opt-b", type: "institutionnel", label: "Un système parmi les plus sûrs au monde", desc: "la réglementation stricte et la médecine moderne ont considérablement allongé l'espérance de vie." },
+                { id: "C", class: "opt-c", type: "modere", label: "Une responsabilité individuelle face au marché", desc: "le système offre du choix à bas coût, charge à chacun de consommer bio et de faire attention." }
             ]
         },
         {
             tag: "15. Éducation nationale", title: "Quelle est selon vous la mission principale accomplie par l'Éducation nationale ?",
             options: [
-                { id: "A", label: "Un formatage idéologique", desc: "L'école fabrique des citoyens obéissants au détriment des fondamentaux." },
-                { id: "B", label: "Un pilier d'égalité des chances", desc: "L'école garantit l'instruction gratuite et la mixité républicaine." },
-                { id: "C", label: "Une institution dépassée", desc: "Le système ne forme plus aux réalités du monde moderne." }
+                { id: "A", class: "opt-a", type: "souverainiste", label: "Un formatage idéologique et nivellement par le bas", desc: "l'école fabrique des citoyens obéissants et diffuse des idéologies au détriment des fondamentaux." },
+                { id: "B", class: "opt-b", type: "institutionnel", label: "Un pilier républicain d'égalité des chances", desc: "l'école garantit l'instruction gratuite, la mixité sociale et les valeurs de la République." },
+                { id: "C", class: "opt-c", type: "modere", label: "Une institution dépassée et trop rigide", desc: "le système n'adapte plus les jeunes aux compétences concrètes nécessaires dans le monde réel." }
             ]
         }
     ];
@@ -455,13 +491,13 @@
 
         q.options.forEach(opt => {
             const card = document.createElement('div');
-            card.className = `option-card ${currentAnswer && currentAnswer.id === opt.id ? 'selected' : ''}`;
+            card.className = `option-card ${opt.class} ${currentAnswer && currentAnswer.id === opt.id ? 'selected' : ''}`;
             card.onclick = () => selectOption(opt);
 
             card.innerHTML = `
                 <div class="option-header">
-                    <span class="option-letter">${opt.id}</span>
-                    <span class="option-label">${opt.label}</span>
+                    <span class="option-letter">Option ${opt.id}</span>
+                    <span class="option-label">${opt.label} :</span>
                 </div>
                 <div class="option-desc">${opt.desc}</div>
             `;
@@ -497,26 +533,103 @@
         document.getElementById('screenQuestion').classList.remove('active');
         document.getElementById('mainHeader').style.display = 'none';
         document.getElementById('screenResults').classList.add('active');
-        document.getElementById('msgFin').textContent = `Merci ${userData.prenom}, vos réponses ont bien été enregistrées.`;
 
-        const url = "https://script.google.com/macros/s/AKfycbxJthMTBxJpmViCkIRzNzpiqBF3-Nh3RkTAt6M0GS7-WOoyqblhDNFEE-pZ3QC34kaHgw/exec";
+        let countModere = 0, countSouverainiste = 0, countInstitutionnel = 0;
+        
+        Object.values(userAnswers).forEach(opt => {
+            if (opt.type === 'modere') countModere++;
+            if (opt.type === 'souverainiste') countSouverainiste++;
+            if (opt.type === 'institutionnel') countInstitutionnel++;
+        });
 
-        let params = new URLSearchParams();
-        params.append("nom", userData.nom);
-        params.append("prenom", userData.prenom);
-        params.append("age", userData.age);
-        params.append("metier", userData.metier);
-        params.append("profil", "Sondage Terminé");
+        const total = questions.length;
+        const pctModere = Math.round((countModere / total) * 100);
+        const pctSouverainiste = Math.round((countSouverainiste / total) * 100);
+        const pctInstitutionnel = Math.round((countInstitutionnel / total) * 100);
 
-        for (let i = 0; i < questions.length; i++) {
-            params.append("q" + (i + 1), userAnswers[i] ? userAnswers[i].id : "");
+        document.getElementById('percentModere').textContent = `${pctModere}%`;
+        document.getElementById('percentSouverainiste').textContent = `${pctSouverainiste}%`;
+        document.getElementById('percentInstitutionnel').textContent = `${pctInstitutionnel}%`;
+
+        document.getElementById('fillModere').style.width = `${pctModere}%`;
+        document.getElementById('fillSouverainiste').style.width = `${pctSouverainiste}%`;
+        document.getElementById('fillInstitutionnel').style.width = `${pctInstitutionnel}%`;
+
+        const titleEl = document.getElementById('profileTitle');
+        const punchlineEl = document.getElementById('profilePunchline');
+        const descEl = document.getElementById('profileDesc');
+
+        const maxScore = Math.max(countSouverainiste, countInstitutionnel, countModere);
+        let profileName = "";
+
+        if (maxScore <= 6 && Math.abs(countSouverainiste - countInstitutionnel) <= 2) {
+            profileName = "Le Centriste Insaisissable";
+            titleEl.textContent = "Profil : Le Centriste Insaisissable (Le Campeur de la Barrière)";
+            punchlineEl.textContent = "« Le diplomate de pacotille ! Ni pigeon du système, ni révolutionnaire du dimanche, vous réussissez l'exploit de ne fâcher personne... et d'ennuyer tout le monde. »";
+            descEl.textContent = "Vous êtes l'incarnation vivante du moldu politique. Incapable de trancher entre la soumission totale aux institutions et la fronde souverainiste, vous naviguez à vue en prenant bien soin de ne jamais mettre les pieds dans un plat.";
+        } else if (countSouverainiste >= countInstitutionnel && countSouverainiste >= countModere) {
+            profileName = "Le Souverainiste & Patriote";
+            titleEl.textContent = "Profil : Le Souverainiste & Patriote (Le Complotiste à l'Ancienne)";
+            punchlineEl.textContent = "« La France aux Français ! Vous êtes un bon patriote, et le Général de Gaulle vous remercie chaleureusement depuis là où il est. »";
+            descEl.textContent = "Pour vous, Bruxelles est un repaire de technocrates corrompus, l'OTAN une secte belliqueuse, et l'État profond complote activement contre votre pouvoir d'achat.";
+        } else if (countInstitutionnel >= countSouverainiste && countInstitutionnel >= countModere) {
+            profileName = "L'Institutionnel & Obéissant";
+            titleEl.textContent = "Profil : L'Institutionnel & Obéissant (Le Chef des Moutons)";
+            punchlineEl.textContent = "« Emmanuel Macron, Ursula von der Leyen et les labos Pfizer vous adressent leurs plus sincères remerciements ! L'État profond n'a vraiment aucun souci à se faire. »";
+            descEl.textContent = "Félicitations, vous êtes le client idéal de n'importe quel gouvernement ! Vous avez une confiance aveugle dans le JT de 20 heures, les fact-checkers et le consensus officiel.";
+        } else {
+            profileName = "Le Modéré & Équilibriste";
+            titleEl.textContent = "Profil : Le Modéré & Équilibriste (L'Acrobate du 'En Même Temps')";
+            punchlineEl.textContent = "« Le roi de la nuance molle ! Vous trouvez que tout va mal, mais surtout qu'il ne faut rien brusquer pour ne pas renverser votre tasse de thé. »";
+            descEl.textContent = "Vous voyez bien les dysfonctionnements du système, mais votre peur viscérale du chaos vous pousse toujours à choisir la petite réforme indolore.";
         }
 
-        fetch(url, {
+        document.getElementById('userGreeting').textContent = `Merci ${userData.prenom} ${userData.nom}, vos données ont bien été transmises.`;
+
+        // ENVOI VERS GOOGLE SHEETS
+        const urlGoogleSheet = "https://script.google.com/macros/s/AKfycbxJh5ioG_EzBPB2-umqMiR36YR64ubj0YXaO04YSxDymfvtXIa05cbYqpE6NCB7EwaOsQ/exec";
+
+        let payload = {
+            nom: userData.nom,
+            prenom: userData.prenom,
+            age: userData.age,
+            metier: userData.metier,
+            profil: profileName,
+            q1: userAnswers[0] ? userAnswers[0].id : "",
+            q2: userAnswers[1] ? userAnswers[1].id : "",
+            q3: userAnswers[2] ? userAnswers[2].id : "",
+            q4: userAnswers[3] ? userAnswers[3].id : "",
+            q5: userAnswers[4] ? userAnswers[4].id : "",
+            q6: userAnswers[5] ? userAnswers[5].id : "",
+            q7: userAnswers[6] ? userAnswers[6].id : "",
+            q8: userAnswers[7] ? userAnswers[7].id : "",
+            q9: userAnswers[8] ? userAnswers[8].id : "",
+            q10: userAnswers[9] ? userAnswers[9].id : "",
+            q11: userAnswers[10] ? userAnswers[10].id : "",
+            q12: userAnswers[11] ? userAnswers[11].id : "",
+            q13: userAnswers[12] ? userAnswers[12].id : "",
+            q14: userAnswers[13] ? userAnswers[13].id : "",
+            q15: userAnswers[14] ? userAnswers[14].id : ""
+        };
+
+        fetch(urlGoogleSheet, {
             method: "POST",
             mode: "no-cors",
-            body: params
-        }).catch(() => {});
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        }).catch(error => console.error("Erreur d'envoi", error));
+    }
+
+    function resetSurvey() {
+        currentStep = 0;
+        userAnswers = {};
+        userData = { nom: "", prenom: "", age: "", metier: "" };
+        document.getElementById('inputNom').value = "";
+        document.getElementById('inputPrenom').value = "";
+        document.getElementById('inputAge').value = "";
+        document.getElementById('inputMetier').value = "";
+        document.getElementById('screenResults').classList.remove('active');
+        document.getElementById('screenWelcome').classList.add('active');
     }
 </script>
 
